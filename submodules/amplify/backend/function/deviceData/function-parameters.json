@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "storage": {
+      "telemetryDataTable": [
+        "read"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

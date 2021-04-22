@@ -1,14 +1,9 @@
-:quickstart-project-name: quickstart-documentation-base
+:quickstart-project-name: iot-connect-security-quickstart
 :partner-product-name: Example Product Name
 :partner-company-name: Example Company Name, Ltd.
-:doc-month: May
-:doc-year: 2020
+:doc-month: April
+:doc-year: 2021
 :partner-contributors: John Doe and Jane Doe - {partner-company-name}
-:quickstart-contributors: Jim Smith - AWS Global Partner SA, AWS + Joe Jones - Technical Product Manager, AWS
-:deployment_time: 30 minutes / 1 hour
+:quickstart-contributors: David Johnsen - Sustainability Innovation Consultant, AWS + Prateek Prakash - Senior IoT Consultant, AWS
+:deployment_time: 10 minutes
 :default_deployment_region: us-east-1
-// Uncomment these two attributes if you are leveraging
-// - an AWS Marketplace listing.
-// Additional content will be auto-generated based on these attributes.
-// :marketplace_subscription:
-// :marketplace_listing_url: https://example.com/
