@@ -1,0 +1,112 @@
+{
+    "paths": [
+        {
+            "name": "/register",
+            "lambdaFunction": "register",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/GET",
+                    "/PUT",
+                    "/PATCH"
+                ]
+            },
+            "policyResourceName": "/register"
+        },
+        {
+            "name": "/devices",
+            "lambdaFunction": "listdevices",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/GET"
+                ]
+            }
+        },
+        {
+            "name": "/thingshadow",
+            "lambdaFunction": "updatethingshadow",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            }
+        },
+        {
+            "name": "/deviceData",
+            "lambdaFunction": "deviceData",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            }
+        }
+    ],
+    "resourceName": "iotquickstartrest",
+    "apiName": "iotquickstartrest",
+    "functionArns": [
+        {
+            "lambdaFunction": "register"
+        },
+        {
+            "lambdaFunction": "listdevices"
+        },
+        {
+            "lambdaFunction": "updatethingshadow"
+        },
+        {
+            "lambdaFunction": "deviceData"
+        }
+    ],
+    "privacy": {
+        "auth": 4,
+        "unauth": 0,
+        "authRoleName": "amplify-iotquickstart-dev-120835-authRole",
+        "unAuthRoleName": "amplify-iotquickstart-dev-120835-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "register",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "listdevices",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "updatethingshadow",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "deviceData",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "6b17cbdc"
+}
