@@ -6,3 +6,5 @@ This Quickstart assumes that:
 * The user can register the certificate authority with AWS IoT https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate]
 * The region user wishes to deploy in does not have an existing AWS IoT Device Defender Audit Configuration.
 * The region user wishes to deploy in does not have an existing deployment of this Quickstart.
+
+==== Prepare your AWS account
