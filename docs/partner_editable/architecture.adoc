@@ -8,7 +8,7 @@ AWS Cloud.
 [link=images/architecture_diagram.png]
 image::../images/architecture_diagram.png[Architecture,width=648,height=439]
 
-As shown in Figure 1, the Quick Start sets up the following:
+As shown in Figure 1, the Quickstart sets up the following:
 
 * IoT device registration on first connect using https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[just in time registration^] with your own certificate authority 
 * End customer web application for end customer to register devices to their account, viewing device telemetry data of registered devices, and performing command and control for registered devices
@@ -16,35 +16,41 @@ As shown in Figure 1, the Quick Start sets up the following:
 * IoT device command and control
 * IoT device security management using ML detect and security audits
 
-== CICD Pipeline
+== CI/CD Pipeline
 This project creates:
+
 * Codecommit repo in your account that is initialized with contents from the /submodules folder in this Github repo
-* CICD enabled Amplify app that is triggered by commits to the CodeCommit repo (each commit will deploy updates to the backend and front end resources in your account)
+* CI/CD enabled Amplify app that is triggered by commits to the CodeCommit repo (each commit will deploy updates to the backend and front end resources in your account)
+
 All components described after this section are deployed as part of the initial Amplify app. This app is meant as a starting point that you can customize by updating the codecommit repo.
 
 == App Components
 
 === Device Registration
 When a device first connects with a new certificate, a message is sent to $aws/events/certificates/registered/${CACertificateID}. This triggers a lambda that
-* Determines device serialNumber from certificate
-* Creates IoT thing
+
+* Determines device Common Name (CN) from certificate
+* Creates IoT thing using Common Name (CN) as the thingName
 * Enters thing into product dynamodb table without account so that a customer can later register this thing to their account
-* Attaches certificate to IoT thing
-* Adds IoT thing to Inactive group with limited permissions
-* Actives certificate
+* Attaches the certificate to the IoT thing
+* Adds the IoT thing to Inactive group with limited permissions
+* Activates the certificate
 
 === End Customer Web App
 The web application is a vuejs front end that is published using Amplify. Amplify handles webpage file storage and distribution.
 The frontend interacts with the iotquickstartrest API Gateway. Users are managed with Cognito such the user exchanges credentials for a JWT.
-All API calls must include the JWT in the Authorization header, which also provides the lambda with the customerAccount. The following API endpoints are available: 
-* /deviceData/{serialNumber}: GET, deviceData lambda, Queries the last telemetry data points (up to 1 MB) for customerAccount-serialNumber
+All API calls must include the JWT in the Authorization header, which also provides the lambda with the customerAccount. 
+
+The following API endpoints are available:
+
+* /deviceData/{thingName}: GET, deviceData lambda, Queries the last telemetry data points (up to 1 MB) for customerAccount-thingName
 * /devices: GET, listdevices lambda, Queries customers devices (up to 1 MB)
-* /register/{serialNumber}: GET, if thing is in Inactive thing group and not registered to a customer in the dynamodb products table, lambda moves thing from Inactive to Active thing grou, updates serialNumber in product table to have key account={customerAccount}, and adds thing attribute account={customerAccount}.
-* /thingshadow/${serialNumber}: POST, body={key=${shadowKey}, value=${shadowDesiredValue}}, checks if serialNumber is registered to customerAccount in product dynamodb table. If yes, updates thing shadow desired value.
+* /register/{thingName}: GET, if thing is in Inactive thing group and not registered to a customer in the dynamodb products table, lambda moves thing from Inactive to Active thing grou, updates thingName in product table to have key account={customerAccount}, and adds thing attribute account={customerAccount}.
+* /thingshadow/${thingName}: POST, body={key=${shadowKey}, value=${shadowDesiredValue}}, checks if thingName is registered to customerAccount in product dynamodb table. If yes, updates thing shadow desired value.
 
 === Telemetry
-IoT devices that are registered to a customer and are active have permission to publish to dt/${serialNumber}/#. 
-An IoT rule directs telemetry messages from this topic to a dynamodb telemetry table with primary key = customerId:serialNumber and sort key=Epoch timestamp. CustomerId is obtained from thing attribute value for account and serialNumber is obtained from the topic.
+IoT devices that are registered to a customer and are active have permission to publish to dt/${thingName}/#. 
+An IoT rule directs telemetry messages from this topic to a dynamodb telemetry table with primary key = customerId:thingName and sort key=Epoch timestamp. CustomerId is obtained from thing attribute value for account and thingName is obtained from the topic.
 
 === Command and control
 IoT devices that are registered to a customer and are active have permissions to publish/subscribe to topics to interact with their shadow.
