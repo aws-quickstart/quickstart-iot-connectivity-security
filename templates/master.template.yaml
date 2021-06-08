@@ -17,7 +17,7 @@ Parameters:
     ConstraintDescription: Must contain only alphanumeric characters.
   ProjectRepoUrl:
     Description: Github url for this project
-    Default: https://dy7wmgjy2d81x.cloudfront.net/iotquick.zip/iotquick.zip
+    Default: https://dy7wmgjy2d81x.cloudfront.net/iotquick.zip
     Type: String
   CACertificateID:
     Description: ID of certificate authority
