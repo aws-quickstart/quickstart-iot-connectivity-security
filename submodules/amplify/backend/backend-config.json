@@ -27,6 +27,13 @@
             "Arn",
             "Name"
           ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "productTable",
+          "attributes": [
+            "GroupActive"
+          ]
         }
       ]
     }
