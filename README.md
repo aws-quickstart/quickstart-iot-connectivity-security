@@ -1,6 +1,6 @@
 # Quickstart IoT Connectivity Security
 ## Deploy
-1. Upload templates/master.template.yaml in the AWS Cloudformation console
+1. Upload templates/main.template.yaml in the AWS Cloudformation console
 This template will setup all backend and front end resources for this project. 
 
 2. When the Cloudformation stack is complete, note the value for "DefaultDomain" under "Outputs".
