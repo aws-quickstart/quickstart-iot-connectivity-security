@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Creates an amplify app
+Description: Creates an amplify app (qs-1s0ipp9io)
 Metadata:
   QuickStartDocumentation:
     EntrypointName: "Launch into a new VPC"
