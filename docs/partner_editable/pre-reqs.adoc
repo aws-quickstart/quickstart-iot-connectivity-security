@@ -1,5 +1,10 @@
-==== Prepare your AWS account
+==== Prerequisites
 
-* Create a https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[certificate authority^] 
-* Register your certificate authority within AWS IoT
-* Ensure the region you wish to deploy in does not have an existing AWS IoT Device Defender Audit Configuration.
+This Quickstart assumes that:
+
+* The user has or can https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html[Create a CA certificate] 
+* The user can register the certificate authority with AWS IoT https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate]
+* The region user wishes to deploy in does not have an existing AWS IoT Device Defender Audit Configuration.
+* The region user wishes to deploy in does not have an existing deployment of this Quickstart.
+
+==== Prepare your AWS account
