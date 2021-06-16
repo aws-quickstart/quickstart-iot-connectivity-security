@@ -142,8 +142,6 @@ Resources:
             Action:
               - sts:AssumeRole
   LambdaexecutionpolicyGetRepo:
-    DependsOn:
-      - LambdaExecutionRoleGetRepo
     Type: AWS::IAM::Policy
     Properties: 
       PolicyName: !Sub 'lambda-execution-policy-get-repo-${ProjectName}'
@@ -263,8 +261,6 @@ Resources:
             Action:
               - sts:AssumeRole
   LambdaexecutionpolicyDeployApp:
-    DependsOn:
-      - LambdaExecutionRoleDeployApp
     Type: AWS::IAM::Policy
     Properties: 
       PolicyName: !Sub 'lambda-execution-policy-deploy-app-${ProjectName}'
