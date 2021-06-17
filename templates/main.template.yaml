@@ -5,22 +5,29 @@ Metadata:
     EntrypointName: "Launch into a new VPC"
     Order: 1
   AWS::CloudFormation::Interface:
-    ParameterLabels:
-      ProjectName:
-        default: "Project Name"
+    ParameterGroups:
+    - Label:
+        default: "Name of project"
+      Parameters:
+        - ProjectName
+    - Label:
+        default: "Github url for this project"
+      Parameters:
+        - ProjectRepoUrl
+    - Label:
+        default: "ID of certificate authority"
+      Parameters:
+        - CACertificateID
 Parameters:
   ProjectName:
-    Description: Name of project (alphanumeric characters only)
     Default: iotquickstart
     Type: String
     AllowedPattern: "[a-zA-Z0-9]*"
     ConstraintDescription: Must contain only alphanumeric characters.
   ProjectRepoUrl:
-    Description: Github url for this project
     Default: https://dy7wmgjy2d81x.cloudfront.net/iotquick.zip
     Type: String
   CACertificateID:
-    Description: ID of certificate authority
     Default: abcd
     Type: String
 Mappings:
