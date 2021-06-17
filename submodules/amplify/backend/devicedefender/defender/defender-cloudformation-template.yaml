@@ -11,6 +11,8 @@ Parameters:
         Type: "String"
      functionjustintimeregistrationName: 
         Type: "String"
+     functioniotcustomresourceName:
+        Type: "String"
      storagetelemetryDataTableArn:
         Type: "String"
      storagetelemetryDataTableName:
