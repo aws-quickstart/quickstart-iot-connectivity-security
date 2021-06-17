@@ -21,6 +21,13 @@
           ]
         },
         {
+          "category": "function",
+          "resourceName": "iotcustomresource",
+          "attributes": [
+            "Name"
+          ]
+        },
+        {
           "category": "storage",
           "resourceName": "telemetryDataTable",
           "attributes": [

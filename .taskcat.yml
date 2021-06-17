@@ -1,0 +1,11 @@
+project:
+  name: iotquickstart
+  regions:
+  - us-east-1
+tests:
+  default:
+    parameters:
+      ProjectName: 'Test'
+      ProjectRepoUrl: 'https://dy7wmgjy2d81x.cloudfront.net/iotquick.zip'
+      CACertificateID: 'abcd'
+    template: ./templates/main.template.yaml
