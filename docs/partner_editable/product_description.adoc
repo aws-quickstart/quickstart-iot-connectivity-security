@@ -2,8 +2,3 @@
 // Briefly describe the software. Use consistent and clear branding. 
 // Include the benefits of using the software on AWS, and provide details on usage scenarios.
 
-<This software is a quickstart for consumer electronic IoT applications on AWS.
-It addresses the usage scenario where is device is setup up at the factory with a serial number displayed on the device.
-The end consumer then logs into a web portal and enters the serial number to register the device to their account.
-
-The software provides, factory device registration, end-user device registration, telemetry, command and control, security best practices, and a web portal for customer interactions with device.>
