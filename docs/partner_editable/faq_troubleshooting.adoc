@@ -4,13 +4,19 @@
 
 *Q.* I encountered a *CREATE_FAILED* error when I launched the Quick Start.
 
-*A.* If AWS CloudFormation fails to create the stack, we recommend that you check to make sure that IoT Device Defender Audit Configuration is not setup in the region you are deploying this stack and that you have not already deployed this stack in the same region.
+*A.* If AWS CloudFormation fails to create the stack, we recommend that you check that IoT Device Defender Audit Configuration 
+is not already set up in the region you are deploying this stack and that you have not already deployed this stack in the same region.
 
 *Q.* I encountered a size limitation error when I deployed the AWS CloudFormation templates.
 
-*A.* We recommend that you launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template size limitations. For more information about AWS CloudFormation quotas, see the http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html[AWS documentation^].
-
+*A.* We recommend that you launch the Quick Start templates from the links provided in this guide or from another S3 bucket. 
+If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template size limitations. 
+For more information about AWS CloudFormation quotas, see the http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html[AWS documentation^]. 
 
 == Troubleshooting
 
-<Steps for troubleshooting the deployment go here.>
+If you run into issues with the Quick Start deployment or the built features (e.g., AWS IoT resource configuration, Amplify app functionality), there are a couple of things you can check to ensure that your deployment is set up correctly:
+
+* Confirm in the AWS management console that the Amplify web app is deployed successfully 
+* Check if the Quick Start main CloudFormation template uses the correct parameter, for example verify that the project repository URL is correct
+* Confirm the correct CA is  https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[registered within AWS IoT^] and the correct CACertificateID is used in the main CloudFormation template
