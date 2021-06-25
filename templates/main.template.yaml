@@ -224,38 +224,97 @@ Resources:
         Variables:
           APP_ID: !GetAtt AmplifyApp.AppId
           BRANCH_NAME: !FindInMap [Constants, Value, BranchName]
+          RESOURCE_TIMEOUT_MIN: '30' 
+          SELF_INVOKE_TIME_MIN: '10'
       Handler: index.handler
       Role: !GetAtt LambdaExecutionRoleDeployApp.Arn
       Runtime: python3.8
-      Timeout: 5
+      Timeout: 900
       Code:      
         ZipFile: |
           import boto3
           import cfnresponse
+          import json
           import os
+          import time
+
+
+          amplifyPollTimeSec = 20
+
+          execution = 'executionNumber'
+          jobSummaryId = 'jobSummaryId'
+          resourceStartTime = 'resourceStartTime'
+          appId = os.environ['APP_ID']
+          branchName = os.environ['BRANCH_NAME']
+          functionName = os.environ['AWS_LAMBDA_FUNCTION_NAME']
+          resourceTimeoutMin = os.environ['RESOURCE_TIMEOUT_MIN']
+          selfInvokeTimeMin = os.environ['SELF_INVOKE_TIME_MIN']
+
           def handler(event, context):
-              responseData = {}
               try:
                   print(event)
                   print(context)
                   result = cfnresponse.FAILED
-                  appId = os.environ['APP_ID']
-                  branchName = os.environ['BRANCH_NAME']
-                                  
+                  
                   if event['RequestType'] == 'Create':
+                      startTime = time.time()
+                      firstIteration = False
+                      if execution not in event:
+                          event[execution] = 1
+                          event[resourceStartTime] = startTime
+                          firstIteration = True
+                      
                       client = boto3.client('amplify')
-                      response = client.start_job(
-                          appId=appId,
-                          branchName=branchName,
-                          jobType='RELEASE'
-                      )
-                      result = cfnresponse.SUCCESS
+
+                      if firstIteration:
+                          startJob=client.start_job(
+                            appId=appId,
+                            branchName=branchName,
+                            jobType='RELEASE'
+                          )
+                          event['jobSummaryId']=startJob['jobSummary']['jobId']
+                  
+                      jobInProgress=True
+                      
+                      while jobInProgress:
+                          time.sleep(amplifyPollTimeSec)
+                          job=client.get_job(
+                              appId=appId,
+                              branchName=branchName,
+                              jobId=event['jobSummaryId']
+                          )
+                          status=job['job']['summary']['status']
+                          print(status)
+                          
+                          timeNow=time.time()
+                          if status == "SUCCEED":
+                              jobInProgress=False
+                              result = cfnresponse.SUCCESS
+                          elif status == "FAILED" or status == "CANCELLING" or status == "CANCELLED":
+                              jobInProgress=False
+                              print('Amplify failed to deploy')
+                          elif (timeNow - startTime) > (int(selfInvokeTimeMin)*60):
+                              jobInProgress=False
+                              if (timeNow-event[resourceStartTime]) > (int(resourceTimeoutMin)*60):
+                                  print('resource Timeout')
+                              else:
+                                  event[execution]  = event[execution] + 1
+                                  jobInProgress=False
+                                  print('self invoke')
+                                  lambdaClient = boto3.client('lambda')
+                                  lambdaClient.invoke(
+                                      FunctionName=functionName,
+                                      InvocationType='Event',
+                                      Payload=bytes(json.dumps(event), encoding='utf8')
+                                  )
+                                  print('self invoke success')
+                                  return
                   else:
-                      print("delete")
+                      print("success")
                       result = cfnresponse.SUCCESS
               except Exception as e:
-                  print('error', e);
-              cfnresponse.send(event, context, result, responseData)
+                  print('error', e)
+              cfnresponse.send(event, context, result, {})
   LambdaExecutionRoleDeployApp:
     Type: AWS::IAM::Role
     Properties:
@@ -283,6 +342,22 @@ Resources:
           - Effect: Allow
             Action: amplify:StartJob
             Resource: !Sub "arn:${AWS::Partition}:amplify:${AWS::Region}:${AWS::AccountId}:*"
+          - Effect: Allow
+            Action: amplify:GetJob
+            Resource: !Sub "arn:${AWS::Partition}:amplify:${AWS::Region}:${AWS::AccountId}:*"
+          - Effect: Allow
+            Action: lambda:InvokeFunction
+            Resource: !Sub "arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:DeployAmplifyApp${ProjectName}"
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: !Sub
+              - "arn:${AWS::Partition}:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*"
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+                lambda: !Sub 'DeployAmplifyApp${ProjectName}'
   DeployAppCustomResource:
     DependsOn:
       - LambdaexecutionpolicyDeployApp
