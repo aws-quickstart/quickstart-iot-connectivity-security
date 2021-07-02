@@ -5,7 +5,8 @@ project:
 tests:
   default:
     parameters:
-      ProjectName: 'Test'
-      ProjectRepoUrl: 'https://dy7wmgjy2d81x.cloudfront.net/iotquick.zip'
+      ProjectName: 'iotquickstart'
       CACertificateID: 'abcd'
+      QSS3BucketName: "$[taskcat_autobucket]"
+      QSS3KeyPrefix: "iotquickstart"
     template: ./templates/main.template.yaml
