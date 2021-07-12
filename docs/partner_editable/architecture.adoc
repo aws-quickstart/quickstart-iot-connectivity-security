@@ -19,7 +19,7 @@ As shown in Figure 1, the Quickstart sets up the following:
 == CI/CD Pipeline
 This project creates:
 
-* Codecommit repo in your account that is initialized with contents from the /submodules folder in this Github repo
+* Codecommit repo in your account that is initialized with contents from the /source folder in this Github repo
 * CI/CD enabled Amplify app that is triggered by commits to the CodeCommit repo (each commit will deploy updates to the backend and front end resources in your account)
 
 All components described after this section are deployed as part of the initial Amplify app. This app is meant as a starting point that you can customize by updating the codecommit repo.

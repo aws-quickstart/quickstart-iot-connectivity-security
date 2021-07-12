@@ -52,7 +52,7 @@ Mappings:
   Constants:
     Value: 
       BranchName: main
-      ProjectRepoKey: /zip/repo.zip
+      ProjectRepoKey: zip/repo.zip
 Resources:
   LambdaGetRepo:
     Type: AWS::Lambda::Function
@@ -61,7 +61,7 @@ Resources:
       Environment: 
         Variables:
           ZIP_KEY: !FindInMap [Constants, Value, ProjectRepoKey]
-          REPO_PREFIX: "/submodules/"
+          REPO_PREFIX: "source/"
           QS_BUCKET: !Ref QSS3BucketName
           QS_BUCKET_PREFIX: !Ref QSS3KeyPrefix
           # These variables are references in amplify parameters.json files
