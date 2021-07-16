@@ -1,0 +1,7 @@
+{
+    "tableName": "telemetryData",
+    "partitionKeyName": "accountSerial",
+    "partitionKeyType": "S",
+    "sortKeyName": "time",
+    "sortKeyType": "N"
+}
