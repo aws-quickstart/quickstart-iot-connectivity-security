@@ -50,10 +50,6 @@
       "service": "DynamoDB",
       "providerPlugin": "awscloudformation"
     },
-    "deviceResourcesBucket": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation"
-    },
     "telemetryDataTable": {
       "service": "DynamoDB",
       "providerPlugin": "awscloudformation"

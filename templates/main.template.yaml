@@ -19,6 +19,15 @@ Metadata:
       Parameters:
         - QSS3BucketName
         - QSS3KeyPrefix
+    ParameterLabels:
+      ProjectName:
+        default: Project Name
+      CACertificateID:
+        default: "ID of certificate authority"
+      QSS3BucketName:
+        default: AWS Quick Start Bucket
+      QSS3KeyPrefix:
+        default: AWS Quick Start Bucket Prefix
 Parameters:
   ProjectName:
     Default: iotquickstart
@@ -43,7 +52,7 @@ Parameters:
     AllowedPattern: ^[0-9a-zA-Z-/]*$
     ConstraintDescription: Quick Start key prefix can include numbers, lowercase letters,
       uppercase letters, hyphens (-), and forward slash (/).
-    Default: iotquickstart
+    Default: quickstart-iot-connectivity-security/
     Description: S3 key prefix for the Quick Start assets. Quick Start key prefix
       can include numbers, lowercase letters, uppercase letters, hyphens (-), and
       forward slash (/).
@@ -252,17 +261,16 @@ Resources:
                   print(event)
                   print(context)
                   result = cfnresponse.FAILED
-                  
-                  if event['RequestType'] == 'Create':
-                      startTime = time.time()
+                  client = boto3.client('amplify')
+                  startTime = time.time()
+
+                  if event['RequestType'] == 'Create':    
                       firstIteration = False
                       if execution not in event:
                           event[execution] = 1
                           event[resourceStartTime] = startTime
                           firstIteration = True
                       
-                      client = boto3.client('amplify')
-
                       if firstIteration:
                           startJob=client.start_job(
                             appId=appId,
@@ -306,6 +314,58 @@ Resources:
                                   )
                                   print('self invoke success')
                                   return
+                  elif event['RequestType'] == 'Delete':
+                      firstIteration = False
+                      if execution not in event:
+                          event[execution] = 1
+                          event[resourceStartTime] = startTime
+                          firstIteration = True
+                      backend = client.get_backend_environment(
+                          appId=appId,
+                          environmentName=branchName
+                      )
+                      stackName = backend['backendEnvironment']['stackName']
+                      cfnclient = boto3.client('cloudformation')
+                      stackInfo = cfnclient.describe_stacks(
+                          StackName=stackName
+                      )
+                      stackId=stackInfo['Stacks'][0]['StackId']
+                      
+                      if firstIteration:                   
+                          cfnclient.delete_stack(
+                              StackName=stackName
+                          )
+                      stackDeleteInProgress=True
+                      while stackDeleteInProgress:
+                          timeNow=time.time()
+                          time.sleep(amplifyPollTimeSec)
+                          stackIdInfo = cfnclient.describe_stacks(
+                              StackName=stackId
+                          )
+                          status=stackIdInfo['Stacks'][0]['StackStatus']
+                          if status == 'DELETE_COMPLETE':
+                              stackDeleteInProgress=False
+                              print("Delete Complete")
+                              result = cfnresponse.SUCCESS
+                          elif status == 'DELETE_FAILED':
+                              stackDeleteInProgress=False
+                              print('Stack Deletion Failed')
+                          elif (timeNow - startTime) > (int(selfInvokeTimeMin)*60):
+                              stackDeleteInProgress=False
+                              if (timeNow-event[resourceStartTime]) > (int(resourceTimeoutMin)*60):
+                                  print('resource Timeout')
+                              else:
+                                  event[execution]  = event[execution] + 1
+                                  stackDeleteInProgress=False
+                                  print('self invoke')
+                                  lambdaClient = boto3.client('lambda')
+                                  lambdaClient.invoke(
+                                      FunctionName=functionName,
+                                      InvocationType='Event',
+                                      Payload=bytes(json.dumps(event), encoding='utf8')
+                                  )
+                                  print('self invoke success')
+                                  return
                   else:
                       print("success")
                       result = cfnresponse.SUCCESS
@@ -316,6 +376,8 @@ Resources:
     Type: AWS::IAM::Role
     Properties:
       RoleName: !Sub 'lambda-execution-role-deploy-app-${ProjectName}'
+      ManagedPolicyArns:
+          - !Sub "arn:${AWS::Partition}:iam::aws:policy/AdministratorAccess"
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement: 
@@ -334,15 +396,6 @@ Resources:
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
-          - Effect: Allow
-            Action: amplify:StartJob
-            Resource: !Sub "arn:${AWS::Partition}:amplify:${AWS::Region}:${AWS::AccountId}:*"
-          - Effect: Allow
-            Action: amplify:GetJob
-            Resource: !Sub "arn:${AWS::Partition}:amplify:${AWS::Region}:${AWS::AccountId}:*"
-          - Effect: Allow
-            Action: lambda:InvokeFunction
-            Resource: !Sub "arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:DeployAmplifyApp${ProjectName}"
           - Effect: Allow
             Action:
               - logs:CreateLogGroup
