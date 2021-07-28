@@ -12,7 +12,7 @@
     "@aws-amplify/ui-vue": "^0.2.34",
     "aws-amplify": "^3.3.25",
     "aws-amplify-vue": "^2.1.5",
-    "chart.js": "2.8.0",
+    "chart.js": "2.9.4",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-chartjs": "3.4.2",
