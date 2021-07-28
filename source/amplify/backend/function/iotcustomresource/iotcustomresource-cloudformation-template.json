@@ -40,19 +40,6 @@
         "ActivePolicy": {
             "Type": "AWS::IoT::Policy",
             "Properties": {
-                "PolicyName": {
-                    "Fn::Sub": [
-                        "${resourceTag}-${env}-ThingActivePolicy",
-                        {
-                            "resourceTag": {
-                                "Ref": "storageproductTableResourceTag"
-                            },
-                            "env": {
-                                "Ref": "env"
-                            }
-                        }
-                    ]
-                },
                 "PolicyDocument": {
                     "Version": "2012-10-17",
                     "Statement": [
@@ -288,19 +275,6 @@
         "InactivePolicy": {
             "Type": "AWS::IoT::Policy",
             "Properties": {
-                "PolicyName": {
-                    "Fn::Sub": [
-                        "${resourceTag}-${env}-ThingInactivePolicy",
-                        {
-                            "resourceTag": {
-                                "Ref": "storageproductTableResourceTag"
-                            },
-                            "env": {
-                                "Ref": "env"
-                            }
-                        }
-                    ]
-                },
                 "PolicyDocument": {
                     "Version": "2012-10-17",
                     "Statement": [
@@ -335,19 +309,6 @@
         "QuarantinePolicy": {
             "Type": "AWS::IoT::Policy",
             "Properties": {
-                "PolicyName": {
-                    "Fn::Sub": [
-                        "${resourceTag}-${env}-ThingQuarantinePolicy",
-                        {
-                            "resourceTag": {
-                                "Ref": "storageproductTableResourceTag"
-                            },
-                            "env": {
-                                "Ref": "env"
-                            }
-                        }
-                    ]
-                },
                 "PolicyDocument": {
                     "Version": "2012-10-17",
                     "Statement": [
@@ -407,19 +368,6 @@
         "TroubleshootingPolicy": {
             "Type": "AWS::IoT::Policy",
             "Properties": {
-                "PolicyName": {
-                    "Fn::Sub": [
-                        "${resourceTag}-${env}-ThingTroubleshootingPolicy",
-                        {
-                            "resourceTag": {
-                                "Ref": "storageproductTableResourceTag"
-                            },
-                            "env": {
-                                "Ref": "env"
-                            }
-                        }
-                    ]
-                },
                 "PolicyDocument": {
                     "Version": "2012-10-17",
                     "Statement": [
