@@ -1,6 +1,3 @@
 
-=== Launch into an existing VPC
-include::existing-vpc.template.adoc[]
-
 === Launch into a new VPC
-include::master.template.adoc[]
+include::main.template.adoc[]

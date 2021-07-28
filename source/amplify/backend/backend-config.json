@@ -1,0 +1,224 @@
+{
+  "devicedefender": {
+    "defender": {
+      "service": "DeviceDefender",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "defenderalert",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "justintimeregistration",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "iotcustomresource",
+          "attributes": [
+            "Name"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "telemetryDataTable",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "productTable",
+          "attributes": [
+            "GroupActive"
+          ]
+        }
+      ]
+    }
+  },
+  "storage": {
+    "productTable": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
+    },
+    "telemetryDataTable": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
+    }
+  },
+  "auth": {
+    "iotquickstart7a6c0d8e": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  },
+  "function": {
+    "register": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "productTable",
+          "attributes": [
+            "Name",
+            "Arn",
+            "GroupActive",
+            "GroupInactive"
+          ]
+        }
+      ]
+    },
+    "listdevices": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "productTable",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
+    },
+    "defenderalert": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "productTable",
+          "attributes": [
+            "Name",
+            "Arn",
+            "GroupActive",
+            "GroupInactive",
+            "GroupQuarantine"
+          ]
+        }
+      ]
+    },
+    "updatethingshadow": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "productTable",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
+    },
+    "justintimeregistration": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "productTable",
+          "attributes": [
+            "Name",
+            "Arn",
+            "GroupInactive",
+            "PartitionKeyName"
+          ]
+        }
+      ]
+    },
+    "deviceData": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "telemetryDataTable",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
+    },
+    "iotcustomresource": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "productTable",
+          "attributes": [
+            "GroupActive",
+            "GroupInactive",
+            "GroupQuarantine",
+            "GroupTroubleshooting",
+            "ResourceTag"
+          ]
+        }
+      ]
+    }
+  },
+  "api": {
+    "iotquickstartrest": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "register",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "listdevices",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "updatethingshadow",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "deviceData",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
+    }
+  },
+  "hosting": {}
+}

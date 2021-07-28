@@ -1,0 +1,6 @@
+{
+    "tableName": "products",
+    "partitionKeyName": "serialNumber",
+    "partitionKeyType": "S",
+    "resourceTag": "$ResourceTag"
+}

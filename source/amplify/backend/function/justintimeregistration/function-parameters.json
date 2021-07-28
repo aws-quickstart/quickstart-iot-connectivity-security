@@ -1,0 +1,12 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "storage": {
+      "productTable": [
+        "create",
+        "read",
+        "update"
+      ]
+    }
+  }
+}

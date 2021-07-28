@@ -1,5 +1,15 @@
 
-:template_aws_cloudformation_stack:
-:template_aws_s3_bucket:
-:template_cloudformation:
-:template_s3:
+:template_amplify:
+:template_aws_amplify_app:
+:template_aws_amplify_branch:
+:template_aws_codecommit_repository:
+:template_aws_iam_policy:
+:template_aws_iam_role:
+:template_aws_lambda_function:
+:template_codecommit:
+:template_createrepo:
+:template_custom_createrepo:
+:template_custom_deployapp:
+:template_deployapp:
+:template_iam:
+:template_lambda:
