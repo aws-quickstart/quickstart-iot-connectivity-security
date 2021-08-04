@@ -21,11 +21,25 @@
           ]
         },
         {
+          "category": "function",
+          "resourceName": "iotcustomresource",
+          "attributes": [
+            "Name"
+          ]
+        },
+        {
           "category": "storage",
           "resourceName": "telemetryDataTable",
           "attributes": [
             "Arn",
             "Name"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "productTable",
+          "attributes": [
+            "GroupActive"
           ]
         }
       ]
@@ -34,10 +48,6 @@
   "storage": {
     "productTable": {
       "service": "DynamoDB",
-      "providerPlugin": "awscloudformation"
-    },
-    "deviceResourcesBucket": {
-      "service": "S3",
       "providerPlugin": "awscloudformation"
     },
     "telemetryDataTable": {

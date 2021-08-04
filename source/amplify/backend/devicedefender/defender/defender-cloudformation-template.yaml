@@ -11,9 +11,13 @@ Parameters:
         Type: "String"
      functionjustintimeregistrationName: 
         Type: "String"
+     functioniotcustomresourceName:
+        Type: "String"
      storagetelemetryDataTableArn:
         Type: "String"
      storagetelemetryDataTableName:
+        Type: "String"
+     storageproductTableGroupActive:
         Type: "String"
      CACertificateID:
         Type: "String"
@@ -190,6 +194,8 @@ Resources:
                SNS: 
                     AlertTargetArn: !Ref SnsQuarantineTopic
                     RoleArn: !GetAtt ThingToQuarantineRole.Arn
+            TargetArns:
+                - !Sub 'arn:aws:iot:${AWS::Region}:${AWS::AccountId}:thinggroup/${storageproductTableGroupActive}'
             Behaviors:
                 - Name: "Authorization_Failures"
                   Metric: "aws:num-authorization-failures"

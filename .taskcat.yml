@@ -1,0 +1,12 @@
+project:
+  name: quickstart-iot-connectivity-security
+  regions:
+  - us-east-1
+tests:
+  default:
+    parameters:
+      ProjectName: 'iotquickstart'
+      CACertificateID: 'abcd'
+      QSS3BucketName: "$[taskcat_autobucket]"
+      QSS3KeyPrefix: "quickstart-iot-connectivity-security/"
+    template: ./templates/main.template.yaml
