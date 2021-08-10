@@ -2,6 +2,7 @@
 // Identify your target audience and explain how/why they would use this Quick Start.
 //Avoid borrowing text from third-party websites (copying text from AWS service documentation is fine). Also, avoid marketing-speak, focusing instead on the technical aspect.
 
-This Quick Start reference deployment guide provides step-by-step instructions for deploying {partner-product-name} on the AWS Cloud.
 
-This Quick Start is for users who <target audience and usage scenario>
+{partner-product-name} is created to help consumer electronic customers build an IoT deployment quickly and operate their fleet devices securely based on preset configurations following AWS best practices.
+
+Many IoT customers find that it is a complex process to get started with AWS IoT and implement the related security features. This Quick Start addresses this problem and automates the process of provisioning and securing consumer devices for development, test, or production purpose. Specifically, it sets up just-in-time device provisioning, enables device connectivity and messaging, deploys a web app for device registration, telemetry, and command and control, defines cloud-side configuration based on security best practices, and sets up security auditing, monitoring and mitigation on devices. This Quick Start uses AWS IoT Core, Device Management, Device Defender and other AWS services. In addition, the Quick Start is deployed to an AWS CodeCommit repo with an AWS Amplify CI/CD pipeline that allows customers to customize their deployment by commiting changes to the Amplify project in their repo.
