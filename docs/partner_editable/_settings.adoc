@@ -2,7 +2,7 @@
 :quickstart-project-name: iot-connect-security-quickstart
 :partner-product-name: AWS IoT Connectivity and Security Quick Start
 // For the following attribute, if you have no short name, enter the same name as partner-product-name.
-:partner-product-short-name: Standardized Architecture for PCI DSS
+:partner-product-short-name: IoT Connectivity and Security Quick Start 
 // If there's no partner, comment partner-company-name.
 //:partner-company-name: Example Company Name, Ltd.
 :doc-month: July
