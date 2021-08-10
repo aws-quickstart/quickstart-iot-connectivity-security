@@ -7,11 +7,8 @@
 You can validate that your Quick Start is deployed successfully, by logging onto the AWS IoT console to review the initial setup:
 
 * Navigate to *Manage*, select *Thing Groups* from the left navigation, you should see pre-built thing groups listed on the page, such as ‘iotquickstart-Active’, ‘iotquickstart-inactive’, and ‘iotquickstart-Quarantine’ group.
-* To check cloud-side IoT configurations against AWS security best practices, navigate to *Defend*, select *Audit*, then select *Schedules* from the left navigation, 
-you should see a daily https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html[audit^] created, such as ‘dailyaudit-main’.
-* To verify that device behavior is being monitored on a continuous basis, navigate to *Defend*, select *Detect*, 
-then select *Security Profiles* from the left navigation, you should see an https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html[ML Detect^] 
-Security Profile configured, for example ‘SecurityProfile-152920-main’.
+* To check cloud-side IoT configurations against AWS security best practices, navigate to *Defend*, select *Audit*, then select *Schedules* from the left navigation, you should see a daily https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html[audit^] createdt, such as ‘dailyaudit-main’.
+* To verify that device behavior is being monitored on a continuous basis, navigate to *Defend*, select *Detect*, then select *Security Profiles* from the left navigation, you should see an https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html[ML Detect^] Security Profile configured,for example ‘SecurityProfile-152920-main’.
 
 Secondly, you can test the device Just-in-Time Registration process included in the Quick Start:
 
