@@ -1,46 +1,78 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Creates an amplify app
+Description: Creates an amplify app (qs-1s0ipp9io)
 Metadata:
   QuickStartDocumentation:
     EntrypointName: "Launch into a new VPC"
     Order: 1
   AWS::CloudFormation::Interface:
+    ParameterGroups:
+    - Label:
+        default: "Name of project"
+      Parameters:
+        - ProjectName
+    - Label:
+        default: "ID of certificate authority"
+      Parameters:
+        - CACertificateID
+    - Label:
+        default: AWS Quick Start configuration
+      Parameters:
+        - QSS3BucketName
+        - QSS3KeyPrefix
     ParameterLabels:
       ProjectName:
-        default: "Project Name"
+        default: Project Name
+      CACertificateID:
+        default: "ID of certificate authority"
+      QSS3BucketName:
+        default: AWS Quick Start Bucket
+      QSS3KeyPrefix:
+        default: AWS Quick Start Bucket Prefix
 Parameters:
   ProjectName:
-    Description: Name of project (alphanumeric characters only)
     Default: iotquickstart
     Type: String
     AllowedPattern: "[a-zA-Z0-9]*"
     ConstraintDescription: Must contain only alphanumeric characters.
-  ProjectRepoUrl:
-    Description: Github url for this project
-    Default: https://myamplifytestbucket.s3.amazonaws.com/iotquick.zip
-    Type: String
   CACertificateID:
-    Description: ID of certificate authority
     Default: abcd
+    Type: String
+# Quick Start configuration
+  QSS3BucketName:
+    AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
+    ConstraintDescription: Quick Start bucket name can include numbers, lowercase
+      letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen
+      (-).
+    Default: aws-quickstart
+    Description: S3 bucket name for the Quick Start assets. Quick Start bucket name
+      can include numbers, lowercase letters, uppercase letters, and hyphens (-).
+      It cannot start or end with a hyphen (-).
+    Type: String
+  QSS3KeyPrefix:
+    AllowedPattern: ^[0-9a-zA-Z-/]*$
+    ConstraintDescription: Quick Start key prefix can include numbers, lowercase letters,
+      uppercase letters, hyphens (-), and forward slash (/).
+    Default: quickstart-iot-connectivity-security/
+    Description: S3 key prefix for the Quick Start assets. Quick Start key prefix
+      can include numbers, lowercase letters, uppercase letters, hyphens (-), and
+      forward slash (/).
     Type: String
 Mappings:
   Constants:
     Value: 
       BranchName: main
-      ProjectRepoKey: repo.zip
+      ProjectRepoKey: zip/repo.zip
 Resources:
-  RepoBucket:
-    Type: AWS::S3::Bucket
   LambdaGetRepo:
     Type: AWS::Lambda::Function
     Properties:
       FunctionName: !Sub 'CreateCodeCommitRepo${ProjectName}'
       Environment: 
         Variables:
-          REPO_URL: !Ref ProjectRepoUrl
-          REPO_BUCKET: !Ref RepoBucket
-          REPO_KEY: !FindInMap [Constants, Value, ProjectRepoKey]
-          REPO_PREFIX: "/submodules/"
+          ZIP_KEY: !FindInMap [Constants, Value, ProjectRepoKey]
+          REPO_PREFIX: "source/"
+          QS_BUCKET: !Ref QSS3BucketName
+          QS_BUCKET_PREFIX: !Ref QSS3KeyPrefix
           # These variables are references in amplify parameters.json files
           VARIABLES: !Sub
             - "ResourceTag:${resourceTag},Active:Active,Inactive:Inactive,Troubleshooting:Troubleshooting,Quarantine:Quarantine,CACertificateID:${CACertificateID}"
@@ -53,79 +85,57 @@ Resources:
       Code:      
         ZipFile: |
           import boto3
+          import os
           import cfnresponse
           import io
           from io import BytesIO
-          import json
-          import os
-          import urllib.request
           import zipfile
           from zipfile import ZipFile, ZIP_DEFLATED
-
-          s3Client = boto3.client('s3')
-
           def handler(event, context):
               responseData = {}
               try:
                   print(event)
                   print(context)
-                  
                   result = cfnresponse.FAILED
-                  repoUrl = os.environ['REPO_URL']
-                  bucket = os.environ['REPO_BUCKET']
-                  key = os.environ['REPO_KEY']
-                  varArray = os.environ['VARIABLES'].split(",")
-                  repoPrefix = os.environ['REPO_PREFIX']
-                  
-                  downloadPath = "/tmp/"+key
-                  
                   if event['RequestType'] == 'Create':
-                      print('create')
-                      data = urllib.request.urlopen(repoUrl).read()
-                      
-                      rawZip="/tmp/repo1.zip"
-                      unpackZip="/tmp/unpack"
-                      f = open(rawZip, 'wb')
-                      f.write(data)
-                      f.close()
-                      
-                      with ZipFile(rawZip, 'r') as zip_ref:
-                          zip_ref.extractall(unpackZip)
-                          
+                      s3Client = boto3.client('s3')
+                      bucket = os.environ["QS_BUCKET"]
+                      prefix = os.environ["QS_BUCKET_PREFIX"] + os.environ["REPO_PREFIX"]
+                      zipKey = os.environ["QS_BUCKET_PREFIX"] + os.environ["ZIP_KEY"]
+                      varArray = os.environ['VARIABLES'].split(",")
+                      print(bucket)
+                      print(prefix)
+                      files = s3Client.list_objects_v2(
+                          Bucket=bucket,
+                          Prefix=prefix
+                      )
+                      print(files)
+                      allFiles=files["Contents"]
+              
                       mem_zip = BytesIO()
                       with ZipFile(mem_zip, mode="w", compression=ZIP_DEFLATED) as client:
-                          for root, dirs, files in os.walk(unpackZip, topdown=False):
-                            for name in files:
-                                fullPath = os.path.join(root, name)
-                                if repoPrefix in fullPath:
-                                    newLocation=fullPath.split(repoPrefix,1)[1]
-                                    with open(fullPath, 'rb') as fileReference:
-                                      fileData = fileReference.read()
-                                      if "parameters.json" in fullPath:
-                                          fileString = fileData.decode('utf-8')
-                                          for var in varArray:
-                                              keyValue = var.split(":")
-                                              fileString = fileString.replace("$"+keyValue[0],keyValue[1])
-                                          fileData = fileString.encode('utf-8')
-                                      client.writestr(newLocation, fileData)
+                          for file in allFiles:
+                              fileObject = s3Client.get_object(
+                                  Bucket=bucket,
+                                  Key=file["Key"]
+                              )
+                              newLocation=file["Key"].split(prefix,1)[1]
+                              fileData=fileObject["Body"].read() 
+                              if "parameters.json" in file["Key"]:
+                                  fileString = fileData.decode('utf-8')
+                                  for var in varArray:
+                                      keyValue = var.split(":")
+                                      fileString = fileString.replace("$"+keyValue[0],keyValue[1])
+                                  fileData = fileString.encode('utf-8')
+                              client.writestr(newLocation, fileData)
                       mem_zip.seek(0)
-                      s3Client.upload_fileobj(mem_zip, bucket, key)
-                      result = cfnresponse.SUCCESS
-                      
-                  elif event['RequestType'] == 'Update':
-                      print('update');
+                      s3Client.upload_fileobj(mem_zip, bucket, zipKey)
                       result = cfnresponse.SUCCESS
                   else:
-                      print('delete');
-                      s3Client.delete_object(
-                          Bucket=bucket,
-                          Key=key
-                      )
                       result = cfnresponse.SUCCESS
               except Exception as e:
-                  print('error', e);
-                  
-              cfnresponse.send(event, context, result, responseData)
+                  print('error', e)   
+              cfnresponse.send(event, context, result, {})
   LambdaExecutionRoleGetRepo:
     Type: AWS::IAM::Role
     Properties:
@@ -142,8 +152,6 @@ Resources:
             Action:
               - sts:AssumeRole
   LambdaexecutionpolicyGetRepo:
-    DependsOn:
-      - LambdaExecutionRoleGetRepo
     Type: AWS::IAM::Policy
     Properties: 
       PolicyName: !Sub 'lambda-execution-policy-get-repo-${ProjectName}'
@@ -173,8 +181,12 @@ Resources:
     Properties: 
       Code: 
         S3:
-          Bucket: !Ref RepoBucket
-          Key: !FindInMap [Constants, Value, ProjectRepoKey]
+          Bucket: !Ref QSS3BucketName
+          Key: 
+            Fn::Sub:
+              - "${prefix}${key}"
+              - prefix: !Ref QSS3KeyPrefix
+                key: !FindInMap [Constants, Value, ProjectRepoKey]
       RepositoryDescription: "IoT quickstart app"
       RepositoryName: !Ref ProjectName
   AmplifyRole:
@@ -217,42 +229,149 @@ Resources:
         Variables:
           APP_ID: !GetAtt AmplifyApp.AppId
           BRANCH_NAME: !FindInMap [Constants, Value, BranchName]
+          RESOURCE_TIMEOUT_MIN: '30' 
+          SELF_INVOKE_TIME_MIN: '10'
       Handler: index.handler
       Role: !GetAtt LambdaExecutionRoleDeployApp.Arn
       Runtime: python3.8
-      Timeout: 5
+      Timeout: 900
       Code:      
         ZipFile: |
           import boto3
           import cfnresponse
+          import json
           import os
+          import time
+          amplifyPollTimeSec = 20
+          execution = 'executionNumber'
+          jobSummaryId = 'jobSummaryId'
+          resourceStartTime = 'resourceStartTime'
+          appId = os.environ['APP_ID']
+          branchName = os.environ['BRANCH_NAME']
+          functionName = os.environ['AWS_LAMBDA_FUNCTION_NAME']
+          resourceTimeoutMin = os.environ['RESOURCE_TIMEOUT_MIN']
+          selfInvokeTimeMin = os.environ['SELF_INVOKE_TIME_MIN']
           def handler(event, context):
-              responseData = {}
               try:
                   print(event)
                   print(context)
                   result = cfnresponse.FAILED
-                  appId = os.environ['APP_ID']
-                  branchName = os.environ['BRANCH_NAME']
-                                  
-                  if event['RequestType'] == 'Create':
-                      client = boto3.client('amplify')
-                      response = client.start_job(
+                  client = boto3.client('amplify')
+                  startTime = time.time()
+                  if event['RequestType'] == 'Create':    
+                      firstIteration = False
+                      if execution not in event:
+                          event[execution] = 1
+                          event[resourceStartTime] = startTime
+                          firstIteration = True
+                      
+                      if firstIteration:
+                          startJob=client.start_job(
+                            appId=appId,
+                            branchName=branchName,
+                            jobType='RELEASE'
+                          )
+                          event['jobSummaryId']=startJob['jobSummary']['jobId']
+                  
+                      jobInProgress=True
+                      
+                      while jobInProgress:
+                          time.sleep(amplifyPollTimeSec)
+                          job=client.get_job(
+                              appId=appId,
+                              branchName=branchName,
+                              jobId=event['jobSummaryId']
+                          )
+                          status=job['job']['summary']['status']
+                          print(status)
+                          
+                          timeNow=time.time()
+                          if status == "SUCCEED":
+                              jobInProgress=False
+                              result = cfnresponse.SUCCESS
+                          elif status == "FAILED" or status == "CANCELLING" or status == "CANCELLED":
+                              jobInProgress=False
+                              print('Amplify failed to deploy')
+                          elif (timeNow - startTime) > (int(selfInvokeTimeMin)*60):
+                              jobInProgress=False
+                              if (timeNow-event[resourceStartTime]) > (int(resourceTimeoutMin)*60):
+                                  print('resource Timeout')
+                              else:
+                                  event[execution]  = event[execution] + 1
+                                  jobInProgress=False
+                                  print('self invoke')
+                                  lambdaClient = boto3.client('lambda')
+                                  lambdaClient.invoke(
+                                      FunctionName=functionName,
+                                      InvocationType='Event',
+                                      Payload=bytes(json.dumps(event), encoding='utf8')
+                                  )
+                                  print('self invoke success')
+                                  return
+                  elif event['RequestType'] == 'Delete':
+                      firstIteration = False
+                      if execution not in event:
+                          event[execution] = 1
+                          event[resourceStartTime] = startTime
+                          firstIteration = True
+                      backend = client.get_backend_environment(
                           appId=appId,
-                          branchName=branchName,
-                          jobType='RELEASE'
+                          environmentName=branchName
                       )
-                      result = cfnresponse.SUCCESS
+                      stackName = backend['backendEnvironment']['stackName']
+                      cfnclient = boto3.client('cloudformation')
+                      stackInfo = cfnclient.describe_stacks(
+                          StackName=stackName
+                      )
+                      stackId=stackInfo['Stacks'][0]['StackId']
+                      
+                      if firstIteration:                   
+                          cfnclient.delete_stack(
+                              StackName=stackName
+                          )
+                      stackDeleteInProgress=True
+                      while stackDeleteInProgress:
+                          timeNow=time.time()
+                          time.sleep(amplifyPollTimeSec)
+                          stackIdInfo = cfnclient.describe_stacks(
+                              StackName=stackId
+                          )
+                          status=stackIdInfo['Stacks'][0]['StackStatus']
+                          if status == 'DELETE_COMPLETE':
+                              stackDeleteInProgress=False
+                              print("Delete Complete")
+                              result = cfnresponse.SUCCESS
+                          elif status == 'DELETE_FAILED':
+                              stackDeleteInProgress=False
+                              print('Stack Deletion Failed')
+                          elif (timeNow - startTime) > (int(selfInvokeTimeMin)*60):
+                              stackDeleteInProgress=False
+                              if (timeNow-event[resourceStartTime]) > (int(resourceTimeoutMin)*60):
+                                  print('resource Timeout')
+                              else:
+                                  event[execution]  = event[execution] + 1
+                                  stackDeleteInProgress=False
+                                  print('self invoke')
+                                  lambdaClient = boto3.client('lambda')
+                                  lambdaClient.invoke(
+                                      FunctionName=functionName,
+                                      InvocationType='Event',
+                                      Payload=bytes(json.dumps(event), encoding='utf8')
+                                  )
+                                  print('self invoke success')
+                                  return
                   else:
-                      print("delete")
+                      print("success")
                       result = cfnresponse.SUCCESS
               except Exception as e:
-                  print('error', e);
-              cfnresponse.send(event, context, result, responseData)
+                  print('error', e)
+              cfnresponse.send(event, context, result, {})
   LambdaExecutionRoleDeployApp:
     Type: AWS::IAM::Role
     Properties:
       RoleName: !Sub 'lambda-execution-role-deploy-app-${ProjectName}'
+      ManagedPolicyArns:
+          - !Sub "arn:${AWS::Partition}:iam::aws:policy/AdministratorAccess"
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement: 
@@ -263,8 +382,6 @@ Resources:
             Action:
               - sts:AssumeRole
   LambdaexecutionpolicyDeployApp:
-    DependsOn:
-      - LambdaExecutionRoleDeployApp
     Type: AWS::IAM::Policy
     Properties: 
       PolicyName: !Sub 'lambda-execution-policy-deploy-app-${ProjectName}'
@@ -274,8 +391,15 @@ Resources:
         Version: "2012-10-17"
         Statement:
           - Effect: Allow
-            Action: amplify:StartJob
-            Resource: !Sub "arn:${AWS::Partition}:amplify:${AWS::Region}:${AWS::AccountId}:*"
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: !Sub
+              - "arn:${AWS::Partition}:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*"
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+                lambda: !Sub 'DeployAmplifyApp${ProjectName}'
   DeployAppCustomResource:
     DependsOn:
       - LambdaexecutionpolicyDeployApp
