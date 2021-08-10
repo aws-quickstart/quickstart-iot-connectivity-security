@@ -5,7 +5,7 @@ This template will setup all backend and front end resources for this project.
 
 2. When the Cloudformation stack is complete, note the value for "DefaultDomain" under "Outputs".
 
-This setup process will continue after the Cloudformation stack is complete and takes {deploymentime} min to setup the full app using AWS Amplify even after the Cloudformation stack is complete.
+This setup process will continue after the Cloudformation stack is complete and takes ~10 min to setup the full app using AWS Amplify even after the Cloudformation stack is complete.
 
 To check on status you can login to the AWS Amplify console and select your app
 

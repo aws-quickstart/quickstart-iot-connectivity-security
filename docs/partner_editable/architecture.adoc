@@ -15,7 +15,7 @@ As shown in Figure 1, the Quickstart sets up the following:
 * IoT device telemetry
 * IoT device command and control
 * IoT device management
-* IoT device security management enabling nabling AWS IoT Device Defender ML Detect and Audit
+* IoT device security management enabling AWS IoT Device Defender ML Detect and Audit
 
 == CI/CD Pipeline
 This project creates:
@@ -32,7 +32,7 @@ When a device first connects to AWS IoT Core, with a new certificate, a message 
 
 * Determines device Common Name (CN) from certificate
 * Creates IoT thing using Common Name (CN) as the thingName
-* Enters thing into product dynamodb table without account so that a customer can later register this thing to their account
+* Enters thing into product DynamoDB table without account so that a customer can later register this thing to their account
 * Attaches the certificate to the IoT thing
 * Adds the IoT thing to Inactive group with limited permissions
 * Activates the certificate
@@ -40,18 +40,18 @@ When a device first connects to AWS IoT Core, with a new certificate, a message 
 === End User Web App
 The web application is a vuejs front end that is published using Amplify. Amplify handles webpage file storage and distribution.
 The frontend interacts with the iotquickstartrest API Gateway. Users are managed with Cognito such the user exchanges credentials for a JWT.
-All API calls must include the JWT in the Authorization header, which also provides the lambda with the customerAccount. 
+All API calls must include the JWT in the Authorization header, which also provides the lambda to register the customerAccount. 
 
 The following API endpoints are available:
 
 * /deviceData/{thingName}: GET, deviceData lambda, Queries the last telemetry data points (up to 1 MB) for customerAccount-thingName
 * /devices: GET, listdevices lambda, Queries customers devices (up to 1 MB)
-* /register/{thingName}: GET, if thing is in Inactive thing group and not registered to a customer in the dynamodb products table, lambda moves thing from Inactive to Active thing grou, updates thingName in product table to have key account={customerAccount}, and adds thing attribute account={customerAccount}.
-* /thingshadow/${thingName}: POST, body={key=${shadowKey}, value=${shadowDesiredValue}}, checks if thingName is registered to customerAccount in product dynamodb table. If yes, update thing shadow with the desired value.
+* /register/{thingName}: GET, if thing is in Inactive thing group and not registered to a customer in the DynamoDB products table, lambda moves thing from Inactive to Active thing grou, updates thingName in product table to have key account={customerAccount}, and adds thing attribute account={customerAccount}.
+* /thingshadow/${thingName}: POST, body={key=${shadowKey}, value=${shadowDesiredValue}}, checks if thingName is registered to customerAccount in product DynamoDB table. If yes, update thing shadow with the desired value.
 
 === Device Data
 Registered and active IoT devices have permission to publish to dt/${thingName}/#. 
-An IoT rule directs telemetry messages from this topic to a dynamodb telemetry table with primary key = customerId:thingName and sort key=Epoch timestamp. CustomerId is obtained from the thing attribute value for account and thingName is obtained from the topic.
+An IoT rule directs telemetry messages from this topic to a DynamoDB telemetry table with primary key = customerId:thingName and sort key=Epoch timestamp. CustomerId is obtained from the thing attribute value for account and thingName is obtained from the topic.
 
 === Command and control
 Registered and active IoT devices have permissions to publish/subscribe to topics to interact with their shadow.
@@ -72,10 +72,10 @@ $aws/things/${iot:Connection.Thing.ThingName}/shadow/get/rejected
 Devices should publish the "reported" values within the shadow and read from the "desired" values. Cloud interactions should publish to "desired" and read from "reported" values in the shadow.
 
 === Device Management 
-Before registration, devices are placed in a preset group called ‘Inactive group’ with IoT policies not allowing communication between the device and AWS IoT Core. 
-Upon registration and activation by the end user, devices are automatically placed under another preset group called ‘Active group’ with IoT policies granting 
+Before registration, devices are placed in a preset group with IoT policies not allowing communication between the device and AWS IoT Core. 
+Upon registration and activation by the end user, devices are automatically placed under another preset group with IoT policies granting 
 the device the minimum privileges it needs to perform its functions. 
-The Quick Start also creates two other device groups with their IoT policies for other device management use cases (e.g., troubleshooting, quarantining). 
+The Quick Start also creates two other device groups with their IoT policies for other device management use cases, such as troubleshooting, and quarantining. 
 All the IoT policies attached to the preset groups are customizable.
 
 === Security Management
