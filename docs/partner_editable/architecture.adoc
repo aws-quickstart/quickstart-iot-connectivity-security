@@ -2,7 +2,8 @@ Deploying this Quick Start with
 *default parameters* builds the following _{partner-product-name}_ environment in the
 AWS Cloud.
 
-// Replace this example diagram with your own. Send us your source PowerPoint file. Be sure to follow our guidelines here : http://(we should include these points on our contributors giude)
+// Replace this example diagram with your own. Send us your source PowerPoint file. 
+Be sure to follow our guidelines here : http://(we should include these points on our contributors giude)
 [#architecture1]
 .Quick Start architecture for _{partner-product-name}_
 [link=images/architecture_diagram.png]
@@ -17,7 +18,7 @@ As shown in Figure 1, the Quickstart sets up the following:
 * IoT device management
 * IoT device security management enabling AWS IoT Device Defender ML Detect and Audit
 
-== CI/CD Pipeline
+== CI/CD Pipeline 
 This project creates:
 
 * Codecommit in your account that is initialized with contents from the /submodules folder in the Github repo
@@ -28,7 +29,8 @@ All components described below are deployed as part of the initial Amplify app. 
 == App Components
 
 === Device Registration
-When a device first connects to AWS IoT Core, with a new certificate, a message is sent to $aws/events/certificates/registered/${CACertificateID}. This triggers a lambda that does the following: 
+When a device first connects to AWS IoT Core, with a new certificate, a message is sent to $aws/events/certificates/registered/${CACertificateID}. 
+This triggers a lambda that does the following: 
 
 * Determines device Common Name (CN) from certificate
 * Creates IoT thing using Common Name (CN) as the thingName
@@ -39,7 +41,8 @@ When a device first connects to AWS IoT Core, with a new certificate, a message 
 
 === End User Web App
 The web application is a vuejs front end that is published using Amplify. Amplify handles webpage file storage and distribution.
-The frontend interacts with the iotquickstartrest API Gateway. Users are managed with Cognito such the user exchanges credentials for a JWT.
+The frontend interacts with the iotquickstartrest API Gateway. 
+Users are managed with Cognito such the user exchanges credentials for a JWT.
 All API calls must include the JWT in the Authorization header, which also provides the lambda to register the customerAccount. 
 
 The following API endpoints are available:
