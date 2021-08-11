@@ -3,12 +3,26 @@
 |Resource |This deployment uses
 
 // Space needed to maintain table headers
-|VPCs |<n>
-|Elastic IP addresses |<n>
-|AWS Identity and Access Management (IAM) security groups |<n>
-|IAM roles |<n>
-|Auto Scaling groups |<n>
-|Application Load Balancers |<n>
-|Network Load Balancers |<n>
-|<type> instances |<n>
+|AWS::Amplify::App | 1
+|AWS::Amplify::Branch | 1
+|AWS::ApiGateway::Deployment | 1
+|AWS::ApiGateway::RestApi | 1
+|AWS::CloudFormation::Stack | 15
+|AWS::CodeCommit::Repository | 1
+|AWS::Cognito::IdentityPool | 1
+|AWS::Cognito::IdentityPoolRoleAttachment | 1 
+|AWS::Cognito::UserPool | 1 
+|AWS::Cognito::UserPoolClient | 1
+|AWS::DynamoDB::Table | 2
+|AWS::IAM::Policy | 27
+|AWS::IAM::Role | 19
+|AWS::IoT::AcAuditConfiguration | 1
+|AWS::IoT::Policy | 4
+|AWS::IoT::ScheduledAudit | 1
+|AWS::IoT::SecurityProfile | 1
+|AWS::IoT::TopicRule | 2
+|AWS::Lambda::Function | 11  
+|AWS::Lambda::Permission | 6
+|AWS::S3::Bucket | 3
+|AWS::SNS::Topic | 1
 |===
