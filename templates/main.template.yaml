@@ -30,11 +30,13 @@ Metadata:
         default: AWS Quick Start Bucket Prefix
 Parameters:
   ProjectName:
+    Description: Name of project
     Default: iotquickstart
     Type: String
     AllowedPattern: "[a-zA-Z0-9]*"
     ConstraintDescription: Must contain only alphanumeric characters.
   CACertificateID:
+    Description: ID of certificate authority
     Default: abcd
     Type: String
 # Quick Start configuration
