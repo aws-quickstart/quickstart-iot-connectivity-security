@@ -30,13 +30,11 @@ Metadata:
         default: AWS Quick Start Bucket Prefix
 Parameters:
   ProjectName:
-    Description: Name of project
     Default: iotquickstart
     Type: String
     AllowedPattern: "[a-zA-Z0-9]*"
     ConstraintDescription: Must contain only alphanumeric characters.
   CACertificateID:
-    Description: ID of certificate authority
     Default: abcd
     Type: String
 # Quick Start configuration
@@ -93,6 +91,7 @@ Resources:
           from io import BytesIO
           import zipfile
           from zipfile import ZipFile, ZIP_DEFLATED
+          
           def handler(event, context):
               responseData = {}
               try:
@@ -244,7 +243,10 @@ Resources:
           import json
           import os
           import time
+          
+          
           amplifyPollTimeSec = 20
+          
           execution = 'executionNumber'
           jobSummaryId = 'jobSummaryId'
           resourceStartTime = 'resourceStartTime'
@@ -253,6 +255,7 @@ Resources:
           functionName = os.environ['AWS_LAMBDA_FUNCTION_NAME']
           resourceTimeoutMin = os.environ['RESOURCE_TIMEOUT_MIN']
           selfInvokeTimeMin = os.environ['SELF_INVOKE_TIME_MIN']
+          
           def handler(event, context):
               try:
                   print(event)
@@ -260,6 +263,7 @@ Resources:
                   result = cfnresponse.FAILED
                   client = boto3.client('amplify')
                   startTime = time.time()
+                  
                   if event['RequestType'] == 'Create':    
                       firstIteration = False
                       if execution not in event:
