@@ -1,1 +1,2 @@
-You can check the services included in this Quick Start on the https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/[AWS Regional Services] page to see if they are all available to use in your region. 
+You can check the services included in this Quick Start on the https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/[AWS Regional Services] 
+page to see if they are all available to use in your region. 
