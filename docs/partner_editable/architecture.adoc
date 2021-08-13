@@ -46,10 +46,10 @@ All API calls must include the JWT in the Authorization header, which also provi
 
 The following API endpoints are available:
 
-* /deviceData/{thingName}: GET, deviceData lambda, Queries the last telemetry data points (up to 1 MB) for customerAccount-thingName
-* /devices: GET, listdevices lambda, Queries customers devices (up to 1 MB)
-* /register/{thingName}: GET, if thing is in Inactive thing group and not registered to a customer in the DynamoDB products table, lambda moves thing from Inactive to Active thing grou, updates thingName in product table to have key account={customerAccount}, and adds thing attribute account={customerAccount}.
-* /thingshadow/${thingName}: POST, body={key=${shadowKey}, value=${shadowDesiredValue}}, checks if thingName is registered to customerAccount in product DynamoDB table. If yes, update thing shadow with the desired value.
+* ```/deviceData/{thingName}:``` GET, deviceData lambda, Queries the last telemetry data points (up to 1 MB) for customerAccount-thingName
+* ```/devices:``` GET, listdevices lambda, Queries customers devices (up to 1 MB)
+* ```/register/{thingName}:``` GET, if thing is in Inactive thing group and not registered to a customer in the DynamoDB products table, lambda moves thing from Inactive to Active thing grou, updates thingName in product table to have key account={customerAccount}, and adds thing attribute account={customerAccount}.
+* ```/thingshadow/${thingName}:``` POST, body={key=${shadowKey}, value=${shadowDesiredValue}}, checks if thingName is registered to customerAccount in product DynamoDB table. If yes, update thing shadow with the desired value.
 
 === Device Data
 Registered and active IoT devices have permission to publish to dt/${thingName}/#. 
