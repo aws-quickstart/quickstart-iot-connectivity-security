@@ -11,4 +11,4 @@ To check on status you can login to the AWS Amplify console and select your app
 
 ## Teardown
 1. Navigate to your app within the AWS Amplify console and select to delete app.
-2. Navigate to the Cloudformation stack that you created in the AWS Cloudformation console and select to delete stack.
+2. Navigate to the Cloudformation stack that you created in the AWS Cloudformation console and select to delete stack. 
