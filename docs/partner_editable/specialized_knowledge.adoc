@@ -1,30 +1,6 @@
 // Replace the content in <>
-// Describe or link to specific knowledge requirements; for example: “familiarity with basic concepts in the areas of networking, database operations, and data encryption” or “familiarity with <software>.”
+// For example: “familiarity with basic concepts in networking, database operations, and data encryption” or “familiarity with <software>.”
+// Include links if helpful. 
+// You don't need to list AWS services or point to general info about AWS; the boilerplate already covers this.
 
-This deployment guide requires a moderate level of familiarity with
-AWS services. If you’re new to AWS, visit the
-https://aws.amazon.com/getting-started/[Getting Started Resource Center^]
-and the https://aws.amazon.com/training/[AWS Training and Certification
-website]. These sites provide materials for learning how to design,
-deploy, and operate your infrastructure and applications on the AWS
-Cloud. 
-
-This Quick Start solution incurs costs for multiple AWS services once it is deployed with active devices, below are the services used:
-
-* https://aws.amazon.com/api-gateway/pricing/#REST_APIs[AWS API Gateway]
-* https://aws.amazon.com/iot-device-defender/pricing/[AWS IoT Device Defender Audit and ML Detect]
-* https://aws.amazon.com/sns/pricing/[Amazon SNS]
-* https://aws.amazon.com/iot-core/pricing/[AWS IoT Core Rules and Actions]
-* https://aws.amazon.com/lambda/pricing/[AWS Lamda]
-* https://aws.amazon.com/cognito/pricing/[Amazon Cognito]
-* https://aws.amazon.com/s3/pricing/[Amazon S3 storage]
-* https://aws.amazon.com/dynamodb/pricing/[Amazon DynamoDB]
-* https://aws.amazon.com/amplify/pricing/[AWS Amplify Build & Deploy and Hosting]
-* https://aws.amazon.com/codecommit/pricing/[Code Commit]
-
-For cost estimates, see the linked pricing pages for each AWS service you use in this Quick Start. 
-Service prices are subject to change. 
-After you deploy the Quick Start, you can enable the https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html[AWS Cost and Usage Report] 
-to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. 
-It provides cost estimates based on usage throughout each month and aggregates the data at the end of the month. 
-For more information about the report, see the https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html[AWS documentation^].
+//This Quick Start also assumes familiarity with <knowledge expectations specific to this Quick Start>.

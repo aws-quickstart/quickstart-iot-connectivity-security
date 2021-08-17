@@ -1,3 +1,3 @@
 
-=== Launch into a new VPC
+=== Launch the deployment
 include::main.template.adoc[]
