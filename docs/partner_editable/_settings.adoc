@@ -1,5 +1,5 @@
 // Change the following attributes.
-:quickstart-project-name: iot-connect-security-quickstart
+:quickstart-project-name: quickstart-iot-connectivity-security
 :partner-product-name: AWS IoT Connectivity and Security Quick Start
 // For the following attribute, if you have no short name, enter the same name as partner-product-name.
 :partner-product-short-name: IoT Connectivity and Security Quick Start
@@ -11,7 +11,7 @@
 //:partner-contributors: Shuai Ye, Michael McConnell, and John Smith, {partner-company-name}
 //:other-contributors: Akua Mansa, Trek10
 //:aws-contributors: Janine Singh, AWS IoT Partner team
-:quickstart-contributors: David Johnsen, Prateek Prakash, Tony Bulding, AWS Integration & Automation team
+:quickstart-contributors: David Johnsen, Prateek Prakash, Tony Bulding, and the AWS Integration & Automation team
 // For deployment_time, use minutes if deployment takes an hour or less, 
 // for example, 30 minutes or 60 minutes. 
 // Use hours for deployment times greater than 60 minutes (rounded to a quarter hour),
@@ -33,6 +33,6 @@
 // :terraform_qs:
 // Uncomment the following two attributes if you are deploying a Terraform Quick Start. Comment out :parameters_as_appendix: also.
 // :no_parameters:
-// :git_repo_url: https://example.com/
+:git_repo_url: https://github.com/aws-quickstart/quickstart-iot-connectivity-security
 // Uncomment the following attribute if you are deploying AWS Control Tower. 
 // :control_tower

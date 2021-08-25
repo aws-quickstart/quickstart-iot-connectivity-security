@@ -2,5 +2,5 @@
 
 This Quick Start provides one deployment option:
 
-* *Deploy {partner-product-short-name} into my account*. 
-
+* *Deploy {partner-product-short-name} into my account*. This deployment is created to help consumer electronic customers build an IoT deployment quickly and
+ operate their fleet devices securely based on preset configurations following AWS best practices.

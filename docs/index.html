@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.15">
 <title>AWS IoT Connectivity and Security Quick Start on the AWS Cloud</title>
 <style>
 
@@ -828,7 +828,16 @@ p.footer-text a{color:#d7d8d8}
 <li><a href="#_aws_iot_connectivity_and_security_quick_start_on_aws">AWS IoT Connectivity and Security Quick Start on AWS</a></li>
 <li><a href="#_aws_costs">AWS costs</a></li>
 <li><a href="#_software_licenses">Software licenses</a></li>
-<li><a href="#_architecture">Architecture</a></li>
+<li><a href="#_architecture">Architecture</a>
+<ul class="sectlevel2">
+<li><a href="#_cicd_pipeline">CI/CD Pipeline</a></li>
+<li><a href="#_app_components">App Components</a></li>
+<li><a href="#_end_user_web_app">End User Web App</a></li>
+<li><a href="#_command_and_control">Command and Control</a></li>
+<li><a href="#_device_management">Device Management</a></li>
+<li><a href="#_security_management">Security Management</a></li>
+</ul>
+</li>
 <li><a href="#_planning_the_deployment">Planning the deployment</a>
 <ul class="sectlevel2">
 <li><a href="#_specialized_knowledge">Specialized knowledge</a></li>
@@ -849,16 +858,6 @@ p.footer-text a{color:#d7d8d8}
 </ul>
 </li>
 <li><a href="#_security">Security</a></li>
-<li><a href="#_other_useful_information">Other useful information</a>
-<ul class="sectlevel2">
-<li><a href="#_cicd_pipeline">CI/CD Pipeline</a></li>
-<li><a href="#_app_components">App Components</a></li>
-<li><a href="#_end_user_web_app">End User Web App</a></li>
-<li><a href="#_command_and_control">Command and Control</a></li>
-<li><a href="#_device_management">Device Management</a></li>
-<li><a href="#_security_management">Security Management</a></li>
-</ul>
-</li>
 <li><a href="#_faq">FAQ</a></li>
 <li><a href="#_troubleshooting">Troubleshooting</a></li>
 <li><a href="#_customer_responsibility">Customer responsibility</a></li>
@@ -881,12 +880,12 @@ p.footer-text a{color:#d7d8d8}
 <h2 id="_quick_start_reference_deployment" class="discrete text-left text-center">Quick Start Reference Deployment</h2>
 <div class="imageblock text-center">
 <div class="content">
-<img src="https://aws-quickstart.s3.amazonaws.com/iot-connect-security-quickstart/docs/boilerplate/.images/aws-quickstart-graphic.png" alt="QS" width="80" height="80">
+<img src="https://aws-quickstart.s3.amazonaws.com/quickstart-iot-connectivity-security/docs/boilerplate/.images/aws-quickstart-graphic.png" alt="QS" width="80" height="80">
 </div>
 </div>
 <div class="paragraph text-center">
 <p><strong>August 2021</strong><br>
-<em>David Johnsen, Prateek Prakash, Tony Bulding, AWS Integration &amp; Automation team</em></p>
+<em>David Johnsen, Prateek Prakash, Tony Bulding, and the AWS Integration &amp; Automation team</em></p>
 </div>
 <div class="admonitionblock tip text-left">
 <table>
@@ -895,7 +894,7 @@ p.footer-text a{color:#d7d8d8}
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Visit our <a href="https://github.com/aws-quickstart/iot-connect-security-quickstart" target="_blank" rel="noopener">GitHub repository</a> for source files and to post feedback,
+Visit our <a href="https://github.com/aws-quickstart/quickstart-iot-connectivity-security" target="_blank" rel="noopener">GitHub repository</a> for source files and to post feedback,
 report bugs, or submit feature ideas for this Quick Start.
 </td>
 </tr>
@@ -921,7 +920,13 @@ report bugs, or submit feature ideas for this Quick Start.
 <h2 id="_aws_iot_connectivity_and_security_quick_start_on_aws">AWS IoT Connectivity and Security Quick Start on AWS</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Many IoT customers find that it is a complex process to get started with AWS IoT and implement the related security features. This Quick Start solution addresses this problem and automates the process of provisioning and securing consumer devices for development, test, or production purpose. Specifically, it sets up just-in-time device provisioning, enables device connectivity and messaging, deploys a web app for device registration, telemetry, and command and control, defines cloud-side configuration based on security best practices, and sets up security auditing, monitoring and mitigation on devices. This Quick Start uses AWS IoT Core, Device Management, Device Defender and other AWS services. In addition, the Quick Start is deployed to an AWS CodeCommit repo with an AWS Amplify CI/CD pipeline that allows customers to customize their deployment by commiting changes to the Amplify project in their repo.</p>
+<p>Many IoT customers find that it is a complex process to get started with AWS IoT and implement the related security features.
+This Quick Start solution addresses this problem and automates the process of provisioning and securing consumer devices for development,
+test, or production purpose. Specifically, it sets up just-in-time device provisioning, enables device connectivity and messaging, deploys a web app for device registration,
+telemetry, command and control, defines cloud-side configuration based on security best practices. This quickstart also sets up security auditing,
+monitoring and mitigation on devices.
+This Quick Start uses AWS IoT Core, Device Management, Device Defender and other AWS services.
+In addition, the Quick Start is deployed to an AWS CodeCommit repo with an AWS Amplify CI/CD pipeline that allows customers to customize their deployment by commiting changes to the Amplify project in their repo.</p>
 </div>
 </div>
 </div>
@@ -956,19 +961,7 @@ After you deploy the Quick Start, create <a href="https://docs.aws.amazon.com/aw
 <h2 id="_software_licenses">Software licenses</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>&lt;Example 1&gt;No licenses are required to deploy this Quick Start. All AWS service resources consumed during the launch of the Quick Start incur AWS service usage costs.</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;Example 2&gt;Some configurations of the IoT Connectivity and Security Quick Start Quick Start involve the use of third-party software. You are responsible for obtaining a license directly from the software vendor.</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;Example 3&gt;This Quick Start requires a license for IoT Connectivity and Security Quick Start. To use the Quick Start in your production environment, sign up for a license at &lt;link&gt;. When you launch the Quick Start, place the license key in an S3 bucket and specify its location.</em></p>
-</div>
-<div class="paragraph">
-<p><em>If you don’t have a license, the Quick Start deploys with a trial license. The trial license gives you &lt;n&gt; days of free usage in a non-production environment. After this time, you can upgrade to a production license by following the instructions at &lt;link&gt;.</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;AMI information&gt;The Quick Start requires a subscription to the Amazon Machine Image (AMI) for IoT Connectivity and Security Quick Start, which is available from <a href="https://aws.amazon.com/marketplace/" target="_blank" rel="noopener">AWS Marketplace</a>. Additional pricing, terms, and conditions may apply. For instructions, see <a href="#step-2.-subscribe-to-the-software-ami">step 2</a> in the deployment section.</em></p>
+<p>No licenses are required to deploy this Quick Start. All AWS service resources consumed during the launch of the Quick Start incur AWS service usage costs.</p>
 </div>
 </div>
 </div>
@@ -992,486 +985,25 @@ AWS Cloud.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>A highly available architecture that spans two Availability Zones.*</p>
+<p>IoT device registration on first connect using <a href="https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/" target="_blank" rel="noopener">just in time registration</a> with your own certificate authority</p>
 </li>
 <li>
-<p>A VPC configured with public and private subnets, according to AWS
-best practices, to provide you with your own virtual network on AWS.*</p>
+<p>End customer web application to register devices to your account, to view device telemetry data of registered devices, and to perform command and control for registered devices</p>
 </li>
 <li>
-<p>In the public subnets:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Managed network address translation (NAT) gateways to allow outbound
-internet access for resources in the private subnets.*</p>
+<p>IoT device telemetry</p>
 </li>
 <li>
-<p>A Linux bastion host in an Auto Scaling group to allow inbound Secure
-Shell (SSH) access to EC2 instances in public and private subnets.*</p>
+<p>IoT device command and control</p>
+</li>
+<li>
+<p>IoT device management</p>
+</li>
+<li>
+<p>IoT device security management enabling AWS IoT Device Defender ML Detect and Audit</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>In the private subnets:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>&lt;item&gt;.</p>
-</li>
-<li>
-<p>&lt;item&gt;.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>&lt;describe any additional components&gt;.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_planning_the_deployment">Planning the deployment</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_specialized_knowledge">Specialized knowledge</h3>
-<div class="paragraph">
-<p>This deployment requires a moderate level of familiarity with
-AWS services. If you’re new to AWS, see <a href="https://aws.amazon.com/getting-started/" target="_blank" rel="noopener">Getting Started Resource Center</a>
-and <a href="https://aws.amazon.com/training/" target="_blank" rel="noopener">AWS Training and Certification</a>. These sites provide materials for learning how to design,
-deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_aws_account">AWS account</h3>
-<div class="paragraph">
-<p>If you don’t already have an AWS account, create one at <a href="https://aws.amazon.com/" target="_blank" rel="noopener">https://aws.amazon.com</a> by following the on-screen instructions. Part of the sign-up process involves receiving a phone call and entering a PIN using the phone keypad.</p>
-</div>
-<div class="paragraph">
-<p>Your AWS account is automatically signed up for all AWS services. You are charged only for the services you use.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_technical_requirements">Technical requirements</h3>
-<div class="paragraph">
-<p>Before you launch the Quick Start, review the following information and ensure that your account is properly configured. Otherwise, deployment might fail.</p>
-</div>
-<div class="sect3">
-<h4 id="_resource_quotas">Resource quotas</h4>
-<div class="paragraph">
-<p>If necessary, request <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">service quota increases</a> for the following resources. You might need to request increases if your existing deployment currently uses these resources and if this Quick Start deployment could result in exceeding the default quotas. The <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">Service Quotas console</a> displays your usage and quotas for some aspects of some services. For more information, see <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html" target="_blank" rel="noopener">What is Service Quotas?</a> and <a href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html" target="_blank" rel="noopener">AWS service quotas</a>.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Resource</th>
-<th class="tableblock halign-left valign-top">This deployment uses</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::Amplify::App</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::Amplify::Branch</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::ApiGateway::Deployment</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::ApiGateway::RestApi</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::CloudFormation::Stack</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">15</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::CodeCommit::Repository</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::Cognito::IdentityPool</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::Cognito::IdentityPoolRoleAttachment</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::Cognito::UserPool</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::Cognito::UserPoolClient</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::DynamoDB::Table</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::IAM::Policy</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">27</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::IAM::Role</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">19</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::IoT::AcAuditConfiguration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::IoT::Policy</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::IoT::ScheduledAudit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::IoT::SecurityProfile</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::IoT::TopicRule</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::Lambda::Function</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::Lambda::Permission</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::S3::Bucket</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS::SNS::Topic</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_supported_aws_regions">Supported AWS Regions</h4>
-<div class="paragraph">
-<p>For any Quick Start to work in a Region other than its default Region, all the services it deploys must be supported in that Region. You can launch a Quick Start in any Region and see if it works. If you get an error such as “Unrecognized resource type,” the Quick Start is not supported in that Region.</p>
-</div>
-<div class="paragraph">
-<p>For an up-to-date list of AWS Regions and the AWS services they support, see <a href="https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/" target="_blank" rel="noopener">AWS Regional Services</a>.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Certain Regions are available on an opt-in basis. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html" target="_blank" rel="noopener">Managing AWS Regions</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_iam_permissions">IAM permissions</h4>
-<div class="paragraph">
-<p>Before launching the Quick Start, you must sign in to the AWS Management Console with IAM permissions for the resources that the templates deploy. The <em>AdministratorAccess</em> managed policy within IAM provides sufficient permissions, although your organization may choose to use a custom policy with more restrictions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html" target="_blank" rel="noopener">AWS managed policies for job functions</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_prepare_your_aws_account">Prepare your AWS account</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>If you don not have one, <a href="https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html">create a CA certificate for your fleet device authentication</a></p>
-</li>
-<li>
-<p>Or register the certificate authority with AWS IoT <a href="https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html">Register your CA certificate</a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_prepare_for_the_deployment">Prepare for the deployment</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Ensure the region you wish to deploy in does not have an existing AWS IoT Device Defender Audit Configuration.</p>
-</li>
-<li>
-<p>Enure the region you wish to deploy in does not have an existing deployment of this Quick Start.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_deployment_options">Deployment options</h4>
-<div class="paragraph">
-<p>This Quick Start provides one deployment option:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Deploy IoT Connectivity and Security Quick Start into my account</strong>.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_deployment_steps">Deployment steps</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_confirm_your_aws_account_configuration">Confirm your AWS account configuration</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Sign in to your AWS account at <a href="https://aws.amazon.com" class="bare">https://aws.amazon.com</a> with an IAM user role that has the necessary permissions. For details, see <a href="#_planning_the_deployment">Planning the deployment</a> earlier in this guide.</p>
-</li>
-<li>
-<p>Ensure that your AWS account is configured correctly, as discussed in the <a href="#_technical_requirements">Technical requirements</a> section.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_launch_the_quick_start">Launch the Quick Start</h3>
-<div class="paragraph">
-<p>Each deployment takes about 10 minutes to complete.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Sign in to your AWS account, and choose the following option to launch the AWS CloudFormation template.</p>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 75%;">
-<col style="width: 25%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_launch_permalink" target="_blank" rel="noopener">Deploy IoT Connectivity and Security Quick Start into your account on AWS</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_template_permalink" target="_blank" rel="noopener">View template</a></p></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>Check the AWS Region that&#8217;s displayed in the upper-right corner of the navigation bar, and change it if necessary. This Region is where you build the infrastructure. The template is launched in the us-east-1 Region by default. For more information, see <a href="#_supported_aws_regions">Supported AWS Regions</a> earlier in this guide.</p>
-</li>
-<li>
-<p>On the <strong>Create stack</strong> page, keep the default setting for the template URL, and then choose <strong>Next</strong>.</p>
-</li>
-<li>
-<p>On the <strong>Specify stack details</strong> page, change the stack name if needed. Review the parameters for the template. Provide values for the parameters that require input. For all other parameters, review the default settings and customize them as necessary.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Parameter: CACertificateID, see instructions for creating a certificate authority (<a href="https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html" class="bare">https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html</a>) and registering within AWS IoT (<a href="https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html" class="bare">https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html</a>)</p>
-</li>
-<li>
-<p>Device/client certificate: Use the CA to create certificates for devices. The <strong>Common Name</strong> of the device certificate you create should also be the serial number you assign to the device and provide to end users for device activation.</p>
-</li>
-<li>
-<p>For details on each parameter, see the <a href="#_parameter_reference">Parameter reference</a> section of this guide. When you finish reviewing and customizing the parameters, choose <strong>Next</strong>.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>On the <strong>Configure stack options</strong> page, you can <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html" target="_blank" rel="noopener">specify tags</a> (key-value pairs) for resources in your stack and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html" target="_blank" rel="noopener">set advanced options</a>. When you finish, choose <strong>Next</strong>.</p>
-</li>
-<li>
-<p>On the <strong>Review</strong> page, review and confirm the template settings. Under <strong>Capabilities</strong>, select the two check boxes to acknowledge that the template creates IAM resources and might require the ability to automatically expand macros.</p>
-</li>
-<li>
-<p>Choose <strong>Create stack</strong> to deploy the stack.</p>
-</li>
-<li>
-<p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the IoT Connectivity and Security Quick Start deployment is ready.</p>
-</li>
-<li>
-<p>To view the created resources, see the values displayed in the <strong>Outputs</strong> tab for the stack.</p>
-</li>
-</ol>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-When the Cloudformation stack is complete, note the value for "DefaultDomain" under "Outputs". The setup process will continue after the initial Cloudformation stack is complete. It takes ~10 min to set up the full app using AWS Amplify after the first Cloudformation stack is complete. To check on status, login to the AWS Amplify console and select your app. Once the Quick Start is fully deployed, you can create an account with the "DefaultDomain" to view the web portal. To set up a custom domain for the web app, see Set up custom domains (<a href="https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html" class="bare">https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html</a>).
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_test_the_deployment">Test the deployment</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>You can validate that your Quick Start is deployed successfully, by logging onto the AWS IoT console to review the initial setup:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Navigate to <strong>Manage</strong>, select <strong>Thing Groups</strong> from the left navigation, you should see pre-built thing groups listed on the page, such as ‘iotquickstart-Active’, ‘iotquickstart-inactive’, and ‘iotquickstart-Quarantine’ group.</p>
-</li>
-<li>
-<p>To check cloud-side IoT configurations against AWS security best practices, navigate to <strong>Defend</strong>, select <strong>Audit</strong>, then select <strong>Schedules</strong> from the left navigation,
-you should see a daily <a href="https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html" target="_blank" rel="noopener">audit</a> created, such as ‘dailyaudit-main’.</p>
-</li>
-<li>
-<p>To verify that device behavior is being monitored on a continuous basis, navigate to <strong>Defend</strong>, select <strong>Detect</strong>,
-then select <strong>Security Profiles</strong> from the left navigation, you should see an <a href="https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html" target="_blank" rel="noopener">ML Detect</a>
-Security Profile configured, for example ‘SecurityProfile-152920-main’.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Secondly, you can test the device Just-in-Time Registration process included in the Quick Start:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Have one device <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html" target="_blank" rel="noopener">connect with your account’s AWS IoT data endpoint</a></p>
-</li>
-<li>
-<p>Once the device connects, the Quick Start performs a sequence of actions on the backend:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Generates an AWS IoT thing named with the Common Name (serial number) in the provided device certificate</p>
-</li>
-<li>
-<p>Attaches the device certificate to the created IoT thing</p>
-</li>
-<li>
-<p>Creates an AWS DynamoDB entry with the same Common Name for the device</p>
-</li>
-<li>
-<p>Adds the IoT thing to the ‘iotquickstart-inactive’ group’ with limited permissions</p>
-</li>
-<li>
-<p>Activates the device certificate</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Then you can verify the IoT thing, its device certificate and its group affiliation in the AWS IoT console by going to <strong>Manage</strong>, then <strong>Things</strong> from the left navigation. Once on this page you can identify the thing by it&#8217;s certificate Common Name/serial number/thing name.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Finally, you can test the end user device registration process through the AWS Amplify web app included in the Quick Start:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Log onto AWS Amplify via the AWS Management console</p>
-</li>
-<li>
-<p>You should see an ‘iotquickstart’ app already created under ‘All apps’; click the app</p>
-</li>
-<li>
-<p>Under the ‘Frontend environments’ tab, click the app image thumbnail and a new browser tab should open</p>
-</li>
-<li>
-<p>Create an account via the newly opened sign-up page</p>
-</li>
-<li>
-<p>Log in with the created account credentials and see a ‘Register Device’ page</p>
-</li>
-</ul>
-</div>
-<div id="testDeployment1" class="imageblock">
-<div class="content">
-<a class="image" href="images/Register_Device.png"><img src="images/Register_Device.png" alt="Register Device" width="648" height="439"></a>
-</div>
-<div class="title">Figure 2. Register a device by serial number or common name</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Enter the serial number of the device that was previously connected and registered in AWS IoT and click ‘REGISTER DEVICE’; you should see a confirmation for successful registration</p>
-</li>
-<li>
-<p>Click ‘Devices’ in the left panel; you should also see the registered device now listed under ‘My Devices’</p>
-</li>
-</ul>
-</div>
-<div id="testDeployment2" class="imageblock">
-<div class="content">
-<a class="image" href="images/My_Devices.png"><img src="images/My_Devices.png" alt="My Devices" width="648" height="439"></a>
-</div>
-<div class="title">Figure 3. A registered Device with a serial number</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_post_deployment_steps">Post-deployment steps</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_from_testing_to_production_workloads">From testing to production workloads</h3>
-<div class="paragraph">
-<p>After verifying that the Quick Start is successfully deployed and it functions as intended, you can consider the following for your operational use:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Customize the pre-built AWS Amplify app in AWS CodeCommit so that the app meets your business use cases</p>
-</li>
-<li>
-<p>Onboard IoT devices at the expected device provisioning rate of your operations so that you can validate the processing rate and scale of the solution</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Once you are satisfied with the Quick Start’s app customization and load testing, you can deploy the solution in production.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_security">Security</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>AWS Identity and Access Management (IAM) roles enable you to assign granular access policies and permissions to services and users in the AWS Cloud.
-This Quick Start creates IAM roles that grant the solution’s services, such as AWS Lambda functions, permissions to perform specific actions.</p>
-</div>
-<div class="paragraph">
-<p>To deploy this Quick Start, you should have admin access, such as AWS managed IAM policy AdministratorAccess.
-After initial deployment, commits to the CodeCommit repository created by this Quick Start will build or update the Cloud infrastructure. To have the ability to update the CodeCommit repository,
-you should have an IAM role with the AWSCodeCommitPowerUser managed policy attached at a minimum.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_other_useful_information">Other useful information</h2>
-<div class="sectionbody">
 <div class="sect2">
 <h3 id="_cicd_pipeline">CI/CD Pipeline</h3>
 <div class="paragraph">
@@ -1539,10 +1071,16 @@ you should have an IAM role with the AWSCodeCommitPowerUser managed policy attac
 <p>/devices: GET, listdevices lambda, Queries customers devices (up to 1 MB)</p>
 </li>
 <li>
-<p>/register/{thingName}: GET, if thing is in Inactive thing group and not registered to a customer in the Dynamodb products table, the Lambda funciton moves thing from Inactive to Active thing group, updates thingName in product table to have key account={customerAccount}, and adds thing attribute account={customerAccount}.</p>
+<p>/register/{thingName}: GET, if thing is in Inactive thing group and not registered to a customer in the Dynamodb products table,
+the Lambda funciton moves thing from Inactive to Active thing group, updates thingName in product table to have key account={customerAccount}, and adds thing attribute account={customerAccount}.</p>
 </li>
 <li>
-<p>/thingshadow/${thingName}: POST, body={key=${shadowKey}, value=${shadowDesiredValue}}, checks if thingName is registered to customerAccount in product DynamoDB table. If yes, update thing shadow with desired value.</p>
+<p>/thingshadow/${thingName}: POST, body={key=${shadowKey}, value=${shadowDesiredValue}},
+checks if thingName is registered to customerAccount in product DynamoDB table. If yes, update thing shadow with desired value.
+=== Device Data
+Registered and active IoT devices have permission to publish to dt/${thingName}/#.
+An IoT rule directs telemetry messages from this topic to a dynamodb telemetry table with primary key = customerId:thingName and sort key=Epoch timestamp.
+CustomerId is obtained from the thing attribute value for account and thingName is obtained from the topic.</p>
 </li>
 </ul>
 </div>
@@ -1578,13 +1116,21 @@ $aws/things/${iot:Connection.Thing.ThingName}/shadow/get/rejected</pre>
 <div class="sect2">
 <h3 id="_device_management">Device Management</h3>
 <div class="paragraph">
-<p>Before registration, devices are placed in a preset inactive group group called ‘Inactive group’ with IoT policies not allowing communication between the device and AWS IoT Core. Upon registration and activation by the end user, devices are automatically placed under another preset active group group called ‘Active group’ with IoT policies granting the device the minimum privileges it needs to perform its functions. The Quick Start also creates two other device groups with their IoT policies for other device management use cases (e.g., troubleshooting, quarantining). All the IoT policies attached to the preset groups are customizable.</p>
+<p>Before registration, devices are placed in a preset inactive group group called ‘Inactive group’ with IoT policies not allowing communication between the device and AWS IoT Core.
+Upon registration and activation by the end user, devices are automatically placed under another preset active group group called ‘Active group’
+with IoT policies granting the device the minimum privileges it needs to perform its functions.
+The Quick Start also creates two other device groups with their IoT policies for other device management use cases (e.g., troubleshooting, quarantining).
+All the IoT policies attached to the preset groups are customizable.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_security_management">Security Management</h3>
 <div class="paragraph">
-<p>AWS IoT Device Defender Audit (<a href="https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html" class="bare">https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html</a>) is configured for daily checks. The results are sent to SNS and the device defenderAlert lambda. The Lambda function currently does not perform any tasks but can be customized to respond to Audit or ML Detect alarms for automated mitigation, for example, you can create a mitigation action that moves a device to quarantine thing group if authorization failures exceed a limit. AWS IoT Device Defender ML detect (<a href="https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html" class="bare">https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html</a>) is configured for monitoring device-level metrics including num-authorization-failures, message-byte-size, num-messages-sent, and num-messages-received.</p>
+<p><a href="https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html" target="_blank" rel="noopener">AWS IoT Device Defender Audit</a> is configured for daily checks.
+The results are sent to SNS and the device defenderAlert lambda. The Lambda function currently does not perform any tasks but can be customized to respond to Audit or ML Detect alarms for automated mitigation,
+for example, you can create a mitigation action that moves a device to quarantine thing group if authorization failures exceed a limit.
+<a href="https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html" target="_blank" rel="noopener">AWS IoT Device Defender ML detect</a>
+is configured for monitoring device-level metrics including num-authorization-failures, message-byte-size, num-messages-sent, and num-messages-received.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1602,13 +1148,506 @@ ML detect requires 14 days and a minimum of 25,000 datapoints per metric over th
 </div>
 </div>
 <div class="sect1">
+<h2 id="_planning_the_deployment">Planning the deployment</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_specialized_knowledge">Specialized knowledge</h3>
+<div class="paragraph">
+<p>This deployment requires a moderate level of familiarity with
+AWS services. If you’re new to AWS, see <a href="https://aws.amazon.com/getting-started/" target="_blank" rel="noopener">Getting Started Resource Center</a>
+and <a href="https://aws.amazon.com/training/" target="_blank" rel="noopener">AWS Training and Certification</a>. These sites provide materials for learning how to design,
+deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aws_account">AWS account</h3>
+<div class="paragraph">
+<p>If you don’t already have an AWS account, create one at <a href="https://aws.amazon.com/" target="_blank" rel="noopener">https://aws.amazon.com</a> by following the on-screen instructions. Part of the sign-up process involves receiving a phone call and entering a PIN using the phone keypad.</p>
+</div>
+<div class="paragraph">
+<p>Your AWS account is automatically signed up for all AWS services. You are charged only for the services you use.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_technical_requirements">Technical requirements</h3>
+<div class="paragraph">
+<p>Before you launch the Quick Start, review the following information and ensure that your account is properly configured. Otherwise, deployment might fail.</p>
+</div>
+<div class="sect3">
+<h4 id="_resource_quotas">Resource quotas</h4>
+<div class="paragraph">
+<p>If necessary, request <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">service quota increases</a> for the following resources. You might need to request increases if your existing deployment currently uses these resources and if this Quick Start deployment could result in exceeding the default quotas. The <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">Service Quotas console</a> displays your usage and quotas for some aspects of some services. For more information, see <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html" target="_blank" rel="noopener">What is Service Quotas?</a> and <a href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html" target="_blank" rel="noopener">AWS service quotas</a>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Resource</th>
+<th class="tableblock halign-left valign-top">This deployment uses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Amplify App</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Amplify Branch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS ApiGateway Deployment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS ApiGateway RestApi</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS CloudFormation Stack</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS CodeCommit Repository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Cognito IdentityPool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Cognito IdentityPoolRoleAttachment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Cognito UserPool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Cognito UserPoolClient</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS DynamoDB Table</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS IAM Policy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">27</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS IAM Role</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">19</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS IoT AcAuditConfiguration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS IoT Policy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS IoT ScheduledAudit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS IoT SecurityProfile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS IoT TopicRule</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Lambda Function</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Lambda Permission</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS S3 Bucket</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS SNS Topic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_supported_aws_regions">Supported AWS Regions</h4>
+<div class="paragraph">
+<p>For any Quick Start to work in a Region other than its default Region, all the services it deploys must be supported in that Region. You can launch a Quick Start in any Region and see if it works. If you get an error such as “Unrecognized resource type,” the Quick Start is not supported in that Region.</p>
+</div>
+<div class="paragraph">
+<p>For an up-to-date list of AWS Regions and the AWS services they support, see <a href="https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/" target="_blank" rel="noopener">AWS Regional Services</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Certain Regions are available on an opt-in basis. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html" target="_blank" rel="noopener">Managing AWS Regions</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_iam_permissions">IAM permissions</h4>
+<div class="paragraph">
+<p>Before launching the Quick Start, you must sign in to the AWS Management Console with IAM permissions for the resources that the templates deploy. The <em>AdministratorAccess</em> managed policy within IAM provides sufficient permissions, although your organization may choose to use a custom policy with more restrictions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html" target="_blank" rel="noopener">AWS managed policies for job functions</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_prepare_your_aws_account">Prepare your AWS account</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>If you don not have one, <a href="https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html">create a CA certificate for your fleet device authentication</a></p>
+</li>
+<li>
+<p>Or register the certificate authority with AWS IoT <a href="https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html">Register your CA certificate</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_prepare_for_the_deployment">Prepare for the deployment</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure the region you wish to deploy in does not have an existing AWS IoT Device Defender Audit Configuration.</p>
+</li>
+<li>
+<p>Enure the region you wish to deploy in does not have an existing deployment of this Quick Start.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_deployment_options">Deployment options</h4>
+<div class="paragraph">
+<p>This Quick Start provides one deployment option:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Deploy IoT Connectivity and Security Quick Start into my account</strong>. This deployment is created to help consumer electronic customers build an IoT deployment quickly and
+operate their fleet devices securely based on preset configurations following AWS best practices.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deployment_steps">Deployment steps</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_confirm_your_aws_account_configuration">Confirm your AWS account configuration</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sign in to your AWS account at <a href="https://aws.amazon.com" class="bare">https://aws.amazon.com</a> with an IAM user role that has the necessary permissions. For details, see <a href="#_planning_the_deployment">Planning the deployment</a> earlier in this guide.</p>
+</li>
+<li>
+<p>Ensure that your AWS account is configured correctly, as discussed in the <a href="#_technical_requirements">Technical requirements</a> section.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_launch_the_quick_start">Launch the Quick Start</h3>
+<div class="paragraph">
+<p>Each deployment takes about 10 minutes to complete.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sign in to your AWS account, and choose the following option to launch the AWS CloudFormation template.</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 75%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_launch_permalink" target="_blank" rel="noopener">Deploy IoT Connectivity and Security Quick Start into your account on AWS</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_template_permalink" target="_blank" rel="noopener">View template</a></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Check the AWS Region that&#8217;s displayed in the upper-right corner of the navigation bar, and change it if necessary. This Region is where you build the infrastructure. The template is launched in the us-east-1 Region by default. For more information, see <a href="#_supported_aws_regions">Supported AWS Regions</a> earlier in this guide.</p>
+</li>
+<li>
+<p>On the <strong>Create stack</strong> page, keep the default setting for the template URL, and then choose <strong>Next</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Specify stack details</strong> page, change the stack name if needed. Review the parameters for the template. Provide values for the parameters that require input. For all other parameters, review the default settings and customize them as necessary.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Parameter: CACertificateID, see instructions for creating a <a href="https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html" target="_blank" rel="noopener">certificate authority</a> and registering within <a href="https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html" target="_blank" rel="noopener">AWS IoT</a></p>
+</li>
+<li>
+<p>Device/client certificate: Use the CA to create certificates for devices. The <strong>Common Name</strong> of the device certificate you create should also be the serial number you assign to the device and provide to end users for device activation.</p>
+</li>
+<li>
+<p>For details on each parameter, see the <a href="#_parameter_reference">Parameter reference</a> section of this guide. When you finish reviewing and customizing the parameters, choose <strong>Next</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>On the <strong>Configure stack options</strong> page, you can <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html" target="_blank" rel="noopener">specify tags</a> (key-value pairs) for resources in your stack and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html" target="_blank" rel="noopener">set advanced options</a>. When you finish, choose <strong>Next</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Review</strong> page, review and confirm the template settings. Under <strong>Capabilities</strong>, select the two check boxes to acknowledge that the template creates IAM resources and might require the ability to automatically expand macros.</p>
+</li>
+<li>
+<p>Choose <strong>Create stack</strong> to deploy the stack.</p>
+</li>
+<li>
+<p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the IoT Connectivity and Security Quick Start deployment is ready.</p>
+</li>
+<li>
+<p>To view the created resources, see the values displayed in the <strong>Outputs</strong> tab for the stack.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When the Cloudformation stack is complete, note the value for "DefaultDomain" under "Outputs".
+The setup process will continue after the initial Cloudformation stack is complete.
+It takes ~10 min to set up the full app using AWS Amplify after the first Cloudformation stack is complete. To check on status,
+login to the AWS Amplify console and select your app. Once the Quick Start is fully deployed, you can create an account with the "DefaultDomain" to view the web portal.
+To set up a custom domain for the web app, see Set up <a href="https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html" target="_blank" rel="noopener">custom domains</a>.
+</td>
+</tr>
+</table>
+</div>
+<div id="DeploymentSteps1" class="imageblock">
+<div class="content">
+<a class="image" href="images/cfn_outputs.png"><img src="images/cfn_outputs.png" alt="CFN output" width="648" height="439"></a>
+</div>
+<div class="title">Figure 2. IoT Connectivity and Security Quick Start outputs after successful deployment</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_test_the_deployment">Test the deployment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can validate that your Quick Start is deployed successfully, by logging onto the AWS IoT console to review the initial setup:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to <strong>Manage</strong>, select <strong>Thing Groups</strong> from the left navigation, you should see pre-built thing groups listed on the page, such as ‘iotquickstart-Active’, ‘iotquickstart-inactive’, and ‘iotquickstart-Quarantine’ group.</p>
+</li>
+<li>
+<p>To check cloud-side IoT configurations against AWS security best practices, navigate to <strong>Defend</strong>, select <strong>Audit</strong>, then select <strong>Schedules</strong> from the left navigation,
+you should see a daily <a href="https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html" target="_blank" rel="noopener">audit</a> created, such as ‘dailyaudit-main’.</p>
+</li>
+<li>
+<p>To verify that device behavior is being monitored on a continuous basis, navigate to <strong>Defend</strong>, select <strong>Detect</strong>,
+then select <strong>Security Profiles</strong> from the left navigation, you should see an <a href="https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html" target="_blank" rel="noopener">ML Detect</a>
+Security Profile configured, for example ‘SecurityProfile-152920-main’.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Secondly, you can test the device Just-in-Time Registration process included in the Quick Start:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Have one device <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html" target="_blank" rel="noopener">connect with your account’s AWS IoT data endpoint</a></p>
+</li>
+<li>
+<p>Once the device connects, the Quick Start performs a sequence of actions on the backend:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Generates an AWS IoT thing named with the Common Name (serial number) in the provided device certificate</p>
+</li>
+<li>
+<p>Attaches the device certificate to the created IoT thing</p>
+</li>
+<li>
+<p>Creates an AWS DynamoDB entry with the same Common Name for the device</p>
+</li>
+<li>
+<p>Adds the IoT thing to the ‘iotquickstart-inactive’ group’ with limited permissions</p>
+</li>
+<li>
+<p>Activates the device certificate</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Then you can verify the IoT thing, its device certificate and its group affiliation in the AWS IoT console by going to <strong>Manage</strong>, then <strong>Things</strong> from the left navigation. Once on this page you can identify the thing by it&#8217;s certificate Common Name/serial number/thing name.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Finally, you can test the end user device registration process through the AWS Amplify web app included in the Quick Start:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log onto AWS Amplify via the AWS Management console</p>
+</li>
+<li>
+<p>You should see an ‘iotquickstart’ app already created under ‘All apps’; click the app</p>
+</li>
+<li>
+<p>Under the ‘Frontend environments’ tab, click the app image thumbnail and a new browser tab should open</p>
+</li>
+<li>
+<p>Create an account via the newly opened sign-up page</p>
+</li>
+<li>
+<p>Log in with the created account credentials and see a ‘Register Device’ page</p>
+</li>
+</ol>
+</div>
+<div id="testDeployment1" class="imageblock">
+<div class="content">
+<a class="image" href="images/Register_Device.png"><img src="images/Register_Device.png" alt="Register Device" width="648" height="439"></a>
+</div>
+<div class="title">Figure 3. Register a device by serial number or common name</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Enter the serial number of the device that was previously connected and registered in AWS IoT and click ‘REGISTER DEVICE’; you should see a confirmation for successful registration</p>
+</li>
+<li>
+<p>Click ‘Devices’ in the left panel; you should also see the registered device now listed under ‘My Devices’</p>
+</li>
+</ul>
+</div>
+<div id="testDeployment2" class="imageblock">
+<div class="content">
+<a class="image" href="images/My_Devices.png"><img src="images/My_Devices.png" alt="My Devices" width="648" height="439"></a>
+</div>
+<div class="title">Figure 4. A registered Device with a serial number</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_post_deployment_steps">Post-deployment steps</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_from_testing_to_production_workloads">From testing to production workloads</h3>
+<div class="paragraph">
+<p>After verifying that the Quick Start is successfully deployed and it functions as intended, you can consider the following for your operational use:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Customize the pre-built AWS Amplify app in AWS CodeCommit so that the app meets your business use cases</p>
+</li>
+<li>
+<p>Onboard IoT devices at the expected device provisioning rate of your operations so that you can validate the processing rate and scale of the solution</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Once you are satisfied with the Quick Start’s app customization and load testing, you can deploy the solution in production.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_security">Security</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AWS Identity and Access Management (IAM) roles enable you to assign granular access policies and permissions to services and users in the AWS Cloud.
+This Quick Start creates IAM roles that grant the solution’s services, such as AWS Lambda functions, permissions to perform specific actions.</p>
+</div>
+<div class="paragraph">
+<p>To deploy this Quick Start, you should have admin access, such as AWS managed IAM policy AdministratorAccess.
+After initial deployment, commits to the CodeCommit repository created by this Quick Start will build or update the Cloud infrastructure. To have the ability to update the CodeCommit repository,
+you should have an IAM role with the AWSCodeCommitPowerUser managed policy attached at a minimum.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_faq">FAQ</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q.</strong>  How do I understand the AWS services charges I will receive when using this Quick Start?</p>
+</div>
+<div class="paragraph">
+<p><strong>A</strong>. The Quick Start solution incurs costs for multiple AWS services once it is deployed with active devices. Below are the pricing pages of the AWS services used. Prices are subject to change.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://aws.amazon.com/api-gateway/pricing/#REST_APIs" target="_blank" rel="noopener">AWS API Gateway</a></p>
+</li>
+<li>
+<p><a href="https://aws.amazon.com/iot-device-defender/pricing/">AWS IoT Device Defender Audit and ML Detect</a></p>
+</li>
+<li>
+<p><a href="https://aws.amazon.com/sns/pricing/" target="_blank" rel="noopener">Amazon SNS</a></p>
+</li>
+<li>
+<p><a href="https://aws.amazon.com/iot-core/pricing/" target="_blank" rel="noopener">AWS IoT Core Rules and Actions</a></p>
+</li>
+<li>
+<p><a href="https://aws.amazon.com/lambda/pricing/" target="_blank" rel="noopener">AWS Lamda</a></p>
+</li>
+<li>
+<p><a href="https://aws.amazon.com/cognito/pricing/" target="_blank" rel="noopener">Amazon Cognito</a></p>
+</li>
+<li>
+<p><a href="https://aws.amazon.com/s3/pricing/" target="_blank" rel="noopener">Amazon S3 storage</a></p>
+</li>
+<li>
+<p><a href="https://aws.amazon.com/dynamodb/pricing/" target="_blank" rel="noopener">Amazon DynamoDB</a></p>
+</li>
+<li>
+<p><a href="https://aws.amazon.com/amplify/pricing/" target="_blank" rel="noopener">AWS Amplify Build &amp; Deploy and Hosting</a></p>
+</li>
+<li>
+<p><a href="https://aws.amazon.com/codecommit/pricing/" target="_blank" rel="noopener">Code Commit</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For cost estimates, see the <strong>linked</strong> pricing pages for each AWS service you use through <strong>in</strong> this Quick Start.
+Service prices are subject to change. After you deploy the Quick Start, you can enable
+the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html" target="_blank" rel="noopener">AWS Cost and Usage Report</a> to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. It provides cost estimates based on usage throughout each month and aggregates the data at the end of the month. For more information about the report, see the AWS documentation (<a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html" class="bare">https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html</a>).</p>
+</div>
 <div class="paragraph">
 <p><strong>Q.</strong> I encountered a <strong>CREATE_FAILED</strong> error when I launched the Quick Start.</p>
 </div>
 <div class="paragraph">
-<p><strong>A.</strong> If AWS CloudFormation fails to create the stack, relaunch the template with <strong>Rollback on failure</strong> set to <strong>Disabled</strong>. This setting is under <strong>Advanced</strong> in the AWS CloudFormation console on the <strong>Configure stack options</strong> page. With this setting, the stack’s state is retained, and the instance keeps running so that you can troubleshoot the issue. (For Windows, look at the log files in <code>%ProgramFiles%\Amazon\EC2ConfigService</code> and <code>C:\cfn\log</code>.)</p>
+<p><strong>A.</strong> If AWS CloudFormation fails to create the stack, we recommend that you check that IoT Device Defender Audit Configuration
+is not already set up in the region you are deploying this stack and that you have not already deployed this stack in the same region.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -1624,13 +1663,6 @@ When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, 
 </div>
 <div class="paragraph">
 <p>For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html" target="_blank" rel="noopener">Troubleshooting AWS CloudFormation</a>.</p>
-</div>
-<div class="paragraph">
-<p><strong>or</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>A.</strong> If AWS CloudFormation fails to create the stack, we recommend that you check that IoT Device Defender Audit Configuration
-is not already set up in the region you are deploying this stack and that you have not already deployed this stack in the same region.</p>
 </div>
 <div class="paragraph">
 <p><strong>Q.</strong> I encountered a size-limitation error when I deployed the AWS CloudFormation templates.</p>
@@ -1768,7 +1800,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 <h2 id="_send_us_feedback">Send us feedback</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/iot-connect-security-quickstart" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. To submit code, see the <a href="https://aws-quickstart.github.io/" target="_blank" rel="noopener">Quick Start Contributor’s Guide</a>.</p>
+<p>To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-iot-connectivity-security" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. To submit code, see the <a href="https://aws-quickstart.github.io/" target="_blank" rel="noopener">Quick Start Contributor’s Guide</a>.</p>
 </div>
 </div>
 </div>
@@ -1784,7 +1816,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 <h2 id="_github_repository">GitHub repository</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Visit our <a href="https://github.com/aws-quickstart/iot-connect-security-quickstart" target="_blank" rel="noopener">GitHub repository</a> to download
+<p>Visit our <a href="https://github.com/aws-quickstart/quickstart-iot-connectivity-security" target="_blank" rel="noopener">GitHub repository</a> to download
 the templates and scripts for this Quick Start, to post your comments,
 and to share your customizations with others.</p>
 </div>
@@ -1805,7 +1837,7 @@ and to share your customizations with others.</p>
 </div>
 <p class="footer-text">
 <!-- We can use document attributes: -->
-<!-- Generated with Asciidoctor v2.0.16. -->
+<!-- Generated with Asciidoctor v2.0.15. -->
 <a href="https://aws.amazon.com/privacy/">Privacy</a> | <a href="https://aws.amazon.com/terms/">Site terms</a> | &copy; 2021, Amazon Web Services, Inc. or its affiliates. All rights reserved.
 </p>
 </body>
