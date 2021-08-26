@@ -34,8 +34,10 @@ Parameters:
     Type: String
     AllowedPattern: "[a-zA-Z0-9]*"
     ConstraintDescription: Must contain only alphanumeric characters.
+    Description: The name of the project. The name must only contain alphanumeric characters.
   CACertificateID:
     Default: abcd
+    Description: The CA certicate ID.
     Type: String
 # Quick Start configuration
   QSS3BucketName:
