@@ -3,10 +3,9 @@
 // Include the benefits of using the software on AWS, and provide details on usage scenarios.
 
 Many IoT customers find that it is a complex process to get started with AWS IoT and implement the related security features. 
-This Quick Start solution addresses this problem and automates the process of provisioning and securing consumer devices for development, 
-test, or production purpose. Specifically, it sets up just-in-time device provisioning, enables device connectivity and messaging, deploys a web app for device registration, 
-telemetry, command and control, defines cloud-side configuration based on security best practices. This quickstart also sets up security auditing, 
-monitoring and mitigation on devices. 
-This Quick Start uses AWS IoT Core, Device Management, Device Defender and other AWS services.
-In addition, the Quick Start is deployed to an AWS CodeCommit repo with an AWS Amplify CI/CD pipeline that allows customers to customize their deployment by commiting changes to the Amplify project in their repo.
-
+This Quick Start solution addresses this problem and automates the process of provisioning and securing consumer devices for development,
+ test, or production purpose. Specifically, it sets up just-in-time device provisioning, enables device connectivity and messaging, deploys a web app for device registration, 
+ telemetry, and command and control, defines cloud-side configuration based on security best practices, and sets up security auditing, monitoring and mitigation on devices. 
+ This Quick Start uses AWS IoT Core, Device Management, Device Defender and other AWS services. 
+ In addition, the Quick Start is deployed to an AWS CodeCommit repo with an AWS Amplify CI/CD pipeline that allows customers to customize their 
+ deployment by commiting changes to the Amplify project in their repo.

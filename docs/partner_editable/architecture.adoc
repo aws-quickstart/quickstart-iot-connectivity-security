@@ -55,16 +55,17 @@ When a device first connects to AWS IoT Core with a new certificate, a message i
 * Activates the certificate
 
 === End User Web App
-The web application is a vuejs front end that is published by AWS Amplify. Amplify handles webpage file storage and distribution. The frontend interacts with the iotquickstartrest API Gateway. User identities are managed with Amazon Cognito. Users can exchanges their credentials for a JWT token. All API calls must include the JWT in the Authorization header, which also provides the Lambda function to register the customerAccount.
+The web application is a vuejs front end that is published by AWS Amplify. Amplify handles webpage file storage and distribution. The frontend interacts with the iotquickstartrest API Gateway. User identities are managed with Amazon Cognito. Users can exchange their credentials for a JWT token. All API calls must include the JWT in the Authorization header, which also provides the Lambda function to register the customerAccount.
 
 The following API endpoints are available:
 
 * /deviceData/{thingName}: GET, deviceData lambda, Queries the last telemetry data points (up to 1 MB) for customerAccount-thingName
 * /devices: GET, listdevices lambda, Queries customers devices (up to 1 MB)
 * /register/{thingName}: GET, if thing is in Inactive thing group and not registered to a customer in the Dynamodb products table, 
-the Lambda funciton moves thing from Inactive to Active thing group, updates thingName in product table to have key account={customerAccount}, and adds thing attribute account={customerAccount}.
+the Lambda function moves thing from Inactive to Active thing group, updates thingName in product table to have key account={customerAccount}, and adds thing attribute account={customerAccount}.
 * /thingshadow/${thingName}: POST, body={key=${shadowKey}, value=${shadowDesiredValue}}, 
 checks if thingName is registered to customerAccount in product DynamoDB table. If yes, update thing shadow with desired value.
+
 === Device Data
 Registered and active IoT devices have permission to publish to dt/${thingName}/#. 
 An IoT rule directs telemetry messages from this topic to a dynamodb telemetry table with primary key = customerId:thingName and sort key=Epoch timestamp. 
@@ -88,8 +89,8 @@ $aws/things/${iot:Connection.Thing.ThingName}/shadow/get/rejected
 Devices should publish the "reported" values within the shadow and read from the "desired" values. Cloud interactions should publish to "desired" and read from "reported" values in the shadow.
 
 === Device Management
-Before registration, devices are placed in a preset inactive group group called ‘Inactive group’ with IoT policies not allowing communication between the device and AWS IoT Core. 
-Upon registration and activation by the end user, devices are automatically placed under another preset active group group called ‘Active group’ 
+Before registration, devices are placed in a preset inactive group called ‘Inactive group’ with IoT policies not allowing communication between the device and AWS IoT Core. 
+Upon registration and activation by the end user, devices are automatically placed under another preset active group 
 with IoT policies granting the device the minimum privileges it needs to perform its functions. 
 The Quick Start also creates two other device groups with their IoT policies for other device management use cases (e.g., troubleshooting, quarantining). 
 All the IoT policies attached to the preset groups are customizable.
