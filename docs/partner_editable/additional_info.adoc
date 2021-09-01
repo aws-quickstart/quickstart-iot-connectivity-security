@@ -59,9 +59,15 @@ image::../images/My_Devices.png[My Devices,width=648,height=439]
 After verifying that the Quick Start is successfully deployed and it functions as intended, you can consider the following for your operational use:
 
 1. Customize the pre-built AWS Amplify app in AWS CodeCommit so that the app meets your business use cases
-2. Onboard IoT devices at the expected device provisioning rate of your operations so that you can validate the processing rate and scale of the solution
+2.  Onboard IoT devices at the expected device  connection rate of your operations so that you can validate the processing rate and scale of the solution. Reference AWS IoT Core endpoint and quota (https://docs.aws.amazon.com/general/latest/gr/iot-core.html) for service resource and API quotas. 
 
-Once you are satisfied with the Quick Start’s app customization and load testing, you can deploy the solution in production.
+Once you are satisfied with the Quick Start’s app customization and load testing, you can deploy the solution in production. 
+
+=== Teardown
+1. Navigate to your app within the AWS Amplify console and select to delete the app.
+2. Navigate to the AWS Cloudformation console, select the stacks you created as part of the Quick Start and delete the stacks.
+
+
 //== Best practices for using {partner-product-short-name} on AWS
 // Provide post-deployment best practices for using the technology on AWS, including considerations such as migrating data, backups, ensuring high performance, high availability, etc. Link to software documentation for detailed information.
 
