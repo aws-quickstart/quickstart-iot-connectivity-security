@@ -3,8 +3,7 @@
 ==== Prepare your AWS account
 
 * If you don not have one, https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html[create a CA certificate for your fleet device authentication]
-* Or register the certificate authority with AWS IoT https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate]
-
+* Or register the CA certificate with AWS IoT https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate]
 ==== Prepare for the deployment
 
 * Ensure the region you wish to deploy in does not have an existing AWS IoT Device Defender Audit Configuration.
