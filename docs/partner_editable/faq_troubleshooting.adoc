@@ -1,9 +1,10 @@
 // Add any tips or answers to anticipated questions.
 
 == FAQ
+
 *Q.*  How do I anticipate the AWS service charges that I will incur when using this Quick Start?
 
-*A*. The Quick Start solution incurs costs for multiple AWS services after it is deployed with active devices. To estimate costs, see the following pricing pages for each AWS service you use in this Quick Start. Prices are subject to change.
+*A*. The Quick Start deployment incurs costs for multiple AWS services after it is deployed with active devices. To estimate costs, see the following pricing pages for each AWS service you use in this Quick Start. Prices are subject to change.
 
 * https://aws.amazon.com/api-gateway/pricing/#REST_APIs[AWS API Gateway pricing^]
 * https://aws.amazon.com/iot-device-defender/pricing/[AWS IoT Device Defender pricing^] 
@@ -25,11 +26,9 @@ For more information, see link:#_aws_costs[AWS costs] earlier in this guide.
 
 WARNING: When you set *Rollback on failure* to *Disabled*, you continue to incur AWS charges for this stack. Delete the stack when you finish troubleshooting.
 
-//TODO Tony, Does the above warning still make sense without the original boilerplate answer? Our boilerplate says this right before the warning: "If AWS CloudFormation fails to create the stack, relaunch the template with *Rollback on failure* set to *Disabled*. This setting is under *Advanced* in the AWS CloudFormation console on the *Configure stack options* page. With this setting, the stack’s state is retained, and the instance keeps running so that you can troubleshoot the issue. (For Windows, look at the log files in `%ProgramFiles%\Amazon\EC2ConfigService` and `C:\cfn\log`.)"
+//TODO Tony, Does the above warning still make sense without the original boilerplate answer? [The original boilerplate answer includes this, which you've deleted: "...relaunch the template with *Rollback on failure* set to *Disabled*. This setting is under *Advanced* in the AWS CloudFormation console on the *Configure stack options* page. With this setting, the stack’s state is retained, and the instance keeps running so that you can troubleshoot the issue. (For Windows, look at the log files in `%ProgramFiles%\Amazon\EC2ConfigService` and `C:\cfn\log`.)"]
 
 For more information, see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html[Troubleshooting AWS CloudFormation^].
-
-//TODO Tony, Does the above reference still make sense without the original answer, which refers to CloudFormation?
 
 '''
 *Q.* I encountered a size-limitation error when I deployed the AWS CloudFormation templates.
@@ -39,11 +38,11 @@ For more information, see https://docs.aws.amazon.com/AWSCloudFormation/latest/U
 
 == Troubleshooting
 
-If you run into issues with the Quick Start deployment or the built features, such as the AWS IoT resource configuration or the Amplify app functionality, ensure that your deployment is set up correctly by checking the following:
+If you run into issues with the Quick Start deployment or the built features, such as the AWS IoT resource configuration or the Amplify application functionality, ensure that your deployment is set up correctly by checking the following:
 
-* Confirm in the AWS Management Console that the Amplify web app is deployed successfully.
-* Check whether the Quick Start's main AWS CloudFormation template uses the correct parameter. For example, verify that the project repository URL is correct.
+* Sign in to the AWS Management Console, and verify that the Amplify web application has been deployed.
+* Verify that the Quick Start's main AWS CloudFormation template uses the correct parameter. For example, verify that the project repository URL is correct.
 
-//TODO Tony, In the bullet above, is "parameter" (singular) correct? And which parameter or parameters are we suggesting they check?
+//TODO Tony, In the bullet above, is "parameter" (singular) correct? And which parameter or parameters are we suggesting they verify—or do we mean all of them?
 
 * Confirm that the correct CA is https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[registered within AWS IoT^] and the correct CACertificateID is used in the main AWS CloudFormation template.

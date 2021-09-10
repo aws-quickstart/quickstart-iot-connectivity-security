@@ -51,14 +51,19 @@ To set up a custom domain for the web app, see https://docs.aws.amazon.com/ampli
 
 //TODO Tony, I don't understand the above subhead. Please review this whole section for logical flow.
 
-After verifying that the Quick Start is successfully deployed and it functions as intended, you can consider the following for your operational use:
+After you verify that the Quick Start is deployed and functions as intended, customize and load test your deployment as follows:
 
-1. Customize the pre-built AWS Amplify app in AWS CodeCommit so that the app meets your business use cases.
-2. Onboard IoT devices at the expected device provisioning rate of your operations so that you can validate the processing rate and scale of the solution.
+. Customize the prebuilt AWS Amplify application in AWS CodeCommit so that the app meets your business use cases.
+. Onboard IoT devices at the expected device-connection rate of your operations so that you can validate the processing rate and scale of the deployment. See https://docs.aws.amazon.com/general/latest/gr/iot-core.html[AWS IoT Core endpoint and quota^] for service resource and API quotas.
++
+//TODO Tony, I converted the step numbers here and elsewhere from "1, 2, 3" to asciidoc autonumbering (period followed by a space). If I missed any, please do the same. Details on our wiki: https://w.amazon.com/bin/view/AWS_Quick_Starts/docs2_0#HNumberedsteps
 
-//TODO Tony, please revise all steps throughout the doc to use asciidoc autonumbering (period followed by a space) instead of manually entered numbers. Details and examples on our wiki: https://w.amazon.com/bin/view/AWS_Quick_Starts/docs2_0#HNumberedsteps
+When you are satisfied with the Quick Start's application customization and load testing, you can deploy the solution in production.
 
-When you are satisfied with the Quick Start’s app customization and load testing, you can deploy the solution in production.
+=== Clean up
+. Open the AWS Amplify console, navigate to your application, and delete it.
+. Open the AWS Cloudformation console, select the stacks you created as part of the Quick Start, and delete them.
+
 //== Best practices for using {partner-product-short-name} on AWS
 // Provide post-deployment best practices for using the technology on AWS, including considerations such as migrating data, backups, ensuring high performance, high availability, etc. Link to software documentation for detailed information.
 

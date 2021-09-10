@@ -3,14 +3,14 @@
 ==== Prepare your AWS account
 
 . Verify that your AWS account has the permissions required to create the resources listed in the link:#_resource_quotas[Resource quotas] section of this guide.
++
+//TODO Tony, I added this Step 1. Does it apply here?
 
 . If you don't have one, https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html[create a CA certificate^] for your fleet device authentication.
 
 . https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate^] with AWS IoT.
 
-//TODO Tony, I added Step 1. Does that apply here?
-
-//TODO Tony, I converted steps 2 & 3 from bullets. The second bullet used to start with "or," which didn't make sense to me. Are those steps correct, as edited. If not, please correct.
+//TODO Tony, FYI, I converted steps 2 & 3 from bullets. (The second bullet used to start with "or," which didn't make sense to me.) If I misinterpreted, please correct.
 
 ==== Prepare for the deployment
 
