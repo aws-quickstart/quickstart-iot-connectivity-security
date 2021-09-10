@@ -1,34 +1,36 @@
 // Add any tips or answers to anticipated questions.
 
 == FAQ
-*Q.*  How do I understand the AWS services charges when I using this Quick Start?
 
-*A*. The Quick Start solution incurs costs for multiple AWS services once it is deployed with active devices. Below are the pricing pages of the AWS services used. 
-Prices are subject to change.
-* https://aws.amazon.com/api-gateway/pricing/#REST_APIs[AWS API Gateway^]
-* https://aws.amazon.com/iot-device-defender/pricing/[AWS IoT Device Defender Audit and ML Detect] 
-* https://aws.amazon.com/sns/pricing/[Amazon SNS^] 
-* https://aws.amazon.com/iot-core/pricing/[AWS IoT Core Rules and Actions^] 
-* https://aws.amazon.com/lambda/pricing/[AWS Lamda^]
-* https://aws.amazon.com/cognito/pricing/[Amazon Cognito^] 
-* https://aws.amazon.com/s3/pricing/[Amazon S3 storage^] 
-* https://aws.amazon.com/dynamodb/pricing/[Amazon DynamoDB^] 
-* https://aws.amazon.com/amplify/pricing/[AWS Amplify Build & Deploy and Hosting^] 
-* https://aws.amazon.com/codecommit/pricing/[Code Commit^] 
+*Q.*  How do I anticipate the AWS service charges that I will incur when using this Quick Start?
 
-For cost estimates, see the linked pricing pages for each AWS service you use in this Quick Start. 
-Service prices are subject to change. After you deploy the Quick Start, you can enable 
-the https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html[AWS Cost and Usage Report^] 
-to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. It provides cost estimates based on usage throughout each month 
-and aggregates the data at the end of the month. For more information about the report, see the  https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html[AWS documentation^].
+*A*. The Quick Start deployment incurs costs for multiple AWS services after it is deployed with active devices. To estimate costs, see the following pricing pages for each AWS service you use in this Quick Start. Prices are subject to change.
 
+* https://aws.amazon.com/api-gateway/pricing/#REST_APIs[AWS API Gateway pricing^]
+* https://aws.amazon.com/iot-device-defender/pricing/[AWS IoT Device Defender pricing^] 
+* https://aws.amazon.com/sns/pricing/[Amazon SNS pricing^] 
+* https://aws.amazon.com/iot-core/pricing/[AWS IoT Core pricing^] 
+* https://aws.amazon.com/lambda/pricing/[AWS Lamda pricing^]
+* https://aws.amazon.com/cognito/pricing/[Amazon Cognito pricing^] 
+* https://aws.amazon.com/s3/pricing/[Amazon S3 pricing^] 
+* https://aws.amazon.com/dynamodb/pricing/[Amazon DynamoDB pricing^] 
+* https://aws.amazon.com/amplify/pricing/[AWS Amplify pricing^] 
+* https://aws.amazon.com/codecommit/pricing/[AWS CodeCommit pricing^] 
+ 
+For more information, see link:#_aws_costs[AWS costs] earlier in this guide.
+
+'''
 *Q.* I encountered a *CREATE_FAILED* error when I launched the Quick Start.
 
-*A.* If AWS CloudFormation fails to create the stack, we recommend that you check that 
-IoT Device Defender Audit Configuration is not already set up in the region you are deploying this stack and that you have not already deployed this stack in the same region. 
-Note: when you set Rollback on failure to Disabled, you continue to incur AWS charges for anything that was successfully deployed up to this point.
+*A.* If AWS CloudFormation fails to create the stack, verify that IoT Device Defender Audit Configuration is not already set up in the Region where you are deploying this stack and that this stack is not already deployed in the same Region.
+
+WARNING: When you set *Rollback on failure* to *Disabled*, you continue to incur AWS charges for this stack. Delete the stack when you finish troubleshooting.
+
+//TODO Tony, Does the above warning still make sense without the original boilerplate answer? [The original boilerplate answer includes this, which you've deleted: "...relaunch the template with *Rollback on failure* set to *Disabled*. This setting is under *Advanced* in the AWS CloudFormation console on the *Configure stack options* page. With this setting, the stack’s state is retained, and the instance keeps running so that you can troubleshoot the issue. (For Windows, look at the log files in `%ProgramFiles%\Amazon\EC2ConfigService` and `C:\cfn\log`.)"]
+
 For more information, see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html[Troubleshooting AWS CloudFormation^].
 
+'''
 *Q.* I encountered a size-limitation error when I deployed the AWS CloudFormation templates.
 
 *A.* Launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template-size limitations. For more information, see http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html[AWS CloudFormation quotas^].
@@ -36,9 +38,11 @@ For more information, see https://docs.aws.amazon.com/AWSCloudFormation/latest/U
 
 == Troubleshooting
 
-If you run into issues with the Quick Start deployment or the built features (e.g., AWS IoT resource configuration, Amplify app functionality), there are a couple of things you can check to ensure that your deployment is set up correctly:
+If you run into issues with the Quick Start deployment or the built features, such as the AWS IoT resource configuration or the Amplify application functionality, ensure that your deployment is set up correctly by checking the following:
 
-* Confirm in the AWS management console that the Amplify web app is deployed successfully 
-* Check if the Quick Start main CloudFormation template uses the correct parameter, for example verify that the project repository URL is correct
-* Confirm the correct CA is  https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[registered within AWS IoT^] and the correct CACertificateID is used in the main CloudFormation template
+* Sign in to the AWS Management Console, and verify that the Amplify web application has been deployed.
+* Verify that the Quick Start's main AWS CloudFormation template uses the correct parameter. For example, verify that the project repository URL is correct.
 
+//TODO Tony, In the bullet above, is "parameter" (singular) correct? And which parameter or parameters are we suggesting they verify—or do we mean all of them?
+
+* Confirm that the correct CA is https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[registered within AWS IoT^] and the correct CACertificateID is used in the main AWS CloudFormation template.

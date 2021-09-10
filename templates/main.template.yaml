@@ -37,7 +37,7 @@ Parameters:
     Description: The name of the project. The name must only contain alphanumeric characters.
   CACertificateID:
     Default: abcd
-    Description: The CA certicate ID.
+    Description: Enter your CA certificate ID. See the instructions for creating a CA certificate (https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html) and registering your CA certificate (https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html).
     Type: String
 # Quick Start configuration
   QSS3BucketName:

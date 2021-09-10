@@ -12,12 +12,12 @@ image::../images/architecture_diagram.png[Architecture]
 
 As shown in <<architecture1>>, the Quick Start sets up the following:
 
-* IoT device registration on first connect using https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[just in time registration^] with your own certificate authority
-* End customer web application to register devices to your account, to view device telemetry data of registered devices, and to perform command and control for registered devices
-* IoT device telemetry
-* IoT device command and control
-* IoT device management
-* IoT device security management enabling AWS IoT Device Defender ML Detect and Audit
+* IoT device registration on first connect using https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[just in time registration^] with your own certificate authority (CA).
+* End customer web application to register devices to your account, to view device telemetry data of registered devices, and to perform command and control for registered devices.
+* IoT device telemetry.
+* IoT device command and control.
+* IoT device management.
+* IoT device security management enabling AWS IoT Device Defender ML Detect and Audit.
 //* Amplify based end user app for device command and control. 
 //* The app uses a Vue.js based frontend. 
 //* An API gateway to expose the APIs.
