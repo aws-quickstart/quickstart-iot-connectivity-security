@@ -34,7 +34,7 @@ As shown in <<architecture1>>, the Quick Start sets up the following:
 //** A Lambda function to process / respond to the alert.
 //* AWS IoT Device Defender ML detect to monitor device side metrics. 
 
-//TODO Tony, Want to chat through this? We need the diagram and bulleted to be a high enough level of granularity to also work on the landing page. This needs to word as an introduction to the architecture for people seeing it for the first time. The bulleted list needs to mention every item (icon, group box, service, etc.) that's labeled in the diagram. Use the same words. For example, for the current diagram, you'd need to mention all the the following items in the bullets (so ideally make the diagram higher level):
+//TODO Tony, Want to chat through this? We need the diagram and bulleted to be a high enough level of granularity to also work on the landing page. This needs to work as an introduction to the architecture for people seeing it for the first time. The bulleted list needs to mention every item (icon, group box, service, etc.) that's labeled in the diagram. Use the same words. For example, for the current diagram, you'd need to mention all the the following items in the bullets (so ideally make the diagram higher level):
 
 Device (Why does this group box use a "FreeRTOS" icon?)...
 
