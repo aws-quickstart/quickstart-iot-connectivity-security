@@ -10,7 +10,7 @@
 * https://aws.amazon.com/iot-device-defender/pricing/[AWS IoT Device Defender pricing^] 
 * https://aws.amazon.com/sns/pricing/[Amazon SNS pricing^] 
 * https://aws.amazon.com/iot-core/pricing/[AWS IoT Core pricing^] 
-* https://aws.amazon.com/lambda/pricing/[AWS Lamda pricing^]
+* https://aws.amazon.com/lambda/pricing/[AWS Lambda pricing^]
 * https://aws.amazon.com/cognito/pricing/[Amazon Cognito pricing^] 
 * https://aws.amazon.com/s3/pricing/[Amazon S3 pricing^] 
 * https://aws.amazon.com/dynamodb/pricing/[Amazon DynamoDB pricing^] 

@@ -1,6 +1,5 @@
 // Edit this placeholder text to accurately describe your architecture.
 
-This Quick Start provides one deployment option:
+This Quick Start provides one deployment option: deploy into a new VPC*. This option builds ... ___
 
-* *Deploy {partner-product-short-name} into my account*. This deployment is created to help consumer electronic customers build an IoT deployment quickly and
- operate their fleet devices securely based on preset configurations following AWS best practices.
+//TODO Tony, How would you fill in this blank? It usually goes something like this (super high level description of what gets deployed): "This option builds a new AWS environment consisting of the VPC, subnets, NAT gateways, security groups, bastion hosts, and other infrastructure components. It then deploys {partner-product-short-name} into this new VPC. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and {partner-product-short-name} settings, as discussed later in this guide."
