@@ -14,5 +14,4 @@
 
 ==== Prepare for the deployment
 
-* Verify that the Region you want to deploy in does not already have an AWS IoT Device Defender Audit Configuration.
-* Verify that the Region you want to deploy in does not already have a deployment of this Quick Start.
+Verify that the Region you want to deploy in does not already have (a) an AWS IoT Device Defender Audit Configuration or (b) a deployment of this Quick Start.
