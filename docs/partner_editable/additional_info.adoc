@@ -10,35 +10,49 @@ To set up a custom domain for the web app, see Set up https://docs.aws.amazon.co
 .IoT Connectivity and Security Quick Start outputs after successful deployment
 [link=images/cfn_outputs.png]
 image::../images/cfn_outputs.png[CFN output,width=648,height=439]
+
+== Post-deployment steps
+// If post-deployment steps are required, add them here. If not, remove the heading
+=== Migrate to production
+After you verify that the Quick Start is deployed and functions as intended, consider customizing and loading test your deployment before migrating it to production as follows:
+* Customize the pre-built AWS Amplify app in AWS CodeCommit so that the app meets your business use cases
+* Onboard IoT devices at the expected device  connection rate of your operations so that you can validate the processing rate and scale of the solution. Reference AWS IoT Core endpoint and quota (https://docs.aws.amazon.com/general/latest/gr/iot-core.html) for service resource and API quotas. 
+
+Once you are satisfied with the Quick Start’s app customization and load testing, you can deploy the solution in production. 
+
+=== Teardown
+. Navigate to your app within the AWS Amplify console and select to delete the app.
+. Navigate to the AWS Cloudformation console, select the stacks you created as part of the Quick Start and delete the stacks.
+
 == Test the deployment
 // If steps are required to test the deployment, add them here. If not, remove the heading
 You can validate that your Quick Start is deployed successfully, by logging onto the AWS IoT console to review the initial setup:
 
-1. Navigate to *Manage*, select *Thing Groups* from the left navigation, you should see pre-built thing groups listed on the page, such as ‘iotquickstart-Active’, ‘iotquickstart-inactive’, and ‘iotquickstart-Quarantine’ group.
-2. To check cloud-side IoT configurations against AWS security best practices, navigate to *Defend*, select *Audit*, then select *Schedules* from the left navigation, 
+. Navigate to *Manage*, select *Thing Groups* from the left navigation, you should see pre-built thing groups listed on the page, such as ‘iotquickstart-Active’, ‘iotquickstart-inactive’, and ‘iotquickstart-Quarantine’ group.
+. To check cloud-side IoT configurations against AWS security best practices, navigate to *Defend*, select *Audit*, then select *Schedules* from the left navigation, 
 you should see a daily https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html[audit^] created, such as ‘dailyaudit-main’.
-3. To verify that device behavior is being monitored on a continuous basis, navigate to *Defend*, select *Detect*, 
+. To verify that device behavior is being monitored on a continuous basis, navigate to *Defend*, select *Detect*, 
 then select *Security Profiles* from the left navigation, you should see an https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html[ML Detect^] 
 Security Profile configured, for example ‘SecurityProfile-152920-main’.
 
 Secondly, you can test the device Just-in-Time Registration process included in the Quick Start:
 
-1. Have one device https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html[connect with your account’s AWS IoT data endpoint^]
-2. Once the device connects, the Quick Start performs a sequence of actions on the backend: 
+. Have one device https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html[connect with your account’s AWS IoT data endpoint^]
+. Once the device connects, the Quick Start performs a sequence of actions on the backend: 
     ** Generates an AWS IoT thing named with the Common Name (serial number) in the provided device certificate
     ** Attaches the device certificate to the created IoT thing
     ** Creates an AWS DynamoDB entry with the same Common Name for the device
     ** Adds the IoT thing to the ‘iotquickstart-inactive’ group’ with limited permissions
     ** Activates the device certificate
-3. Then you can verify the IoT thing, its device certificate and its group affiliation in the AWS IoT console by going to *Manage*, then *Things* from the left navigation. Once on this page you can identify the thing by it's certificate Common Name/serial number/thing name.
+. Then you can verify the IoT thing, its device certificate and its group affiliation in the AWS IoT console by going to *Manage*, then *Things* from the left navigation. Once on this page you can identify the thing by it's certificate Common Name/serial number/thing name.
 
 Finally, you can test the end user device registration process through the AWS Amplify web app included in the Quick Start:
 
-1. Log onto AWS Amplify via the AWS Management console
-2. You should see an ‘iotquickstart’ app already created under ‘All apps’; click the app
-3. Under the ‘Frontend environments’ tab, click the app image thumbnail and a new browser tab should open
-4. Create an account via the newly opened sign-up page
-5. Log in with the created account credentials and see a ‘Register Device’ page
+. Log onto AWS Amplify via the AWS Management console
+. You should see an ‘iotquickstart’ app already created under ‘All apps’; click the app
+. Under the ‘Frontend environments’ tab, click the app image thumbnail and a new browser tab should open
+. Create an account via the newly opened sign-up page
+. Log in with the created account credentials and see a ‘Register Device’ page
 
 [#testDeployment1]
 .Register a device by serial number or common name
@@ -52,21 +66,6 @@ image::../images/Register_Device.png[Register Device,width=648,height=439]
 .A registered Device with a serial number
 [link=images/My_Devices.png]
 image::../images/My_Devices.png[My Devices,width=648,height=439]
-
-== Post-deployment steps
-// If post-deployment steps are required, add them here. If not, remove the heading
-=== From testing to production workloads
-After verifying that the Quick Start is successfully deployed and it functions as intended, you can consider the following for your operational use:
-
-1. Customize the pre-built AWS Amplify app in AWS CodeCommit so that the app meets your business use cases
-2.  Onboard IoT devices at the expected device  connection rate of your operations so that you can validate the processing rate and scale of the solution. Reference AWS IoT Core endpoint and quota (https://docs.aws.amazon.com/general/latest/gr/iot-core.html) for service resource and API quotas. 
-
-Once you are satisfied with the Quick Start’s app customization and load testing, you can deploy the solution in production. 
-
-=== Teardown
-1. Navigate to your app within the AWS Amplify console and select to delete the app.
-2. Navigate to the AWS Cloudformation console, select the stacks you created as part of the Quick Start and delete the stacks.
-
 
 //== Best practices for using {partner-product-short-name} on AWS
 // Provide post-deployment best practices for using the technology on AWS, including considerations such as migrating data, backups, ensuring high performance, high availability, etc. Link to software documentation for detailed information.
