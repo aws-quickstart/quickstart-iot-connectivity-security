@@ -4,7 +4,7 @@ Deploying this Quick Start for a new virtual private cloud (VPC) with
 default parameters builds the following {partner-product-short-name} environment in the
 AWS Cloud.
 
-// Replace this example diagram with your own. Follow our wiki guidelines: https://w.amazon.com/bin/view/AWS_Quick_Starts/Process_for_PSAs/#HPrepareyourarchitecturediagram. Upload your source PowerPoint file to the GitHub {deployment name}/docs/images/ directory in this repo. 
+//TODO Tony, ^ Is that statement true? If so, please add the VPC to the diagram. (I've already changed the language is several places to refer to deploying into a new VPC.)
 
 [#architecture1]
 .Quick Start architecture for {partner-product-short-name} on AWS
@@ -12,12 +12,12 @@ image::../images/architecture_diagram.png[Architecture]
 
 As shown in <<architecture1>>, the Quick Start sets up the following:
 
-* IoT device registration on first connect using https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[just in time registration^] with your own certificate authority
-* End customer web application to register devices to your account, to view device telemetry data of registered devices, and to perform command and control for registered devices
-* IoT device telemetry
-* IoT device command and control
-* IoT device management
-* IoT device security management enabling AWS IoT Device Defender ML Detect and Audit
+* IoT device registration on first connect using https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[just in time registration^] with your own certificate authority (CA).
+* End customer web application to register devices to your account, to view device telemetry data of registered devices, and to perform command and control for registered devices.
+* IoT device telemetry.
+* IoT device command and control.
+* IoT device management.
+* IoT device security management enabling AWS IoT Device Defender ML Detect and Audit.
 //* Amplify based end user app for device command and control. 
 //* The app uses a Vue.js based frontend. 
 //* An API gateway to expose the APIs.
@@ -34,7 +34,73 @@ As shown in <<architecture1>>, the Quick Start sets up the following:
 //** A Lambda function to process / respond to the alert.
 //* AWS IoT Device Defender ML detect to monitor device side metrics. 
 
-=== CI/CD Pipeline
+//TODO Tony, Want to chat through this? We need the diagram and bulleted to be a high enough level of granularity to also work on the landing page. This needs to work as an introduction to the architecture for people seeing it for the first time. The bulleted list needs to mention every item (icon, group box, service, etc.) that's labeled in the diagram. Use the same words. For example, for the current diagram, you'd need to mention all the the following items in the bullets (so ideally make the diagram higher level):
+
+Device (Why does this group box use a "FreeRTOS" icon?)...
+
+Device agent (Why does this use an "over-the-air update" icon?)...
+
+Internet...
+
+IoT Core group...
+
+$aws/events/certificates/registered/+ (Mention the resource—an IoT topic—with high-level description of what's happening)...
+
+$aws/things/thingName/shadow/update/accepted (Mention the resource—an IoT topic—with high-level description of what's happening)...
+
+dt/foundationapp/#/sensor1 (Mention the resource—an IoT topic—with high-level description of what's happening)...
+
+JITR IoT rule...
+
+Telemetry IoT rule...
+
+Lambda JITR...
+
+Web application (use the )...
+
+API endpoint: command and control...
+
+API endpoint: get data...
+
+Amazon API Gateway (this service is implied, so let's name it in the list)...
+
+Amazon Cognito...
+
+Lambda function: query data...
+
+Lambda function: command and control...
+
+DynamoDB...
+
+Update thing shadow desired...
+
+IoT device management group...
+
+Troubleshooting group...
+
+Quarantine group...
+
+Inactive group...
+
+Active group...
+
+IoT things and shadows (Any reason not use the IoT shadow icon too?)...
+
+IoT policies...
+
+Switch thing group...
+
+IoT Device Defender...
+
+CloudWatch...
+
+Simple Notification Service...
+
+//TODO Tony, Please update the .pptx file so that the latest version is always in the repo. 
+
+//TODO Tony, The following sections zoom in on areas of the architecture in more detail than we show (or should try to show) in the above diagram. Consider creating separate zoomed-in diagrams to show each part of the architecture that you zoom in on. For example, see the zoomed-in diagrams in this doc: https://aws-quickstart.github.io/quickstart-aws-industrial-machine-connectivity/.
+
+=== CI/CD pipeline
 
 This project creates:
 
@@ -43,8 +109,8 @@ This project creates:
 
 All components described below are deployed as part of the initial Amplify app. You can customize by updating the CodeCommit repo.
 
-=== App Components
-==== Device Registration 
+=== App components
+==== Device registration 
 When a device first connects to AWS IoT Core with a new certificate, a message is sent to $aws/events/certificates/registered/${CACertificateID}. This triggers a lambda that
 
 * Determines device Common Name (CN) from certificate
@@ -54,7 +120,7 @@ When a device first connects to AWS IoT Core with a new certificate, a message i
 * Adds the IoT thing to Inactive group with limited permissions
 * Activates the certificate
 
-=== End User Web App
+=== End user web application
 The web application is a vuejs front end that is published by AWS Amplify. Amplify handles webpage file storage and distribution. The frontend interacts with the iotquickstartrest API Gateway. User identities are managed with Amazon Cognito. Users can exchange their credentials for a JWT token. All API calls must include the JWT in the Authorization header, which also provides the Lambda function to register the customerAccount.
 
 The following API endpoints are available:
@@ -66,12 +132,12 @@ the Lambda function moves thing from Inactive to Active thing group, updates thi
 * /thingshadow/${thingName}: POST, body={key=${shadowKey}, value=${shadowDesiredValue}}, 
 checks if thingName is registered to customerAccount in product DynamoDB table. If yes, update thing shadow with desired value.
 
-=== Device Data
+=== Device data
 Registered and active IoT devices have permission to publish to dt/${thingName}/#. 
 An IoT rule directs telemetry messages from this topic to a dynamodb telemetry table with primary key = customerId:thingName and sort key=Epoch timestamp. 
 CustomerId is obtained from the thing attribute value for account and thingName is obtained from the topic.
 
-=== Command and Control
+=== Command and control
 Registered and active IoT devices have permissions to publish/subscribe to topics to interact with their shadow. These devices can publish to:
 ....
 $aws/things/${iot:Connection.Thing.ThingName}/shadow/update
@@ -88,18 +154,17 @@ $aws/things/${iot:Connection.Thing.ThingName}/shadow/get/rejected
 ....
 Devices should publish the "reported" values within the shadow and read from the "desired" values. Cloud interactions should publish to "desired" and read from "reported" values in the shadow.
 
-=== Device Management
+=== Device management
 Before registration, devices are placed in a preset inactive group called ‘Inactive group’ with IoT policies not allowing communication between the device and AWS IoT Core. 
 Upon registration and activation by the end user, devices are automatically placed under another preset active group 
 with IoT policies granting the device the minimum privileges it needs to perform its functions. 
 The Quick Start also creates two other device groups with their IoT policies for other device management use cases (e.g., troubleshooting, quarantining). 
 All the IoT policies attached to the preset groups are customizable.
 
-=== Security Management
+=== Security management
 https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html[AWS IoT Device Defender Audit^] is configured for daily checks. 
 The results are sent to SNS and the device defenderAlert lambda. The Lambda function currently does not perform any tasks but can be customized to respond to Audit or ML Detect alarms for automated mitigation, 
 for example, you can create a mitigation action that moves a device to quarantine thing group if authorization failures exceed a limit. 
-https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html[AWS IoT Device Defender ML detect^] 
-is configured for monitoring device-level metrics including num-authorization-failures, message-byte-size, num-messages-sent, and num-messages-received.
+https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html[AWS IoT Device Defender ML detect^] is configured for monitoring device-level metrics including num-authorization-failures, message-byte-size, num-messages-sent, and num-messages-received.
 
 NOTE: ML detect requires 14 days and a minimum of 25,000 datapoints per metric over the trailing 14-day period to build an initial model before it can perform device behavior evaluations.

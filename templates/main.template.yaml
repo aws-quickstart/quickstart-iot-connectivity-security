@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: Creates an amplify app (qs-1s0ipp9io)
 Metadata:
   QuickStartDocumentation:
-    EntrypointName: "Launch the deployment"
+    EntrypointName: "Parameters for deploying into a new VPC"
     Order: 1
   AWS::CloudFormation::Interface:
     ParameterGroups:
@@ -25,9 +25,9 @@ Metadata:
       CACertificateID:
         default: "ID of certificate authority"
       QSS3BucketName:
-        default: AWS Quick Start Bucket
+        default: AWS Quick Start bucket
       QSS3KeyPrefix:
-        default: AWS Quick Start Bucket Prefix
+        default: AWS Quick Start bucket prefix
 Parameters:
   ProjectName:
     Default: iotquickstart
@@ -37,7 +37,7 @@ Parameters:
     Description: The name of the project. The name must only contain alphanumeric characters.
   CACertificateID:
     Default: abcd
-    Description: The CA certicate ID.
+    Description: Enter your CA certificate ID. See the instructions for creating a CA certificate (https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html) and registering your CA certificate (https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html).
     Type: String
 # Quick Start configuration
   QSS3BucketName:
