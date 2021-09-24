@@ -3,18 +3,18 @@
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
 |Parameter label (name) |Default value|Description|Project Name
-(`ProjectName`)|`iotquickstart`|NO_DESCRIPTION
+(`ProjectName`)|`iotquickstart`|The name of the project. The name must only contain alphanumeric characters.
 |===
 .ID of certificate authority
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
 |Parameter label (name) |Default value|Description|ID of certificate authority
-(`CACertificateID`)|`abcd`|NO_DESCRIPTION
+(`CACertificateID`)|`abcd`|Enter your CA certificate ID. See the instructions for creating a CA certificate (https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html) and registering your CA certificate (https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html).
 |===
 .AWS Quick Start configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default value|Description|AWS Quick Start Bucket
-(`QSS3BucketName`)|`aws-quickstart`|S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).|AWS Quick Start Bucket Prefix
-(`QSS3KeyPrefix`)|`quickstart-iot-connectivity-security/`|S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).
+|Parameter label (name) |Default value|Description|AWS Quick Start bucket
+(`QSS3BucketName`)|`aws-quickstart`|Name of the S3 bucket for your copy of the Quick Start assets. Keep the default name unless you are customizing the template. Changing the name updates code references to point to a new Quick Start location. This name can include numbers, lowercase letters, uppercase letters, and hyphens, but do not start or end with a hyphen (-). See https://aws-quickstart.github.io/option1.html.|AWS Quick Start bucket prefix
+(`QSS3KeyPrefix`)|`quickstart-iot-connectivity-security/`|S3 key prefix that is used to simulate a directory for your copy of the Quick Start assets. Keep the default prefix unless you are customizing the template. Changing this prefix updates code references to point to a new Quick Start location. This prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slashes (/). End with a forward slash. See https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html and https://aws-quickstart.github.io/option1.html.
 |===

@@ -24,10 +24,6 @@ For more information, see link:#_aws_costs[AWS costs] earlier in this guide.
 
 *A.* If AWS CloudFormation fails to create the stack, verify that IoT Device Defender Audit Configuration is not already set up in the Region where you are deploying this stack and that this stack is not already deployed in the same Region.
 
-WARNING: When you set *Rollback on failure* to *Disabled*, you continue to incur AWS charges for this stack. Delete the stack when you finish troubleshooting.
-
-//TODO Tony, Does the above warning still make sense without the original boilerplate answer? [The original boilerplate answer includes this, which you've deleted: "...relaunch the template with *Rollback on failure* set to *Disabled*. This setting is under *Advanced* in the AWS CloudFormation console on the *Configure stack options* page. With this setting, the stack’s state is retained, and the instance keeps running so that you can troubleshoot the issue. (For Windows, look at the log files in `%ProgramFiles%\Amazon\EC2ConfigService` and `C:\cfn\log`.)"]
-
 For more information, see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html[Troubleshooting AWS CloudFormation^].
 
 '''
