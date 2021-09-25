@@ -2,8 +2,10 @@
 // Identify your target audience and explain how/why they would use this Quick Start.
 //Avoid borrowing text from third-party websites (copying text from AWS service documentation is fine). Also, avoid marketing-speak, focusing instead on the technical aspect.
 
-This guide provides instructions for deploying the {partner-product-short-name} Quick Start reference architecture on the AWS Cloud.
+This guide provides instructions for deploying the IoT Connectivity and Security Quick Start reference architecture on the AWS Cloud.
+The IoT Connectivity and Security Quick Start helps commercial and consumer-electronics 
+customers build an IoT deployment quickly and operate their fleet devices securely based on preset configurations following AWS best practices.
 
-The {partner-product-short-name} Quick Start helps consumer-electronics customers build an IoT deployment quickly and operate their fleet devices securely based on preset configurations following AWS best practices.
 
-//TODO Tony, How could we accurately rephrase so as not to imply that the Quick Start ensures security? That's legal hot water.
+
+
