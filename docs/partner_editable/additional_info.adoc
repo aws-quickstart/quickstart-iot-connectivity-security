@@ -60,14 +60,11 @@ To set up a custom domain for the web app, see https://docs.aws.amazon.com/ampli
 
 //TODO Tony, FYI, since our docs no longer include screenshots showing "outputs after successful deployment," I've deleted that screenshot.
 
-=== From testing to production workloads
+=== Migrate to production
+After you verify that the Quick Start is deployed and functions as intended, consider customizing and load testing your deployment before migrating it to production as follows:
 
-//TODO Tony, I don't understand the above subhead. Please review this whole section for logical flow.
-
-After you verify that the Quick Start is deployed and functions as intended, customize and load test your deployment as follows:
-
-. Customize the prebuilt AWS Amplify application in AWS CodeCommit so that the app meets your business use cases.
-. Onboard IoT devices at the expected device-connection rate of your operations so that you can validate the processing rate and scale of the deployment. See https://docs.aws.amazon.com/general/latest/gr/iot-core.html[AWS IoT Core endpoint and quota^] for service resource and API quotas.
+* Customize the prebuilt AWS Amplify application in AWS CodeCommit so that the app meets your business use cases.
+* Onboard IoT devices at the expected device-connection rate of your operations so that you can validate the processing rate and scale of the deployment. See https://docs.aws.amazon.com/general/latest/gr/iot-core.html[AWS IoT Core endpoint and quota^] for service resource and API quotas.
 
 When you are satisfied with the Quick Start's application customization and load testing, you can deploy the solution in production.
 
@@ -80,13 +77,10 @@ When you are satisfied with the Quick Start's application customization and load
 
 //_Add any best practices for using the software._
 
-== Security
-// Provide post-deployment best practices for using the technology on AWS, including considerations such as migrating data, backups, ensuring high performance, high availability, etc. Link to software documentation for detailed information.
+=== Security
+AWS Identity and Access Management (IAM) roles enable you to assign granular access policies and permissions to services and users in the AWS Cloud. This Quick Start creates IAM roles that grant the solution’s services, such as AWS Lambda functions, permissions to perform specific actions. Besides, you need to obtain the following access for your IAM role:
 
-AWS Identity and Access Management (IAM) roles enable you to assign granular access policies and permissions to services and users in the AWS Cloud. This Quick Start creates IAM roles that grant the solution’s services, such as AWS Lambda functions, permissions to perform specific actions.
+* To deploy this Quick Start, you should have admin access, such as AWS managed IAM policy AdministratorAccess. After initial deployment, commits to the CodeCommit repository created by this Quick Start will build or update the Cloud infrastructure.
+* To have the ability to update the CodeCommit repository, you should have an IAM role with the AWSCodeCommitPowerUser managed policy attached at a minimum.
 
-To deploy this Quick Start, you should have admin access, such as AWS managed IAM policy AdministratorAccess. After initial deployment, commits to the CodeCommit repository created by this Quick Start will build or update the Cloud infrastructure. To have the ability to update the CodeCommit repository, you should have an IAM role with the AWSCodeCommitPowerUser managed policy attached at a minimum.
-
-//TODO Tony, What's actionable in the above section? Please pull out actions into steps we need to do post-deployment. Otherwise, if this is just general info, please move it to earlier in the doc.
-
-//TODO Tony, Does the README file have any content that isn’t already in the guide (re: deploy and teardown)? If so, move that content into the appropriate .adoc files. Then swap in our standard three-line README blurb from any recent guide, and change the link to our guide. In the future, you can automate this. See https://code.amazon.com/reviews/CR-46203393/revisions/1#/details.) 
+les. Then swap in our standard three-line README blurb from any recent guide, and change the link to our guide. In the future, you can automate this. See https://code.amazon.com/reviews/CR-46203393/revisions/1#/details.) 

@@ -22,11 +22,14 @@ endif::marketplace_subscription[]
 
 === Launch the Quick Start
 // Adapt the following warning to your Quick Start.
-// WARNING: If you deploy {partner-product-short-name} into an existing VPC, ensure that your VPC has two private subnets in different Availability Zones for the workload instances and that the subnets are not shared. This Quick Start does not support https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html[shared subnets^]. The subnets require https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html[NAT gateways^] in their route tables to allow the instances to download packages and software without exposing the instances to the internet. Also ensure that the domain name in the DHCP options is configured, as explained in http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html[DHCP options sets^]. Provide your VPC settings when you launch the Quick Start.
 
 Each deployment takes about {deployment_time} to complete.
 
-. Sign in to your AWS account, and http://qs_launch_permalink[deploy the {partner-product-short-name} Quick Start into a new VPC^]. (http://qs_template_permalink[View the template^].) For details on this deployment option, see link:#_deployment_options[Deployment options] earlier in this guide.
+. Sign in to your AWS account, and deploy the http://qs_launch_permalink/[IoT Connectivity and Security Quick Start^] in http://qs_launch_permalink/[CloudFormation^]. 
+(View the http://qs_launch_permalink/[template^].)
+//TODO need to replace the link on line 31 with the final link when it is ready 
+For details on this deployment option, see https://swingline.quickstart.aws.a2z.com/resource-data/documentation/preview/aws-quickstart/quickstart-iot-connectivity-security/prod_example.html#_deployment_steps[Deployment options^] 
+earlier in this guide.
 
 . Check the AWS Region that's displayed in the upper-right corner of the navigation bar, and change it if necessary. This Region is where you build the infrastructure. The template is launched in the {default_deployment_region} Region by default. For more information, see link:#_supported_aws_regions[Supported AWS Regions] earlier in this guide.
 

@@ -1,5 +1,5 @@
 // Edit this placeholder text to accurately describe your architecture.
-
-This Quick Start provides one deployment option: deploy into a new VPC*. This option builds ... ___
-
-//TODO Tony, How would you fill in this blank? It usually goes something like this (super high level description of what gets deployed): "This option builds a new AWS environment consisting of the VPC, subnets, NAT gateways, security groups, bastion hosts, and other infrastructure components. It then deploys {partner-product-short-name} into this new VPC. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and {partner-product-short-name} settings, as discussed later in this guide."
+This Quick Start builds an IoT connectivity and security solution that is consisted of a few key components: 
+just-in-time device provisioning, connectivity and messaging using AWS IoT Core, a prebuilt web app for device registration, telemetry reporting, 
+and command and control using AWS Amplify, cloud-side configuration based on security best practices using AWS IoT Core and Device Management, 
+and security auditing, monitoring and mitigation with AWS IoT Device Defender.

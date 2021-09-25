@@ -3,4 +3,5 @@
 // Include links if helpful. 
 // You don't need to list AWS services or point to general info about AWS; the boilerplate already covers this.
 
-//TODO Tony, Please add: "This Quick Start also assumes familiarity with <knowledge expectations specific to this Quick Start>.
+
+This quickstart also assumes familiarity with AWS IoT Core, its basic features and related knowledge, such as TLS, server and client mutual authentication, and device agent install.
