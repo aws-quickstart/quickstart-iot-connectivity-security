@@ -1,18 +1,12 @@
-// If no preparation is required, remove all content from here.
-
 ==== Prepare your AWS account
 
 . Verify that your AWS account has the permissions required to create the resources listed in the link:#_resource_quotas[Resource quotas] section of this guide.
-+
-//TODO Tony, I added this Step 1. Does it apply here?
-
-. If you don't have one, https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html[create a CA certificate^] for your fleet device authentication.
-
+. https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html[Create a CA certificate^] for authenticating your fleet device.
 . https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate^] with AWS IoT. 
-
-. Device/client certificate: Use the CA to create certificates for devices. 
-The Common Name of the device certificate you create should also be the serial number you assign to the device and provide to end users for device activation.
+. Use the CA to create IoT device certificates, and use each device's serial number for the common name.
 
 ==== Prepare for the deployment
 
-Verify that the Region you want to deploy in does not already have (a) an AWS IoT Device Defender Audit Configuration or (b) a deployment of this Quick Start.
+Confirm the following: 
+* This deployment does not already exist in your chosen Region.
+* The Region you deploy to does not already have an audit configuration for AWS IoT Device Defender.

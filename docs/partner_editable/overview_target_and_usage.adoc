@@ -1,11 +1,1 @@
-// Replace the content in <>
-// Identify your target audience and explain how/why they would use this Quick Start.
-//Avoid borrowing text from third-party websites (copying text from AWS service documentation is fine). Also, avoid marketing-speak, focusing instead on the technical aspect.
-
-This guide provides instructions for deploying the IoT Connectivity and Security Quick Start reference architecture on the AWS Cloud.
-The IoT Connectivity and Security Quick Start helps commercial and consumer-electronics 
-customers build an IoT deployment quickly and operate their fleet devices securely based on preset configurations following AWS best practices.
-
-
-
-
+This Quick Start guide provides instructions for deploying IoT connectivity and security on the AWS Cloud. The deployment uses preset configurations to help commercial and consumer-electronics customers set up and operate IoT fleet devices according to AWS best practices.

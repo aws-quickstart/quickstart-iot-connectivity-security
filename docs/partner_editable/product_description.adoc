@@ -1,11 +1,9 @@
-// Replace the content in <>
-// Briefly describe the software. Use consistent and clear branding. 
-// Include the benefits of using the software on AWS, and provide details on usage scenarios.
+Getting started with AWS IoT and implementing the related security features is a complex process. This Quick Start reduces the complexity by automating the provisioning process and helping IoT customers secure their devices for development, testing, and production purposes. This deployment sets up the following:
 
-Getting started with AWS IoT and implementing the related security features can be a complex process. This Quick Start reduces this complexity by automating the process of provisioning and helping IoT customers secure consumer devices for development, test, or production purposes. 
+* Just-in-time device provisioning.
+* Device connectivity and messaging.
+* A web application for device registration, telemetry, and command and control.
+* A cloud configuration that uses AWS best practices for security.
+* Device security auditing, monitoring, and mitigation.
 
-Specifically, this Quick Start sets up just-in-time device provisioning; enables device connectivity and messaging; deploys a web application for device registration, telemetry, and command and control; defines cloud-side configuration based on security best practices; and sets up security auditing, monitoring and mitigation on devices.
-
-//TODO Tony, Want to name the web application above?
-
-This Quick Start uses AWS IoT Core, Device Management, Device Defender and other AWS services. In addition, the Quick Start is deployed to an AWS CodeCommit repo with an AWS Amplify CI/CD pipeline so that you can customize your deployment by committing changes to the Amplify project in your repo.
+This Quick Start uses AWS IoT Core, AWS IoT Device Management, AWS IoT Device Defender, and other AWS services. It deploys to an AWS CodeCommit repository with an AWS Amplify continuous integration and continuous delivery (CI/CD) pipeline. You can customize your deployment through committed changes to the Amplify repository.

@@ -1,7 +1,1 @@
-// Replace the content in <>
-// For example: “familiarity with basic concepts in networking, database operations, and data encryption” or “familiarity with <software>.”
-// Include links if helpful. 
-// You don't need to list AWS services or point to general info about AWS; the boilerplate already covers this.
-
-
-This quickstart also assumes familiarity with AWS IoT Core, its basic features and related knowledge, such as TLS, server and client mutual authentication, and device agent install.
+This Quick Start deployment assumes that you are familiar with AWS IoT Core and its basic features. It also assumes that you are familiar with Transport Layer Security (TLS), server and client authentication procedures, and installing device agents.

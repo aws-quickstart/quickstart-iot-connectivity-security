@@ -1,5 +1,5 @@
-// Edit this placeholder text to accurately describe your architecture.
-This Quick Start builds an IoT connectivity and security solution that is consisted of a few key components: 
-just-in-time device provisioning, connectivity and messaging using AWS IoT Core, a prebuilt web app for device registration, telemetry reporting, 
-and command and control using AWS Amplify, cloud-side configuration based on security best practices using AWS IoT Core and Device Management, 
-and security auditing, monitoring and mitigation with AWS IoT Device Defender.
+This Quick Start deploys IoT connectivity and security with the following components: 
+* Just-in-time device provisioning, connectivity, and messaging using AWS IoT Core.
+* A prebuilt web application for device registration, telemetry reporting, and command and control using AWS Amplify.
+* Cloud-side configuration, based on security best practices, using AWS IoT Core and AWS IoT Device Management.
+* Security auditing, monitoring, and mitigation using AWS IoT Device Defender.
