@@ -1,41 +1,35 @@
-// Add any tips or answers to anticipated questions.
-
 == FAQ
 
-*Q.*  How do I anticipate the AWS service charges that I will incur when using this Quick Start?
+*Q.*  How do I anticipate incurred AWS service charges when using this Quick Start?
 
-*A*. The Quick Start deployment incurs costs for multiple AWS services after it is deployed with active devices. To estimate costs, see the following pricing pages for each AWS service you use in this Quick Start. Prices are subject to change.
+*A*. This deployment incurs costs for multiple AWS services. For cost estimates, see the following pricing pages for each AWS service you use. Prices are subject to change.
 
-* https://aws.amazon.com/api-gateway/pricing/#REST_APIs[AWS API Gateway pricing^]
-* https://aws.amazon.com/iot-device-defender/pricing/[AWS IoT Device Defender pricing^] 
-* https://aws.amazon.com/sns/pricing/[Amazon SNS pricing^] 
-* https://aws.amazon.com/iot-core/pricing/[AWS IoT Core pricing^] 
-* https://aws.amazon.com/lambda/pricing/[AWS Lambda pricing^]
-* https://aws.amazon.com/cognito/pricing/[Amazon Cognito pricing^] 
-* https://aws.amazon.com/s3/pricing/[Amazon S3 pricing^] 
-* https://aws.amazon.com/dynamodb/pricing/[Amazon DynamoDB pricing^] 
-* https://aws.amazon.com/amplify/pricing/[AWS Amplify pricing^] 
-* https://aws.amazon.com/codecommit/pricing/[AWS CodeCommit pricing^] 
+* https://aws.amazon.com/api-gateway/pricing/#REST_APIs[AWS API Gateway^]
+* https://aws.amazon.com/iot-device-defender/pricing/[AWS IoT Device Defender^] 
+* https://aws.amazon.com/sns/pricing/[Amazon SNS^] 
+* https://aws.amazon.com/iot-core/pricing/[AWS IoT Core^] 
+* https://aws.amazon.com/lambda/pricing/[AWS Lambda^]
+* https://aws.amazon.com/cognito/pricing/[Amazon Cognito^] 
+* https://aws.amazon.com/s3/pricing/[Amazon S3^] 
+* https://aws.amazon.com/dynamodb/pricing/[Amazon DynamoDB^] 
+* https://aws.amazon.com/amplify/pricing/[AWS Amplify^] 
+* https://aws.amazon.com/codecommit/pricing/[AWS CodeCommit^] 
  
-For more information, see link:#_aws_costs[AWS costs] earlier in this guide.
+For more information, see link:#_aws_costs[AWS costs], earlier in this guide.
 
 '''
 *Q.* I encountered a *CREATE_FAILED* error when I launched the Quick Start.
 
-*A.* If AWS CloudFormation fails to create the stack, verify that IoT Device Defender Audit Configuration is not already set up in the Region where you are deploying this stack and that this stack is not already deployed in the same Region.
-
-For more information, see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html[Troubleshooting AWS CloudFormation^].
+*A.* If AWS CloudFormation fails to create the stack, confirm that the stack is not already deployed in your selected Region. Also verify that the audit configuration for AWS IoT Device Defender is not already set up in your selected Region. For more information, see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html[Troubleshooting CloudFormation^].
 
 '''
 *Q.* I encountered a size-limitation error when I deployed the AWS CloudFormation templates.
 
-*A.* Launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template-size limitations. For more information, see http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html[AWS CloudFormation quotas^].
+*A.* Launch the Quick Start templates from the links in this guide or from another Amazon S3 bucket. If you deploy the templates from a local copy on your computer, or from a location other than an S3 bucket, you might encounter template-size limitations. For more information, see http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html[AWS CloudFormation quotas^].
 
 
 == Troubleshooting
 
-If you run into issues with the Quick Start deployment or the built features, such as the AWS IoT resource configuration or the Amplify application functionality, ensure that your deployment is set up correctly by checking the following:
-
-* Sign in to the AWS Management Console, and verify that the Amplify web application has been deployed.
-
-* Confirm that the correct CA is https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[registered within AWS IoT^] and the correct CACertificateID is used in the main AWS CloudFormation template.
+If you encounter issues with this deployment or its features, ensure that your deployment is set up correctly by checking the following:
+* Sign in to the AWS Management Console, and confirm that the AWS Amplify web application is deployed.
+* Confirm that you https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[registered your CA certificate^] and that the correct `CACertificateID` is listed in the AWS CloudFormation template.

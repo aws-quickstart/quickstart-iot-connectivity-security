@@ -3,28 +3,26 @@
 |Resource |This deployment uses
 
 // Space needed to maintain table headers
-|AWS Amplify application | 1
-|AWS Amplify branch | 1
-|AWS ApiGateway deployment | 1
-|AWS ApiGateway REST API | 1
-|AWS CloudFormation stack | 15
-|AWS CodeCommit repository | 1
-|AWS Cognito identity pool | 1
-|AWS Cognito identity pool role attachment | 1 
-|AWS Cognito user pool | 1 
-|AWS Cognito user pool client | 1
-|AWS DynamoDB table | 2
-|AWS IAM policy | 27
-|AWS IAM role | 19
-|AWS IoT AC audit configuration | 1
-|AWS IoT policy | 4
-|AWS IoT scheduled audit | 1
-|AWS IoT security profile | 1
-|AWS IoT topic rule | 2
-|AWS Lambda function | 11  
-|AWS Lambda permission | 6
-|S3 bucket | 3
-|AWS SNS topic | 1
+|AWS Amplify instances | 1
+|AWS Amplify branches | 1
+|Amazon API Gateways | 1
+|REST APIs | 1
+|AWS CloudFormation stacks | 15
+|AWS CodeCommit repositories | 1
+|Amazon Cognito identity pools | 1
+|Amazon Cognito identity pool roles | 1 
+|Amazon Cognito user pools | 1 
+|Amazon Cognito user pool clients | 1
+|Amazon DynamoDB tables | 2
+|IAM policies | 27
+|IAM roles | 19
+|AWS IoT audit configurations | 1
+|AWS IoT policies | 4
+|AWS IoT scheduled audits | 1
+|AWS IoT security profiles | 1
+|AWS IoT topic rules | 2
+|AWS Lambda functions | 11  
+|AWS Lambda permissions | 6
+|Amazon S3 buckets | 3
+|Amazon SNS topics | 1
 |===
-
-//TODO Marcia still needs to do a copyediting review, including all references to AWS service names.
