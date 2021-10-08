@@ -20,7 +20,7 @@ As shown in <<architecture1>>, the Quick Start sets up the following:
         *** The end user device uses a device certificate issued by the registered CA as its unique identity; its device certificate is registered and activated in AWS IoT Core and attached to its thingName; its thingName is created in AWS IoT Core Registry with the CN of the device certificate; its thingName is also stored in Amazon DynamoDB to support the features of the web app.
         *** Upon end user activating the device, it is moved from the ‘Inactive Group’ to the ‘Active Group’ with IoT policies granting it with the minimum permissions it needs to perform its functions. 
 
-=== Detailed Architecture 
+=== Detailed architecture 
 
 [#architecture2]
 .Architecture of the IoT Connectivity and Security Quick Start
