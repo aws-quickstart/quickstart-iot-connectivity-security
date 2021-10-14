@@ -8,5 +8,6 @@
 ==== Prepare for the deployment
 
 Confirm the following: 
+
 * This deployment does not already exist in your chosen Region.
 * The Region you deploy to does not already have an audit configuration for AWS IoT Device Defender.
