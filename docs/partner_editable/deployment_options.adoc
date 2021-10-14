@@ -1,4 +1,5 @@
-This Quick Start deploys IoT connectivity and security with the following components: 
+This Quick Start has one deployment option, which includes the following components: 
+
 * Just-in-time device provisioning, connectivity, and messaging using AWS IoT Core.
 * A prebuilt web application for device registration, telemetry reporting, and command and control using AWS Amplify.
 * Cloud-side configuration, based on security best practices, using AWS IoT Core and AWS IoT Device Management.

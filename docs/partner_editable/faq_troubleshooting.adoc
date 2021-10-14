@@ -31,5 +31,6 @@ For more information, see link:#_aws_costs[AWS costs], earlier in this guide.
 == Troubleshooting
 
 If you encounter issues with this deployment or its features, ensure that your deployment is set up correctly by checking the following:
+
 * Sign in to the AWS Management Console, and confirm that the AWS Amplify web application is deployed.
 * Confirm that you https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[registered your CA certificate^] and that the correct `CACertificateID` is listed in the AWS CloudFormation template.
