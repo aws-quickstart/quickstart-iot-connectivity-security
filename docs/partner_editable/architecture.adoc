@@ -2,7 +2,7 @@
 
 [#architecture1]
 .IoT Connectivity and Security Quick Start conceptual diagram
-image::../images/architecture_diagram_overview.png[Architecture]
+image::../images/iot-connectivity-security-architecture_diagram.png[Architecture]
 
 As shown in <<architecture1>>, the Quick Start sets up the following:
 
@@ -24,9 +24,9 @@ As shown in <<architecture1>>, the Quick Start sets up the following:
 
 [#architecture2]
 .Architecture of the IoT Connectivity and Security Quick Start
-image::../images/architecture_diagram.png[Architecture]
+image::../images/iot-connectivity-security-architecture_diagram_detailed.png[Architecture]
 
-As shown in <<architecture2>>, the IoT Connectivity and Security Quick Starts sets up the following resources: 
+As shown in <<architecture2>>, the {partner-product-name} Quick Start sets up the following resources: 
 
 *End user device and web app*
 
