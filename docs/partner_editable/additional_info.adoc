@@ -53,8 +53,22 @@ When you finish customizing and load testing the application, deploy this Quick 
 . Navigate to the AWS Amplify console, choose your application, and delete it.
 . Navigate to the AWS CloudFormation console, choose the associated stacks, and delete them.
 
-=== Security
+== Additional information
+
+=== Device data
+Registered and active IoT devices have permission to publish to dt/${thingName}/#. 
+An IoT rule directs telemetry messages from this topic to a dynamodb telemetry table with primary key = customerId:thingName and sort key=Epoch timestamp. 
+CustomerId is obtained from the thing attribute value for account and thingName is obtained from the topic.
+
+=== CI/CD pipeline
+
+This project creates:
+
+* CodeCommit repo in your account that is initialized with contents from the /submodules folder in the Github repo
+* CI/CD enabled Amplify app that is triggered by commits to the CodeCommit repo (each commit will deploy updates to the backend and front end resources in your account) 
+
+== Security
 AWS Identity and Access Management (IAM) roles enable you to assign granular access policies to services and users. This Quick Start creates IAM roles that grant permissions to the deployment's resources, such as AWS Lambda functions. Obtain the following IAM access for your role:
 
 * To deploy this Quick Start, you must have administrator access with an applicable IAM policy, such as `AdministratorAccess`. After the initial deployment, changes to the AWS CodeCommit repository will build or update the cloud infrastructure.
-* To update the AWS CodeCommit repository, at a minimum you must use an IAM role with an attached `AWSCodeCommitPowerUser` policy.
+* To update the AWS CodeCommit repository, at a minimum you must use an IAM role with an attached `AWSCodeCommitPowerUser` policy. 
