@@ -63,7 +63,7 @@ As shown in <<architecture2>>, the IoT Connectivity and Security Quick Starts se
 * *Simple Notification Service.* AWS IoT Device Defender also publishes audit and detect alarms to Amazon SNS if you configured SNS topics to receive Device Defender alarms.
 
 
-*API: Get Data & API: Command/Control*
+*API: Get Data & API: Command & Control*
 The Quick Start uses the following API endpoints:
 
 * /register/{thingName}: GET, if thing is in Inactive thing group and not registered to a customer in the Dynamodb products table, the Lambda function moves thing from Inactive to Active thing group, updates thingName in product table to have key account={customerAccount}, and adds thing attribute account={customerAccount}.
