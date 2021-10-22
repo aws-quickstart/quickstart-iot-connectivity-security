@@ -37,7 +37,6 @@ As shown in <<architecture2>>, the IoT Connectivity and Security Quick Starts se
 
 * *Device*. End-user IoT device.
 * *Device agent*.  https://github.com/awslabs/aws-iot-device-client[AWS IoT Device Client^] or any supported MQTT client that lets you connect your devices to AWS IoT Core, and access AWS IoT Device Management and AWS IoT Device Defender features by default. 
-* *Internet*. The public web.
 * *End user web app:* The web app is a vuejs front end that is published by AWS Amplify. Amplify handles webpage file storage and distribution. The frontend interacts with the iotquickstartrest API Gateway. User identities are managed with Amazon Cognito. Users can exchange their credentials for a JWT token. All API calls must include the JWT in the Authorization header, which also provides the Lambda function to register the customerAccount.
 
 
@@ -53,7 +52,7 @@ As shown in <<architecture2>>, the IoT Connectivity and Security Quick Starts se
 
 * The service sets up thing (device) groups and assigns devices to different thing groups based on the stage of IoT device life cycle (inactive, active, quarantine, and troubleshooting).
 * *IoT policies*: AWS IoT Device Management attaches IoT policies to each thing group to manage access control on the devices.
-* *IoT Things/Shadows*: Each device is registered in AWS IoT registry as a “thing“ with thing attributes (e.g., thingName, identity in the form of X.509 certificate) and owns one or multiple shadow (https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html) documents to describe its state.
+* *IoT Things or Shadows*: Each device is registered in AWS IoT registry as a “thing“ with thing attributes (e.g., thingName, identity in the form of X.509 certificate) and owns one or multiple shadow (https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html) documents to describe its state.
 
 
 *IoT Device Defender (Security Management)*
@@ -64,7 +63,7 @@ As shown in <<architecture2>>, the IoT Connectivity and Security Quick Starts se
 * *Simple Notification Service.* AWS IoT Device Defender also publishes audit and detect alarms to Amazon SNS if you configured SNS topics to receive Device Defender alarms.
 
 
-*API Get Data & API: Command/Control*
+*API: Get Data & API: Command & Control*
 The Quick Start uses the following API endpoints:
 
 * /register/{thingName}: GET, if thing is in Inactive thing group and not registered to a customer in the Dynamodb products table, the Lambda function moves thing from Inactive to Active thing group, updates thingName in product table to have key account={customerAccount}, and adds thing attribute account={customerAccount}.
@@ -73,8 +72,7 @@ The Quick Start uses the following API endpoints:
 * /devices: GET, listdevices lambda, Queries customers devices (up to 1 MB)
 
 
-*Lambda: Command/Control & Lambda Query Data*. The Lambda functions used for the API requests described above to activate a device, 
-update a device shadow (command and control), and query customer devices and device telemetry. 
+*Lambda: Command & Control & Lambda Query Data*. 
 Registered and active IoT devices have permissions to publish/subscribe to topics to interact with their shadow. These devices can publish to:
 ....
 $aws/things/${iot:Connection.Thing.ThingName}/shadow/update
