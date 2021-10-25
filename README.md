@@ -1,6 +1,6 @@
 # IoT Connectivity and Security on AWS
  
-For architectural details, step-by-step instructions, and customization options, see the [deployment guide](https://fwd.aws/mpxj9?).
+For architectural details, step-by-step instructions, and customization options, see the [deployment guide](https://fwd.aws/BKGMB?).
  
 To post feedback, submit feature ideas, or report bugs, use the **Issues** section of this GitHub repo.
  
