@@ -14,7 +14,7 @@
 |Amazon Cognito user pools | 1 
 |Amazon Cognito user pool clients | 1
 |Amazon DynamoDB tables | 2
-|IAM policies | 27
+|AWS Identity and Access Management (IAM) policies | 27
 |IAM roles | 19
 |AWS IoT audit configurations | 1
 |AWS IoT policies | 4
@@ -26,3 +26,5 @@
 |Amazon S3 buckets | 3
 |Amazon SNS topics | 1
 |===
+
+//TODO "API Gateway" is the name of the service; what is the resource (lowercase)?

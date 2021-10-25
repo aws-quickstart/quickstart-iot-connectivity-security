@@ -1,4 +1,8 @@
-This Quick Start has one deployment option, which includes the following components: 
+This Quick Start has one deployment option: deploying into a new VPC. 
+
+//TODO Move the details below into the bullet list that follows the high-level diagram.
+
+This deployment includes the following components: 
 
 * Just-in-time device provisioning, connectivity, and messaging using AWS IoT Core.
 * A prebuilt web application for device registration, telemetry reporting, and command and control using AWS Amplify.

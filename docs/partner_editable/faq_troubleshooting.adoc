@@ -1,4 +1,5 @@
 == FAQ
+//TODO Is there something special about this Quick Start that makes this first Q & A valuable? We don't typically go into this kind of list. We let the "AWS costs" section address this issue.
 
 *Q.*  How do I anticipate incurred AWS service charges when using this Quick Start?
 
