@@ -1,3 +1,12 @@
+== Post-deployment steps
+//TODO Step 1 below (which we do after we complete all the testing steps) doesn't seem to follow accurately. We're no longer looking at the Outputs tab.
+
+. When the AWS CloudFormation stack completes, take note the *DefaultDomain* value in the *Outputs* tab. You will use the *DefaultDomain* in a later step to veiw the web portal. 
+. The web app deployment process uses AWS Amplify to set up your application, which takes about 10 minutes.
+. To check the stack's status, navigate to the AWS Amplify console, and choose your application.
+. To view the web portal after the Quick Start is fully deployed, create an account using the *DefaultDomain* value. To set up a custom domain for the web application, 
+see https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html[Set up custom domains^].
+
 == Test the deployment
 
 === Verify the deployment
@@ -17,7 +26,7 @@
 
 . https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html[Connect devices to AWS IoT^].
 +
-When the device connects, the Quick Start performs the following actions on the backend: 
+When an IoT device connects, the Quick Start performs the following actions on the backend: 
 +
 * Generates an AWS IoT device using the common name (serial number) from the device's certificate.
 * Attaches the certificate to the IoT device.
@@ -28,13 +37,8 @@ When the device connects, the Quick Start performs the following actions on the 
 . Open the AWS IoT console, and choose *Manage* > *Things*. 
 . Verify the IoT device's certificate and group affiliation. You can identify IoT devices by their certificate, common name, and serial number.
 
-=== Verify the end-user device registration process
-//TODO ="IoT device"? 
-
-//TODO This heading sounds like the same thing as the previous heading. Should this say "Register your IoT device"? 
-
-//TODO Should this section move down to the "Post-deployment steps" section? 
-
+=== Verify the end-user IoT device registration process
+// this needs to be completed before the other items in this same doc
 . Sign in to the AWS Management Console, and navigate to the AWS Amplify console.  
 . Under *All apps*, choose the *iotquickstart* application.
 . Under the *Frontend environments* tab, choose the application's thumbnail. A new browser tab opens with a sign-up page.
@@ -43,70 +47,52 @@ When the device connects, the Quick Start performs the following actions on the 
 . Enter your device's serial number, and choose *REGISTER DEVICE*. A confirmation message appears indicating successful registration.
 . In the left-hand pane, choose *Devices*. Confirm that the registered device appears under *My Devices*.
 
-//TODO Do we repeat this for multiple devices?
+== Migrate to production
 
-== Post-deployment steps
-//TODO Step 1 below (which we do after we complete all the testing steps) doesn't seem to follow accurately. We're no longer looking at the Outputs tab.
+After verifying the deployment, customize and load test it before migrating it to a production environment:
 
-//TODO In step 1 below, what "process" are we talking about?
-
-. When the AWS CloudFormation stack completes, note the *DefaultDomain* value in the *Outputs* tab. The process uses AWS Amplify to set up your application, which takes about 10 minutes.
-. To check the stack's status, navigate to the AWS Amplify console, and choose your application.
-. To view the web portal after the Quick Start is fully deployed, create an account using the *DefaultDomain* value. To set up a custom domain for the web application, see https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html[Set up custom domains^].
-
-=== Migrate to production
-//TODO In step 1 below, how do we verify that the deployment functions as intended?
-
-//TODO In step 1 below, we seem to assume that people knew not to deploy to a production environment. Where should we specify this earlier?
-
-//TODO In step 1 below, where should we link out to?
-
-When the deployment functions as intended, customize and load test it before migrating it to a production environment:
-
-* Use AWS CodeCommit to customize the web application so that it meets your business needs.
+* Use https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html[AWS CodeCommit] to customize the web application so that it meets your business needs.
 * Onboard your IoT devices at the expected device-connection rate so that you can validate the deployment's processing rate and scale. For resource and API quotas, see https://docs.aws.amazon.com/general/latest/gr/iot-core.html[AWS IoT Core endpoint and quota^].
 
 When you finish customizing and load testing the application, deploy this Quick Start to your production environment.
 
 //TODO Do people follow the same steps as in the "Launch the Quick Start" section?
 
-=== Clean up
+== Clean up
 
-//TODO Please give some context for why and when people would "clean up." (We don't typically include these steps in a deployment guide the way we would in, say, a blog post. I'm not sure why this section is here.)
+If you no longer require device registration via the web application created by this quickstart, do the following to tear down the application:
 
 . Navigate to the AWS Amplify console, choose your application, and delete it.
 . Navigate to the AWS CloudFormation console, choose the associated stacks, and delete them.
 
-== Additional information
+//== Additional information
 
-=== Device data
-
-//TODO Why is this info in the doc? (When and how would someone use it or need to know it?)
-
-Registered and active IoT devices have permission to publish to dt/${thingName}/#. 
-An IoT rule directs telemetry messages from this topic to a dynamodb telemetry table with primary key = customerId:thingName and sort key=Epoch timestamp. 
-CustomerId is obtained from the thing attribute value for account and thingName is obtained from the topic.
-
-=== CI/CD pipeline
+//=== Device data
 
 //TODO Why is this info in the doc? (When and how would someone use it or need to know it?)
 
-This project creates the following:
+//If you need to access data published by your devices, the registered and active IoT devices have permission to publish to dt/${thingName}/# topic. 
+//An IoT rule directs telemetry messages from this topic to a dynamodb telemetry table with primary key = customerId:thingName and sort key=Epoch timestamp. 
+//CustomerId is obtained from the thing attribute value for account and thingName is obtained from the topic.
 
-* A CodeCommit repo in your account that is initialized with contents from the `/submodules` folder in the Github repo.
-* A CI/CD-enabled Amplify app that is triggered by commits to the CodeCommit repo. (Each commit deploys updates to the backend and front end resources in your account) 
+//=== CI/CD pipeline
 
-//TODO AWS style is to avoid the term "trigger." What's an accurate way to restate (such as "initiate," "invoke," "launch," or "start")?
+//TODO Why is this info in the doc? (When and how would someone use it or need to know it?)
 
-== Security
+//This project creates the following:
+
+//* A CodeCommit repo in your account that is initialized with contents from the `/submodules` folder in the Github repo.
+//* A CI/CD-enabled Amplify app that is activated by commits to the CodeCommit repo. (Each commit deploys updates to the backend and front end resources in your account) 
+//points reader to git repo, shows you how commits are updated for  
+//== Security
 
 //TODO Shouldn't this go in the "Post-deployment steps" section? Or is some of this predeployment?
 
 //TODO How to rephrase these as actions to take?
 
-IAM roles enable you to assign granular access policies to services and users. This Quick Start creates IAM roles that grant permissions to the deployment's resources, such as AWS Lambda functions. 
+//IAM roles enable you to assign granular access policies to services and users. This Quick Start creates IAM roles that grant permissions to the deployment's resources, such as AWS Lambda functions. 
 
-Obtain the following IAM access for your role:
-
-* To deploy this Quick Start, you must have administrator access with an applicable IAM policy, such as `AdministratorAccess`. After the initial deployment, changes to the AWS CodeCommit repository will build or update the cloud infrastructure.
-* To update the AWS CodeCommit repository, at a minimum you must use an IAM role with an attached `AWSCodeCommitPowerUser` policy. 
+//Obtain the following IAM access for your role:
+// points reader to neccesary iam roles needed for use 
+//* To deploy this Quick Start, you must have administrator access with an applicable IAM policy, such as `AdministratorAccess`. After the initial deployment, changes to the AWS CodeCommit repository will build or update the cloud infrastructure.
+//* To update the AWS CodeCommit repository, at a minimum you must use an IAM role with an attached `AWSCodeCommitPowerUser` policy. 
