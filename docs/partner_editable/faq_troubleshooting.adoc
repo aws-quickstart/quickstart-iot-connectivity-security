@@ -1,7 +1,5 @@
 == FAQ
-//TODO Is there something special about this Quick Start that makes this first Q & A valuable? We don't typically go into this kind of list. We let the "AWS costs" section address this issue.
-
-*Q.*  How do I anticipate incurred AWS service charges when using this Quick Start?
+*Q.*  How do I anticipate incurred AWS service charges when using this Quick Start, if I am going to be registering a large quantity of devices?
 
 *A*. This deployment incurs costs for multiple AWS services. For cost estimates, see the following pricing pages for each AWS service you use. Prices are subject to change.
 

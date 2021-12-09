@@ -1,1 +1,5 @@
-This Quick Start deployment assumes that you are familiar with AWS IoT Core and its basic features. It also assumes that you are familiar with Transport Layer Security (TLS), server and client authentication procedures, and installing device agents.
+This deployment
+assumes that you are familiar with AWS IoT Core and its basic features. 
+Additionally, it assumes that you are familiar
+ with Transport Layer Security (TLS), 
+ server and client authentication procedures, and installing device agents.

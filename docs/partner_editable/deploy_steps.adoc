@@ -22,11 +22,18 @@ endif::marketplace_subscription[]
 === Launch the Quick Start
 Each deployment takes about {deployment_time} to complete.
 
-//TODO Why is this doc set to have no parameter tables (and no reference to them in the last step below)?
 
 //TODO What to say about not deploying to a production environment?
 
-. Sign in to your AWS account, and https://fwd.aws/g6NQ3?[deploy the IoT Connectivity and Security Quick Start^] into a new VPC. (https://fwd.aws/PePnP?[View the template^].)
+. Sign in to your AWS account, and https://fwd.aws/g6NQ3?[deploy the IoT Connectivity and Security Quick Start^]. (https://fwd.aws/PePnP?[View the template^].)
+In the following table, parameters are listed by category and described separately for the deployment options. When you finish reviewing and customizing the parameters, choose *Next*.
+
+// Parameter tables linked in here
+include::../{generateddir}/parameters/index.adoc[]
+
+NOTE: Unless you are customizing the Quick Start templates for your own deployment projects, we recommend that you keep the default settings for the parameters labeled `Quick Start S3 bucket name`, `Quick Start S3 bucket
+Region`, and `Quick Start S3 key prefix`. Changing these parameter settings automatically updates code references to point to a new Quick Start location. For more information, see the https://aws-quickstart.github.io/option1.html[AWS Quick Start Contributor’s Guide^].
+
 . Check the AWS Region displayed in the upper-right corner of the navigation bar, and change it if necessary. The template launches in the {default_deployment_region} Region by default. For more information, see link:#_supported_aws_regions[Supported AWS Regions], earlier in this guide.
 . On the *Create stack* page, keep the default setting for the template URL, and then choose *Next*.
 . On the *Specify stack details* page, change the stack name if needed. Review the parameters for the template, and provide values for any parameters that require input. For all other parameters, review the default settings and customize them as necessary. When you finish reviewing and customizing the parameters, choose *Next*.

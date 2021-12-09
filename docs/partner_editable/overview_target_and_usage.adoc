@@ -1,1 +1,5 @@
-This Quick Start guide provides instructions for deploying IoT connectivity and security on the AWS Cloud. The deployment uses preset configurations to help commercial and consumer-electronics customers set up and operate IoT fleet devices according to AWS best practices.
+This Quick Start guide provides instructions for deploying IoT connectivity and 
+security capabilities on the AWS Cloud. 
+The deployment uses preset configurations to help commercial 
+and consumer-electronics customers set up and operate IoT fleet devices 
+according to AWS best practices.
