@@ -1,7 +1,7 @@
 :quickstart-project-name: quickstart-iot-connectivity-security
 :partner-product-name: IoT Connectivity and Security
 :partner-product-short-name: IoT Connectivity and Security
-:doc-month: October
+:doc-month: December
 :doc-year: 2021
 :aws-contributors: David Johnsen and Prateek Prakash, AWS Professional Services team
 :quickstart-contributors: Tony Bulding, AWS Integration & Automation team

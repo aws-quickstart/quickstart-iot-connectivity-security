@@ -1,11 +1,25 @@
-== Post-deployment steps
-//TODO Step 1 below (which we do after we complete all the testing steps) doesn't seem to follow accurately. We're no longer looking at the Outputs tab.
+== Postdeployment steps
 
-. When the AWS CloudFormation stack completes, take note the *DefaultDomain* value in the *Outputs* tab. You will use the *DefaultDomain* in a later step to veiw the web portal. 
-. The web app deployment process uses AWS Amplify to set up your application, which takes about 10 minutes.
-. To check the stack's status, navigate to the AWS Amplify console, and choose your application.
-. To view the web portal after the Quick Start is fully deployed, create an account using the *DefaultDomain* value. To set up a custom domain for the web application, 
-see https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html[Set up custom domains^].
+As soon as the AWS CloudFormation stack completes, follow these steps:
+
+. Under the *Outputs* tab, note the *DefaultDomain* value. You need this value to view the web portal in a later step. 
+. The web-application deployment process uses AWS Amplify to set up the web application. This process takes about 10 minutes.
+. Check the stack's status. 
+.. Open the AWS Amplify console, and choose the web application.
+.. Verify/confirm that ____.
+. View the web portal.
+.. Create an account using the *DefaultDomain* value. 
+.. (Optional) https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html[Set up a custom domain^] for the web application.
+
+//TODO Miles, Step 2 above doesn't state any user action. How do we deploy the web application?
+
+//TODO Miles, Please clarify exactly what we do (and see) in each of these steps.
+
+//TODO Miles, Are these steps in the order we need to do them? For example, should we do the step that requires the DefaultDomain value immediately after we've noted that value?
+
+//TODO Miles, Are the substeps nested correctly? They don't all seem completely logical to me.
+
+//TODO Miles, Is "web portal" the same thing as the "web application"? If so, change all references to "web application."
 
 == Test the deployment
 
@@ -13,20 +27,19 @@ see https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html[Set
 
 . Sign in to the AWS Management Console, and open the AWS IoT console.
 
-. Choose *Manage* > *Thing groups*. Verify that the *prebuilt thing* groups appear (for example, `iotquickstart-Active`, `iotquickstart-inactive`, and `iotquickstart-Quarantine`).
+. Choose *Manage*, *Thing groups*. Verify that the *prebuilt thing* groups appear (for example, `iotquickstart-Active`, `iotquickstart-inactive`, and `iotquickstart-Quarantine`).
 
-. Choose *Defend* > *Audit* > *Schedules*. Verify that a daily https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html[audit^] appears (for example, `dailyaudit-main`).
+. Choose *Defend*, *Audit*, *Schedules*. Verify that a daily https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html[audit^] appears (for example, `dailyaudit-main`).
 
-. Choose *Defend* > *Detect* > *Security profiles*. Verify that an https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html[ML Detect^] security profile appears (for example, `SecurityProfile-152920-main`). This confirms that device behavior is monitored continuously.
+. Choose *Defend*, *Detect*, *Security profiles*. Verify that an https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html[ML Detect^] security profile appears (for example, `SecurityProfile-152920-main`). This indicates that device behavior is monitored continuously.
 
-=== Verify the device just-in-time registration process
-//TODO ="IoT device"?
+=== Verify the just-in-time registration process for IoT devices
 
-//TODO It's confusing to keep shifting from "the device" to "devices." Please review the whole doc to use singular and plural consistently and with clarity. For example, in the diagrams, we show and talk about only one IoT device. Should we say "devices" there?
+//TODO Miles, Since Step 1 is "Connect devices," this procedure isn't truly testing or verification (as the heading and subheading indicate). Which of these steps belong in the postdeployment section?
 
 . https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html[Connect devices to AWS IoT^].
 +
-When an IoT device connects, the Quick Start performs the following actions on the backend: 
+When an IoT device connects, the Quick Start performs the following actions: 
 +
 * Generates an AWS IoT device using the common name (serial number) from the device's certificate.
 * Attaches the certificate to the IoT device.
@@ -34,65 +47,50 @@ When an IoT device connects, the Quick Start performs the following actions on t
 * Adds the IoT device to the `iotquickstart-inactive` group with limited permissions.
 * Activates the device certificate.
 +
-. Open the AWS IoT console, and choose *Manage* > *Things*. 
-. Verify the IoT device's certificate and group affiliation. You can identify IoT devices by their certificate, common name, and serial number.
+. Open the AWS IoT console, and choose *Manage*, *Things*. 
+. Verify the IoT device's certificate and group affiliation. You can identify each IoT device by its certificate and common name (serial number).
 
-=== Verify the end-user IoT device registration process
-// this needs to be completed before the other items in this same doc
-. Sign in to the AWS Management Console, and navigate to the AWS Amplify console.  
-. Under *All apps*, choose the *iotquickstart* application.
-. Under the *Frontend environments* tab, choose the application's thumbnail. A new browser tab opens with a sign-up page.
+For more information, see https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-Time Registration of Device Certificates on AWS IoT^].
+
+//TODO Miles, Are we doing these steps over and over for one device after another? 
+
+//TODO Miles, Is "activating" the device certificate the same as "registering" it?
+
+=== Verify the registration process for the end-user IoT devices 
+// TODO Miles, You inserted the comment, "This needs to be completed before the other items in this same doc" here. Do we need to change the order of the sections? The postdeployment and testing sections need crisper organization throughout.
+. Sign in to the AWS Management Console, and open the AWS Amplify console.  
+. Under *All apps*, choose *iotquickstart*.
+. Under the *Frontend environments* tab, choose the web application's thumbnail. A new browser tab opens with a sign-up page.
 . Create an account.
 . Log in with your account credentials. A *Register device* page appears.
-. Enter your device's serial number, and choose *REGISTER DEVICE*. A confirmation message appears indicating successful registration.
-. In the left-hand pane, choose *Devices*. Confirm that the registered device appears under *My Devices*.
+. Enter your device's serial number, and choose *REGISTER DEVICE*. A message appears, indicating that the device is registered.
+. In the left-hand pane, choose *Devices*. Verify that the registered device appears under *My Devices*.
 
-== Migrate to production
+//TODO Miles, Are we doing these steps over and over for one device after another? 
 
-After verifying the deployment, customize and load test it before migrating it to a production environment:
+//TODO Miles, What's an "end-user IoT device" (vs. just "IoT device" or "your device")?
 
-* Use https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html[AWS CodeCommit] to customize the web application so that it meets your business needs.
-* Onboard your IoT devices at the expected device-connection rate so that you can validate the deployment's processing rate and scale. For resource and API quotas, see https://docs.aws.amazon.com/general/latest/gr/iot-core.html[AWS IoT Core endpoint and quota^].
+== Migrate to a production environment
 
-When you finish customizing and load testing the application, deploy this Quick Start to your production environment.
+. Use https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html[AWS CodeCommit] to customize the web application so that it meets your business needs.
 
-//TODO Do people follow the same steps as in the "Launch the Quick Start" section?
+. Onboard your IoT devices at the expected device-connection rate so that you can validate the deployment's processing rate and scale. For resource and API quotas, see https://docs.aws.amazon.com/general/latest/gr/iot-core.html[AWS IoT Core endpoints and quota^].
+
+. Deploy this Quick Start to your production environment.
+
+//TODO Miles, How is Step 1 related to migrating to a production environment? Should this step go in a section called "Customize the web application"? 
+
+//TODO Miles, Step 2 doesn't seem related to migrating to a production environment either. Should this go under "Postdeployment steps"?
+
+//TODO Miles, For Step 3, do we follow the same steps documented under "Launch the Quick Start"? What do people need to know about migrating to a production environment? We need to give a bit of context here—and earlier if we weren't supposed to launch to production at first.
 
 == Clean up
 
-If you no longer require device registration via the web application created by this quickstart, do the following to tear down the application:
+//TODO Miles, Why do this clean up? What are the consequences if we don't? If we want to reinstall it later, how do we do that?
 
-. Navigate to the AWS Amplify console, choose your application, and delete it.
-. Navigate to the AWS CloudFormation console, choose the associated stacks, and delete them.
+If you no longer need to register IoT devices using the web application that was created by this Quick Start, delete the web application as follows:
 
-//== Additional information
+. Open the AWS Amplify console, choose the web application, and delete it.
+. Open the AWS CloudFormation console, choose the associated stacks, and delete them.
 
-//=== Device data
-
-//TODO Why is this info in the doc? (When and how would someone use it or need to know it?)
-
-//If you need to access data published by your devices, the registered and active IoT devices have permission to publish to dt/${thingName}/# topic. 
-//An IoT rule directs telemetry messages from this topic to a dynamodb telemetry table with primary key = customerId:thingName and sort key=Epoch timestamp. 
-//CustomerId is obtained from the thing attribute value for account and thingName is obtained from the topic.
-
-//=== CI/CD pipeline
-
-//TODO Why is this info in the doc? (When and how would someone use it or need to know it?)
-
-//This project creates the following:
-
-//* A CodeCommit repo in your account that is initialized with contents from the `/submodules` folder in the Github repo.
-//* A CI/CD-enabled Amplify app that is activated by commits to the CodeCommit repo. (Each commit deploys updates to the backend and front end resources in your account) 
-//points reader to git repo, shows you how commits are updated for  
-//== Security
-
-//TODO Shouldn't this go in the "Post-deployment steps" section? Or is some of this predeployment?
-
-//TODO How to rephrase these as actions to take?
-
-//IAM roles enable you to assign granular access policies to services and users. This Quick Start creates IAM roles that grant permissions to the deployment's resources, such as AWS Lambda functions. 
-
-//Obtain the following IAM access for your role:
-// points reader to neccesary iam roles needed for use 
-//* To deploy this Quick Start, you must have administrator access with an applicable IAM policy, such as `AdministratorAccess`. After the initial deployment, changes to the AWS CodeCommit repository will build or update the cloud infrastructure.
-//* To update the AWS CodeCommit repository, at a minimum you must use an IAM role with an attached `AWSCodeCommitPowerUser` policy. 
+//TODO Miles, Will everyone know what the "associated stacks" are?

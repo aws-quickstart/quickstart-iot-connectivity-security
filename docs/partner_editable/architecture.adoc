@@ -1,105 +1,31 @@
 :xrefstyle: short
-=== High-level architecture
+Deploying this Quick Start with default parameters builds the following {partner-product-short-name} environment in the AWS Cloud.
 
 [#architecture1]
-.IoT Connectivity and Security Quick Start architecture diagram
+.IoT {partner-product-short-name} Quick Start architecture diagram
 image::../images/iot-connectivity-security-architecture_diagram.png[Architecture, 90%]
 
 As shown in <<architecture1>>, the Quick Start sets up the following:
 
-* AWS IoT Core, which you can use to register IoT devices using a https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Lambda-based just-in-time registration^] with your own certificate authority (CA) and device certificates issued by the CA. This service also provides command and control of IoT devices using a device shadow.
-* Amazon DynamoDB, which supports storing IoT device telemetry data and accessing such data using the end user's web application.
-* AWS IoT Device Management, which you use to organize, monitor, and remotely manage IoT devices.
-* AWS IoT Device Defender, which audits IoT device cloud-side configurations against AWS security best practices. This service also monitors device behaviors for anomalies once devices are connected with AWS IoT Core. 
-* Amazon Cognito, which manages the identities of the IoT device's end users. This service gives end users access to the web application so that they can activate and interact with the IoT device.
-* API endpoints that provide the service endpoints for device activation, command and control, and queries.
-* Lambda functions:
-** A JITR function that registers the IoT device.
-** A command-and-control function that updates the device shadow. 
+* AWS IoT Core, which you can use to register IoT devices using a Lambda-based just-in-time registration (JITR) with your own certificate authority (CA) and device certificates issued by the CA. This service uses device shadows to provide command and control of IoT devices.
+* Amazon DynamoDB, which supports storing device telemetry data and accessing such data using the web application.
+* AWS IoT Device Management, which you use to organize, monitor, and manage IoT devices.
+* AWS IoT Device Defender, which audits device cloud-side configurations against AWS security best practices. This service also monitors device behaviors for anomalies after the devices are connected with AWS IoT Core.
+* Amazon API Gateway endpoints for device activation, command and control, and queries.
+* Amazon Cognito, which manages the identities of the IoT devices' users. You use this service to access the web application.
+* AWS Lambda functions:
+** A JITR function that registers the IoT devices.
+** A command-and-control function that updates the device shadows. 
 ** A function that queries IoT devices and device telemetry.
+* An AWS CodeCommit repository with an AWS Amplify continuous integration and continuous delivery (CI/CD) pipeline. You can customize your deployment by committing changes to the Amplify repository.
+* A web application for activating and interacting with your IoT devices.
 
-//=== Detailed architecture  
+//TODO Miles, Where does the web application live if not in the AWS Cloud?
 
-//[#architecture2]
-//.Detailed architecture of the IoT Connectivity and Security Quick Start
-//image::../images/iot-connectivity-security-architecture_diagram_detailed.png[Architecture]
+//TODO Miles, Is "activating" a device the same as "registering" it? (We use the term "activation"/"activating" twice above.)
 
-//The diagram in <<architecture2>> zooms in on certain details that the high-level diagram (<<architecture1>>) doesn't show, as described here:
+//TODO Miles, It's confusing to refer to first the "CodeCommit repository" and then the "Amplify repository." Which is it? 
 
-//TODO This is too much detail to format as a bulleted list. We could reformat some of it as paragraphs with section headers. Why is all this here? Consider deleting whatever is not actionable and moving actionable info into tasks (steps) in the post-deployment section.
+//TODO Miles, CodeCommit and Amplify need separate bullets. What's the function of each (distinctly)?
 
-//*IoT device*
-
-//* *The IoT device* that is registered in AWS IoT with the just-in-time registration process. 
-//The device uses a device certificate issued by the registered CA as its unique identity. Its device certificate is registered and activated in AWS IoT Core and attached to its thingName. 
-//Its thingName is created in AWS IoT Core Registry with the device certificate's common name (CN). 
-//Its thingName is also stored in Amazon DynamoDB to support the features of the web application. 
-//When the end user activates the device, 
-//it is moved from the inactive group to the active group that has IoT policies granting 
-//it the permissions it needs to perform its functions. https://github.com/awslabs/aws-iot-device-client[AWS IoT Device Client^] or any supported MQTT (Message Queuing Telemetry Transport) client. 
-//You use the client to connect your devices to AWS IoT Core and access AWS IoT Device Management and AWS IoT Device Defender features. 
-
-//TODO What or who creates the web application (and when)?
-//TODO Is "consumer (purchaser) of an IoT device" the "you" we're addressing in this doc? Is it the same as the "end user" we refer to?
-//TODO Rephrase: "the iotquickstartrest API Gateway"
-
-//*IoT Core*
-
-//* AWS IoT Core facilitates https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[IoT device just in time registration^] using a Lambda–backed AWS IoT rule on the registration topic ($aws/events/certificates/registered/+).
-//* The Lambda command-and-control function is used in an API request to update a device shadow. AWS IoT Core facilitates the IoT device shadow update for command and control using an AWS Lambda rule on the shadow update topic ($aws/things/thingName/shadow/update/accepted). 
-//* AWS IoT Core collects IoT device telemetry data to a designated topic (dt/foundationapp/#/sensor1). 
-//* *Lambda JITR*. An AWS IoT rule prompts the Lambda JITR function to register the device and place it in the inactive group under AWS IoT Device Management.
-
-//TODO For this to work as a bulleted list, the bullet order needs to parallel the visual flow (boxes and arrows). Otherwise, we can't reconcile what we read with the diagram.
-
-//*AWS IoT Device Management*
-
-//The AWS IoT Device Management service sets up thing (device) groups, assigns devices to different thing groups based on the stage of IoT device life cycle (inactive, active, quarantine, and troubleshooting), and attaches IoT policies to each thing group to manage access control on the devices.
-
-//* *IoT policies*: AWS IoT Device Management attaches IoT policies to each thing group to manage access control on the devices.
-//* *IoT things or shadows*: Each device is registered in AWS IoT registry as a “thing“ with thing attributes (e.g., thingName, identity in the form of X.509 certificate) and owns one or multiple shadow (https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html) documents to describe its state.
-
-
-//*IoT Device Defender (security management)*
-
-//* The *AWS IoT Device Defender* service audits IoT device cloud-side configurations against AWS security best practices and monitors device behaviors for anomalies.
-//* *CloudWatch.* AWS IoT Device Defender publishes audit and detect alarms to Amazon CloudWatch as metrics.
-//* *Amazon Simple Notification Service (Amazon SNS).* AWS IoT Device Defender also publishes audit and detect alarms to Amazon SNS if you configured SNS topics to receive Device Defender alarms.
-
-
-//*APIs: get data, command and control*
-//The Quick Start uses the following API endpoints:
-
-//* /register/{thingName}: GET, if thing is in Inactive thing group and not registered to a customer in the Dynamodb products table, the Lambda function moves thing from Inactive to Active thing group, updates thingName in product table to have key account={customerAccount}, and adds thing attribute account={customerAccount}.
-//* /thingshadow/${thingName}: POST, body={key=${shadowKey}, value=${shadowDesiredValue}}, checks if thingName is registered to customerAccount in product DynamoDB table. If yes, update thing shadow with desired value.
-//* /deviceData/{thingName}: GET, deviceData lambda, Queries the last telemetry data points (up to 1 MB) for customerAccount-thingName
-//* /devices: GET, listdevices lambda, Queries customers devices (up to 1 MB)
-
-
-//*Lambda functions: command and control, query* 
-//Registered and active IoT devices have permissions to publish/subscribe to topics to interact with their shadow. These devices can publish to:
-//....
-//$aws/things/${iot:Connection.Thing.ThingName}/shadow/update
-//$aws/things/${iot:Connection.Thing.ThingName}/shadow/get
-//....
-//and subscribe to:
-//....
-//$aws/things/${iot:Connection.Thing.ThingName}/shadow/update/accepted
-//$aws/things/${iot:Connection.Thing.ThingName}/shadow/update/rejected
-//$aws/things/${iot:Connection.Thing.ThingName}/shadow/update/documents
-//$aws/things/${iot:Connection.Thing.ThingName}/shadow/update/delta
-//$aws/things/${iot:Connection.Thing.ThingName}/shadow/get/accepted
-//$aws/things/${iot:Connection.Thing.ThingName}/shadow/get/rejected
-//....
-//Devices should publish the "reported" values within the shadow and read from the "desired" values. Cloud interactions should publish to 
-//"desired" and read from "reported" values in the shadow. 
-
-//*Update thing shadow desired.* The API request /thingshadow/${thingName}: POST, body={key=${shadowKey}, value=${shadowDesiredValue}} described above achieves this action.
-
-//*DynamoDB.* This service supports both storing IoT device telemetry data and accessing such data via the end-user web app.
-
-//*End user web application*
-
-//* *The end user’s web application* is created so that you can sign into the app via Amazon Cognito and activate the IoT device by making requests to Amazon API Gateway backed by a custom Lambda function. The web application also allows you to interact with the device for command and control and to view device telemetry. 
-//The web app is a vuejs front end that is published by AWS Amplify. Amplify handles webpage file storage and distribution. User identities are managed with Amazon Cognito. Users can exchange their credentials for a JSON web token (JWT). All API calls must include the JWT in the authorization header, enabling the Lambda function to register the customer account.
-
+//TODO Miles, Here we say that you "customize your deployment" by "committing changes to the Amplify repository." Later we say that you "customize the web application" by using AWS CodeCommit. Need crisper language wherever we talk about customizing.

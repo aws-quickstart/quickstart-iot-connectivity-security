@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: Creates an amplify app (qs-1s0ipp9io)
 Metadata:
   QuickStartDocumentation:
-    EntrypointName: "Parameters for deploying into a new VPC"
+    EntrypointName: "Parameters for deploying the IoT Connectivity and Security Quick Start"
     Order: 1
   AWS::CloudFormation::Interface:
     ParameterGroups:
