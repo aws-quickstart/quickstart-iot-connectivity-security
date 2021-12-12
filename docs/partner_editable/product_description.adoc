@@ -1,12 +1,10 @@
-Getting started with AWS IoT and implementing the related security features is a complex process. 
-This Quick Start reduces the complexity by automating 
-the provisioning process and helping you secure your devices for development, testing, and production purposes. This deployment sets up the following:
+Getting started with AWS IoT, including implementing security features, is a complex process. 
+This Quick Start reduces the complexity by automating provisioning and helping you secure your devices for development, testing, and production. 
+It sets up the following:
 
-* Just-in-time device provisioning.
+* https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-time registration^] of your IoT devices.
 * Device connectivity and messaging.
-* A web application for device registration, telemetry, and command and control.
-* A cloud configuration that uses AWS best practices.
+* A web application for activating and interacting with your IoT devices.
 * Device security auditing, monitoring, and mitigation.
 
-This Quick Start uses AWS IoT Core, AWS IoT Device Management, AWS IoT Device Defender, and several other AWS services. It deploys to an AWS CodeCommit repository with an AWS Amplify continuous integration and continuous delivery (CI/CD) pipeline. 
-You can customize your deployment by committing changes to the Amplify repository.
+//TODO Miles, Does "activating" a device mean the same thing as "registering" it?

@@ -1,10 +1,3 @@
-This Quick Start has one deployment option, see the following steps for more information.
+This Quick Start has one deployment option.
 
-//TODO Move the details below into the bullet list that follows the high-level diagram.
-
-//This deployment includes the following components: 
-
-//* Just-in-time device provisioning, connectivity, and messaging using AWS IoT Core.
-//* A prebuilt web application for device registration, telemetry reporting, and command and control using AWS Amplify.
-//* Cloud-side configuration, based on security best practices, using AWS IoT Core and AWS IoT Device Management.
-//* Security auditing, monitoring, and mitigation using AWS IoT Device Defender.
+//TODO Miles, please add a couple of sentences describing this option. Here's an example from another Quick Start: "This Quick Start provides one deployment option: build a new AWS environment. This environment consists of the infrastructure resources required to provision applications to your Sumo Logic account and the resources necessary for your AWS account. During the deployment, you can choose which applications to install."

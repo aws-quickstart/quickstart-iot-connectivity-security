@@ -1,5 +1,5 @@
-This Quick Start guide provides instructions for deploying IoT connectivity and 
-security capabilities on the AWS Cloud. 
+This Quick Start guide provides instructions for deploying AWS Internet of Things (https://docs.aws.amazon.com/iot/latest/developerguide/aws-iot-how-it-works.html[AWS IoT^]) connectivity and security capabilities. 
 The deployment uses preset configurations to help commercial 
-and consumer-electronics customers set up and operate IoT fleet devices 
-according to AWS best practices.
+and consumer-electronics companies set up and operate their IoT fleet devices within a cloud architecture that follows AWS best practices.
+
+//TODO Miles, What does "fleet" mean in this context?
