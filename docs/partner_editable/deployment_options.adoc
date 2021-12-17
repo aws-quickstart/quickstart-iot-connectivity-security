@@ -1,3 +1,3 @@
-This Quick Start has one deployment option.
+This Quick Start has one deployment option. This qucikstart deploys a web application through a CloudFormation template that is hosted on AWS Amplify.
+ You use this wed application to automating provisioning and helping you secure your devices for development, testing, and production, without having to log into the AWS IoT console.
 
-//TODO Miles, please add a couple of sentences describing this option. Here's an example from another Quick Start: "This Quick Start provides one deployment option: build a new AWS environment. This environment consists of the infrastructure resources required to provision applications to your Sumo Logic account and the resources necessary for your AWS account. During the deployment, you can choose which applications to install."

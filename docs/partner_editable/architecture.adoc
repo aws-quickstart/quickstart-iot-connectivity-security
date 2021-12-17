@@ -17,15 +17,8 @@ As shown in <<architecture1>>, the Quick Start sets up the following:
 ** A JITR function that registers the IoT devices.
 ** A command-and-control function that updates the device shadows. 
 ** A function that queries IoT devices and device telemetry.
-* An AWS CodeCommit repository with an AWS Amplify continuous integration and continuous delivery (CI/CD) pipeline. You can customize your deployment by committing changes to the Amplify repository.
-* A web application for activating and interacting with your IoT devices.
+* An AWS CodeCommit repository with an AWS Amplify continuous integration and continuous delivery (CI/CD) pipeline. You can customize your web app by committing changes to the CodeCommit repository.
+* An AWS Amplify continuous integration and continuous delivery (CI/CD) pipeline, used by the AWS CodeCommit repository. This pipeline allows to you custimze your web app by  
+* A web application for registering and interacting with your IoT devices.
 
-//TODO Miles, Where does the web application live if not in the AWS Cloud?
-
-//TODO Miles, Is "activating" a device the same as "registering" it? (We use the term "activation"/"activating" twice above.)
-
-//TODO Miles, It's confusing to refer to first the "CodeCommit repository" and then the "Amplify repository." Which is it? 
-
-//TODO Miles, CodeCommit and Amplify need separate bullets. What's the function of each (distinctly)?
-
-//TODO Miles, Here we say that you "customize your deployment" by "committing changes to the Amplify repository." Later we say that you "customize the web application" by using AWS CodeCommit. Need crisper language wherever we talk about customizing.
+//TODO Miles, Where does the web application live if not in the AWS Cloud? -- not sure what you mean by this feedback

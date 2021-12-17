@@ -2,24 +2,11 @@
 
 As soon as the AWS CloudFormation stack completes, follow these steps:
 
-. Under the *Outputs* tab, note the *DefaultDomain* value. You need this value to view the web portal in a later step. 
-. The web-application deployment process uses AWS Amplify to set up the web application. This process takes about 10 minutes.
-. Check the stack's status. 
-.. Open the AWS Amplify console, and choose the web application.
-.. Verify/confirm that ____.
-. View the web portal.
-.. Create an account using the *DefaultDomain* value. 
-.. (Optional) https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html[Set up a custom domain^] for the web application.
-
-//TODO Miles, Step 2 above doesn't state any user action. How do we deploy the web application?
-
-//TODO Miles, Please clarify exactly what we do (and see) in each of these steps.
-
-//TODO Miles, Are these steps in the order we need to do them? For example, should we do the step that requires the DefaultDomain value immediately after we've noted that value?
-
-//TODO Miles, Are the substeps nested correctly? They don't all seem completely logical to me.
-
-//TODO Miles, Is "web portal" the same thing as the "web application"? If so, change all references to "web application."
+. Under the *Outputs* tab, note the *DefaultDomain* value. You need this value to view the web application in a later step. 
+. Wait for the web-application deployment process to complete. This process uses AWS Amplify to set up the web application. This process takes about 10 minutes. You can check the CloudFormation stack's status to verfiy the deployment. 
+.. Open the AWS Amplify console, and choose the web application, to open it.
+. Once you are on the web application, create an account using the *DefaultDomain* value. 
+. (Optional) Set up a custom domain for the web application, with the https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html[Set up a custom domain^] documentation.
 
 == Test the deployment
 
@@ -34,8 +21,6 @@ As soon as the AWS CloudFormation stack completes, follow these steps:
 . Choose *Defend*, *Detect*, *Security profiles*. Verify that an https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html[ML Detect^] security profile appears (for example, `SecurityProfile-152920-main`). This indicates that device behavior is monitored continuously.
 
 === Verify the just-in-time registration process for IoT devices
-
-//TODO Miles, Since Step 1 is "Connect devices," this procedure isn't truly testing or verification (as the heading and subheading indicate). Which of these steps belong in the postdeployment section?
 
 . https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html[Connect devices to AWS IoT^].
 +
@@ -52,12 +37,9 @@ When an IoT device connects, the Quick Start performs the following actions:
 
 For more information, see https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-Time Registration of Device Certificates on AWS IoT^].
 
-//TODO Miles, Are we doing these steps over and over for one device after another? 
+=== Verify the registration process for the IoT devices 
+Verify the device registration process by testing it with a single device. 
 
-//TODO Miles, Is "activating" the device certificate the same as "registering" it?
-
-=== Verify the registration process for the end-user IoT devices 
-// TODO Miles, You inserted the comment, "This needs to be completed before the other items in this same doc" here. Do we need to change the order of the sections? The postdeployment and testing sections need crisper organization throughout.
 . Sign in to the AWS Management Console, and open the AWS Amplify console.  
 . Under *All apps*, choose *iotquickstart*.
 . Under the *Frontend environments* tab, choose the web application's thumbnail. A new browser tab opens with a sign-up page.
@@ -66,9 +48,7 @@ For more information, see https://aws.amazon.com/blogs/iot/just-in-time-registra
 . Enter your device's serial number, and choose *REGISTER DEVICE*. A message appears, indicating that the device is registered.
 . In the left-hand pane, choose *Devices*. Verify that the registered device appears under *My Devices*.
 
-//TODO Miles, Are we doing these steps over and over for one device after another? 
-
-//TODO Miles, What's an "end-user IoT device" (vs. just "IoT device" or "your device")?
+//TODO Miles, What's an "end-user IoT device" (vs. just "IoT device" or "your device")? - good question I removed end-use from the title becuase it can be any IoT device that is registered, but leaving this comment in so we can talk about it durning the meeting
 
 == Migrate to a production environment
 
@@ -77,7 +57,7 @@ For more information, see https://aws.amazon.com/blogs/iot/just-in-time-registra
 . Onboard your IoT devices at the expected device-connection rate so that you can validate the deployment's processing rate and scale. For resource and API quotas, see https://docs.aws.amazon.com/general/latest/gr/iot-core.html[AWS IoT Core endpoints and quota^].
 
 . Deploy this Quick Start to your production environment.
-
+// So we will talk about this during the meeting, but I think the issue here is we need to show what the difference between a prod and non-prod deployment looks like. Will need Cathy's input here, going to leave the TODO's up.
 //TODO Miles, How is Step 1 related to migrating to a production environment? Should this step go in a section called "Customize the web application"? 
 
 //TODO Miles, Step 2 doesn't seem related to migrating to a production environment either. Should this go under "Postdeployment steps"?
@@ -86,11 +66,9 @@ For more information, see https://aws.amazon.com/blogs/iot/just-in-time-registra
 
 == Clean up
 
-//TODO Miles, Why do this clean up? What are the consequences if we don't? If we want to reinstall it later, how do we do that?
-
 If you no longer need to register IoT devices using the web application that was created by this Quick Start, delete the web application as follows:
 
 . Open the AWS Amplify console, choose the web application, and delete it.
 . Open the AWS CloudFormation console, choose the associated stacks, and delete them.
 
-//TODO Miles, Will everyone know what the "associated stacks" are?
+If you you wish to redeploy the web application, follow use steps in the deployment section to redeploy the web application.  
