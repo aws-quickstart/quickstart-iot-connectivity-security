@@ -11,9 +11,13 @@ Confirm that your AWS account has the permissions required to create the resourc
 
 //TODO Miles, I created a new section heading here. Is the wording accurate?
 
+//TODO Miles, What's the difference between what we do here vs. postdeployment?
+
 ==== Check your AWS Region
 
 Within in your chosen AWS Region, confirm the following: 
 
 * This deployment does not already exist.
-* An audit configuration for AWS IoT Device Defender does not already exist. // need to check this second one with cathy 
+* An audit configuration for AWS IoT Device Defender does not already exist. 
+
+// TODO Miles notes: need to check this second one with cathy 

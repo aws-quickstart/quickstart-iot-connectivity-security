@@ -1,3 +1,2 @@
-This Quick Start has one deployment option. This qucikstart deploys a web application through a CloudFormation template that is hosted on AWS Amplify.
- You use this wed application to automating provisioning and helping you secure your devices for development, testing, and production, without having to log into the AWS IoT console.
+This Quick Start has one deployment option. It uses a CloudFormation template to deploy a web application that is hosted on AWS Amplify.
 

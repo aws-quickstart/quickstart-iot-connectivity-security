@@ -1,4 +1,3 @@
 This Quick Start guide provides instructions for deploying AWS Internet of Things (https://docs.aws.amazon.com/iot/latest/developerguide/aws-iot-how-it-works.html[AWS IoT^]) connectivity and security capabilities. 
 The deployment uses preset configurations to help commercial 
 and consumer-electronics companies set up and operate their fleet of IoT devices within a cloud architecture that follows AWS best practices.
-
