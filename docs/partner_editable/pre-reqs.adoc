@@ -3,11 +3,9 @@
 Confirm that your AWS account has the permissions required to create the resources listed in the link:#_resource_quotas[Resource quotas] section of this guide.
 
 ==== Certify your IoS devices
-. https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html[Create a CA certificate^] for authenticating your fleet device.
+. https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html[Create a CA certificate^] for authenticating your IoT device.
 . https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate^] with AWS IoT. 
-. Use the CA to create device certificates, using each device's serial number for the common name.
-
-//TODO Miles, In Step 2, should "your" fleet device (singular) be "each" fleet device or "all" fleet devices? 
+. Use the CA to create device certificates, using each device's serial number for the common name. 
 
 //TODO Miles, What does it mean to "authenticate" a device? We haven't used this term elsewhere in the doc except in the context of client authentication.
 
@@ -18,4 +16,4 @@ Confirm that your AWS account has the permissions required to create the resourc
 Within in your chosen AWS Region, confirm the following: 
 
 * This deployment does not already exist.
-* An audit configuration for AWS IoT Device Defender does not already exist.
+* An audit configuration for AWS IoT Device Defender does not already exist. // need to check this second one with cathy 

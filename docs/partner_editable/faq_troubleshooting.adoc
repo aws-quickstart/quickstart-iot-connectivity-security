@@ -19,7 +19,7 @@ For more information, see link:#_aws_costs[AWS costs], earlier in this guide.
 '''
 *Q.* I encountered a *CREATE_FAILED* error when I launched the Quick Start.
 
-*A.* If AWS CloudFormation fails to create the stack, confirm that the stack is not already deployed in your selected Region. Also confirm that the audit configuration for AWS IoT Device Defender is not already set up in your selected Region. For more information, see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html[Troubleshooting CloudFormation^].
+*A.* If AWS CloudFormation fails to create the stack, confirm that the stack is not already deployed in your selected Region. Also verify that the audit configuration for AWS IoT Device Defender is not already set up in your selected Region. For more information, see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html[Troubleshooting CloudFormation^].
 
 '''
 *Q.* I encountered a size-limitation error when I deployed the AWS CloudFormation templates.
@@ -31,9 +31,9 @@ For more information, see link:#_aws_costs[AWS costs], earlier in this guide.
 
 If you encounter issues with this deployment or its features, ensure that your deployment is set up correctly by checking the following:
 
-* Sign in to the AWS Management Console, and confirm that the AWS Amplify web application is deployed.
+* Sign in to the AWS Management Console, and confirm that the web application is deployed. 
+. Navigate to the https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/[CloudFormation console^]. 
+. Choose stacks from the left navigation pane.
+. Select the stack you created from this Quickstart.
+. Verify that all resouces have been deployed successfully 
 * Confirm that you registered your CA certificate and that the correct `CACertificateID` is listed in the AWS CloudFormation template. For more information, see https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate^].
-
-//TODO Miles, In bullet 1, why do we call this an "AWS Amplify web application" here? We don't do that elsewhere.
-
-//TODO Miles, What are the substeps for bullet 1?

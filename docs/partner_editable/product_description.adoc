@@ -4,7 +4,5 @@ It sets up the following:
 
 * https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-time registration^] of your IoT devices.
 * Device connectivity and messaging.
-* A web application for activating and interacting with your IoT devices.
+* A web application for registering and interacting with your IoT devices.
 * Device security auditing, monitoring, and mitigation.
-
-//TODO Miles, Does "activating" a device mean the same thing as "registering" it?
