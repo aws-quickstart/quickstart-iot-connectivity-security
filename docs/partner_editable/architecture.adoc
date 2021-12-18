@@ -17,8 +17,11 @@ As shown in <<architecture1>>, the Quick Start sets up the following:
 ** A JITR function that registers the IoT devices.
 ** A command-and-control function that updates the device shadows. 
 ** A function that queries IoT devices and device telemetry.
-* An AWS CodeCommit repository with an AWS Amplify continuous integration and continuous delivery (CI/CD) pipeline. You can customize your web app by committing changes to the CodeCommit repository.
-* An AWS Amplify continuous integration and continuous delivery (CI/CD) pipeline, used by the AWS CodeCommit repository. This pipeline allows to you custimze your web app by  
-* A web application for registering and interacting with your IoT devices.
+* An AWS CodeCommit repository. You can customize your web application by committing changes to the CodeCommit repository.
+* An AWS Amplify continuous integration and continuous delivery (CI/CD) pipeline for use by the AWS CodeCommit repository. You use this pipeline when you customize your web application.  
+* A web application for registering and interacting with your IoT devices. You use this web application to automate provisioning and help you secure your devices for development, testing, and production without having to log in to the AWS IoT console.
 
 //TODO Miles, Where does the web application live if not in the AWS Cloud? -- not sure what you mean by this feedback
+//I ask because it seems strange to show the icon outside the AWS Cloud box in the diagram.
+
+//TODO Miles, Should "device activation" above be "device registration"?

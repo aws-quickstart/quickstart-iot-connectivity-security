@@ -31,9 +31,14 @@ For more information, see link:#_aws_costs[AWS costs], earlier in this guide.
 
 If you encounter issues with this deployment or its features, ensure that your deployment is set up correctly by checking the following:
 
-* Sign in to the AWS Management Console, and confirm that the web application is deployed. 
-. Navigate to the https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/[CloudFormation console^]. 
-. Choose stacks from the left navigation pane.
-. Select the stack you created from this Quickstart.
-. Verify that all resouces have been deployed successfully 
-* Confirm that you registered your CA certificate and that the correct `CACertificateID` is listed in the AWS CloudFormation template. For more information, see https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate^].
+. Confirm that the web application was deployed. 
+.. Sign in to the AWS Management Console.
+.. <Then what?>
+. Verify that all resources have been deployed. 
+.. Open the https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/[CloudFormation console^]. 
+.. At the left, choose *Stacks*.
+.. Select the stack that you created from this Quick Start.
+.. <What do we look for?>
+. Confirm that you registered your CA certificate and that the correct `CACertificateID` is listed in the AWS CloudFormation template. For more information, see https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate^].
+
+//TODO Miles, Please review this section.
