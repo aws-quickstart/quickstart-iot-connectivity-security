@@ -1,85 +1,70 @@
-== Postdeployment steps
+=== Set up an account in the web application
 
-=== Deploy the web application
+As soon as the CloudFormation stack is complete and the web application has been deployed, set up an account in the web application as follows:
 
-As soon as the AWS CloudFormation stack completes, deploy the web application as follows:
-
-. Still in the CloudFormation console, under the *Outputs* tab, note the *DefaultDomain* value. You need this value to view the web application in a later step. 
-. Open the AWS Amplify console.
-. Open the web application, and wait for it to deploy. Check the CloudFormation stack's status to confirm that the deployment is complete. This process takes about 10 minutes.
-. Create an account using the *DefaultDomain* value. 
-. (Optional) Set up a custom domain for the web application. For details, see https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html[Set up custom domains^].
-
-//TODO Miles, For Step 3, what is the web application called in the UI (exactly)? We should use the name in this step ... and probably elsewhere in this doc. Any reason not to?
-
-//TODO Miles, Please confirm that this section is accurate as I've edited it.
-
-=== Verify the deployment
-
-. Open the AWS IoT console.
-
-. Choose *Manage*, *Thing groups*. Verify that the *prebuilt thing* groups appear (for example, `iotquickstart-Active`, `iotquickstart-inactive`, and `iotquickstart-Quarantine`).
-
-. Choose *Defend*, *Audit*, *Schedules*. Verify that a daily https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html[audit^] appears (for example, `dailyaudit-main`).
-
-. Choose *Defend*, *Detect*, *Security profiles*. Verify that an https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html[ML Detect^] security profile appears (for example, `SecurityProfile-152920-main`). This indicates that device behavior is monitored continuously.
-
-=== Connect and verify your IoT devices
-
-. Connect all your devices to AWS IoT. For details, see https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html[Connecting devices to AWS IoT^].
-. Open the AWS IoT console.
-. Choose *Manage*, *Things*. 
-. Verify your IoT devices' certificates and group affiliations. You identify an IoT device by its certificate and common name (serial number).
-
-Each time you connect an IoT device to AWS IoT, the Quick Start performs the following actions: 
-
-* Generates an AWS IoT device using the common name (serial number) from the device's certificate.
-* Attaches the certificate to the IoT device.
-* Creates an AWS DynamoDB entry using the common name.
-* Adds the IoT device to the `iotquickstart-inactive` group with limited permissions.
-* Activates the device certificate.
-
-//TODO Miles, Should "Activates" here be "registers"?
-
-For more information, see https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-Time Registration of Device Certificates on AWS IoT^].
-
-=== Verify the registration process for the IoT devices 
-
-Verify the device registration process by testing it with a single device. 
-
-//TODO Miles, What do we achieve by looking at just one device?
-
-. Open the AWS Amplify console.  
-. Under *All apps*, choose *iotquickstart*.
+. While you're still in the CloudFormation console, under the *Outputs* tab, note the `DefaultDomain` value. 
+. Open the https://console.aws.amazon.com/amplify/[AWS Amplify console^].
+. Choose *All apps*, and then choose the web application (`iotquickstart`).
 . Under the *Frontend environments* tab, choose the web application's thumbnail. A browser tab opens with a sign-up page.
-. Create an account.
-. Log in with your account credentials. A *Register device* page appears.
-. Enter a device's serial number, and choose *REGISTER DEVICE*. A message appears, indicating that the device is registered.
+. Create an account using the `DefaultDomain` value you noted in Step 1.
+. (Optional) Customize the web application so that it meets your business needs. For example, you might want to change the application name, create a banner, or https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html[set up a custom domain^].
+
+== Test the deployment
+
+=== Confirm that the AWS IoT files were deployed
+
+. Open the https://console.aws.amazon.com/iot/[AWS IoT console^].
+. Confirm that the thing groups were deployed. To do this, choose *Manage*, *Thing groups*. Under *prebuilt thing*, verify that groups appear with names containing `Active`, `inactive`, and `Quarantine` (for example, `iotquickstart-Active`, `iotquickstart-inactive`, and `iotquickstart-Quarantine`).
+
+. Confirm that an AWS IoT Device Defender daily https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html[audit^] was scheduled. To do this, choose *Defend*, *Audit*, *Schedules*. Verify that a file appears with a name containing `dailyaudit` (for example, `dailyaudit-main`).
+
+. Confirm that an https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html[ML Detect^] Security Profile was deployed. To do this, choose *Defend*, *Detect*, *Security profiles*. Verify that a file appears with a name containing `SecurityProfile` (for example, `SecurityProfile-152920-main`).
+
+=== Test the JITR process for device certificates
+
+To confirm that the just-in-time registration (JITR) process works, connect a single device to AWS IoT, and confirm that its certificate is automatically registered. Follow these steps:
+
+. Connect any device to AWS IoT. For details, see https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html[Connecting devices to AWS IoT^].
++
+The JITR Lambda function registers the device certificate with AWS IoT by doing the following: 
++
+* Generates a thing in the device registry using the common name (serial number) from the device certificate.
+* Attaches the certificate to the thing name.
+* Creates an AWS DynamoDB entry using the common name.
+* Adds the thing to the `<iotquickstart>-inactive` group with limited permissions (where the bracketed text represents the web application's name).
+* Registers (activates) the device certificate.
+
+. Open the https://console.aws.amazon.com/iot/[AWS IoT console^].
+. Choose *Manage*, *Things*. Look for the device's common name (serial number). Verify that the device's certificate and group affiliation appear.
+
+For more information on the JITR process, see the blog post https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-Time Registration of Device Certificates on AWS IoT^].
+
+=== Test the process of registering devices
+
+To confirm that the device-registration process works, register (activate) the physical device whose certificate you registered in the previous section. Use the web application, as end users (the device purchasers) would. Follow these steps:
+
+. Open the https://console.aws.amazon.com/amplify/[AWS Amplify console^].  
+. Choose *All apps*, and then choose the web application.
+. Under the *Frontend environments* tab, choose the web application's thumbnail.
+. Log in with your account credentials. The *Register device* page appears.
+. Enter the serial number of the IoT device, and choose *REGISTER DEVICE*. A message indicates that the device is now registered.
 . At the left, choose *Devices*. Verify that the registered device appears under *My Devices*.
 
-//TODO Miles, What's an "end-user IoT device" (vs. just "IoT device" or "your device")? - good question I removed end-use from the title because it can be any IoT device that is registered, but leaving this comment in so we can talk about it during the meeting
+== Postdeployment steps
 
-== Migrate to a production environment
+=== Migrate to a production environment
 
-. Use https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html[AWS CodeCommit] to customize the web application so that it meets your business needs.
+If you launched the Quick Start into a development or test environment and want to migrate to a production environment, follow these steps:
 
-. Onboard your IoT devices at the expected device-connection rate so that you can validate the deployment's processing rate and scale. For resource and API quotas, see https://docs.aws.amazon.com/general/latest/gr/iot-core.html[AWS IoT Core endpoints and quota^].
+. (Optional) Customize the web application so that it meets your business needs. For example, you might want to change the application name, create a banner, or https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html[set up a custom domain^].
 
-. Deploy this Quick Start to your production environment.
-// So we will talk about this during the meeting, but I think the issue here is we need to show what the difference between a prod and non-prod deployment looks like. Will need Cathy's input here, going to leave the TODO's up.
+. Create and register your device certificates at the expected rates so that you can validate the deployment's processing rate and scale. For more information, see https://docs.aws.amazon.com/general/latest/gr/iot-core.html#limits_iot[AWS IoT Core service quotas^]. 
 
-//TODO Miles, How is Step 1 related to migrating to a production environment? Should this step go in a section called "Customize the web application"? 
+. Change quotas or update your resource configuration as needed for your production use case. 
 
-//TODO Miles, Step 2 doesn't seem related to migrating to a production environment either. Should this go under "Postdeployment steps"?
+=== Clean up your development or test environment
 
-//TODO Miles, For Step 3, do we follow the same steps documented under "Launch the Quick Start"? What do people need to know about migrating to a production environment? We need to give a bit of context here—and earlier if we weren't supposed to launch to production at first.
+When you no longer need the resources deployed by this Quick Start, clean up your development or test environment as follows:
 
-== Clean up
-
-If you no longer need to register IoT devices using the web application that was created by this Quick Start, delete the web application as follows:
-
-. Open the AWS Amplify console.
-. Select the web application, and delete it.
-. Open the AWS CloudFormation console, choose the associated stacks, and delete them.
-
-To redeploy the web application, see link:#_deploy_the_web_application[Deploy the web application] earlier in this guide.
+. Open the https://console.aws.amazon.com/amplify/[AWS Amplify console^], and delete the web application.
+. Open the https://console.aws.amazon.com/cloudformation/[AWS CloudFormation console^], and delete the stacks associated with this Quick Start.

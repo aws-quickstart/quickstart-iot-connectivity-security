@@ -5,7 +5,7 @@
 :doc-year: 2022
 :aws-contributors: David Johnsen and Prateek Prakash, AWS Professional Services team
 :quickstart-contributors: Tony Bulding, AWS Integration & Automation team
-:deployment_time: 10 minutes
+:deployment_time: 20 minutes
 :default_deployment_region: us-east-1
 :no_parameters:
 :git_repo_url: https://github.com/aws-quickstart/quickstart-iot-connectivity-security

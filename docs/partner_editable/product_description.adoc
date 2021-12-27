@@ -1,8 +1,8 @@
 Getting started with AWS IoT, including implementing security features, is a complex process. 
-This Quick Start reduces the complexity by automating provisioning and helping you secure your devices for development, testing, and production. 
+This Quick Start reduces the complexity by automating the provisioning process and helping you secure your IoT devices for development, testing, and production. 
 It sets up the following:
 
-* https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-time registration^] of your IoT devices.
+* Just-in-time registration of device (client) certificates.
 * Device connectivity and messaging.
-* A web application for registering and interacting with your IoT devices.
+* A web application used by consumers—the device purchasers—to register and interact with their devices.
 * Device security auditing, monitoring, and mitigation.

@@ -4,9 +4,9 @@
 . Ensure that your AWS account is configured correctly, as discussed in the link:#_technical_requirements[Technical requirements] section.
 
 === Launch the Quick Start
-Each deployment takes about {deployment_time} to complete.
+Each deployment takes about {deployment_time} to complete. This automated process includes creating the CloudFormation stack (10 minutes) and then deploying the web application (10 minutes). 
 
-//TODO Miles, What to say about not deploying to a production environment at first? (And do we need to include the same info on the landing page?) - We should discuss this feedback with Cathy
+Consider launching the Quick Start into a development or test environment before deploying a production workload. 
 
 . Sign in to your AWS account, and https://fwd.aws/g6NQ3?[deploy the {partner-product-short-name} Quick Start^]. (https://fwd.aws/PePnP?[View the template^].)
 . Check the AWS Region displayed in the upper-right corner of the navigation bar, and change it if necessary. The template launches in the {default_deployment_region} Region by default. For more information, see link:#_supported_aws_regions[Supported AWS Regions] earlier in this guide.
