@@ -12,7 +12,9 @@ Any device (client) certificate that's issued by your certificate authority (CA)
 
 //TODO Miles or Cathy, Do we need a step to configure the CA certificate to support automatic registration of the client certificates (as mentioned on this webpage: https://docs.aws.amazon.com/iot/latest/developerguide/auto-register-device-cert.html)?
 
-//TODO Miles or Cathy, Do we need a final step for installing the device (client) certificates on the devices (as mentioned in the blog post)?
+//TODO Miles or Cathy, Do we need a final step for installing the device (client) certificates on the devices (as mentioned in the blog post below)?
+
+For more information on the JITR process, see the blog post https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-Time Registration of Device Certificates on AWS IoT^].
 
 ==== Check your AWS Region
 
