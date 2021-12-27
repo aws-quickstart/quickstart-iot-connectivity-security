@@ -1,2 +1,2 @@
 This deployment
-also assumes that you're familiar with https://docs.aws.amazon.com/iot/index.html[AWS IoT Core^], Transport Layer Security (TLS), server and client authentication procedures, and installing device agents.
+also assumes that you're familiar with https://docs.aws.amazon.com/iot/index.html[AWS IoT Core^], Transport Layer Security (TLS), server- and client-authentication procedures, and installing device agents.

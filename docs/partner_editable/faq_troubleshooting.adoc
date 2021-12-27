@@ -3,7 +3,7 @@
 
 *A*. This deployment incurs costs for multiple AWS services. For cost estimates, see the following pricing pages for each AWS service you use. Prices are subject to change.
 
-* https://aws.amazon.com/api-gateway/pricing/#REST_APIs[AWS API Gateway^]
+* https://aws.amazon.com/api-gateway/pricing/#REST_APIs[Amazon API Gateway^]
 * https://aws.amazon.com/iot-device-defender/pricing/[AWS IoT Device Defender^] 
 * https://aws.amazon.com/sns/pricing/[Amazon SNS^] 
 * https://aws.amazon.com/iot-core/pricing/[AWS IoT Core^] 
@@ -19,26 +19,13 @@ For more information, see link:#_aws_costs[AWS costs], earlier in this guide.
 '''
 *Q.* I encountered a *CREATE_FAILED* error when I launched the Quick Start.
 
-*A.* If AWS CloudFormation fails to create the stack, confirm that the stack is not already deployed in your selected Region. Also verify that the audit configuration for AWS IoT Device Defender is not already set up in your selected Region. For more information, see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html[Troubleshooting CloudFormation^].
+*A.* If AWS CloudFormation fails to create the stack, do the following:
+
+* Confirm that the stack is not already deployed in your selected Region. 
+* Verify that the audit configuration for AWS IoT Device Defender is not already set up in your selected Region. 
+* Confirm that you registered your CA certificate and that the correct identifier is listed for the parameter `CACertificateID` in the AWS CloudFormation template. For more information, see https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate^].
 
 '''
 *Q.* I encountered a size-limitation error when I deployed the AWS CloudFormation templates.
 
 *A.* Launch the Quick Start templates from the links in this guide or from another Amazon S3 bucket. If you deploy the templates from a local copy on your computer, or from a location other than an S3 bucket, you might encounter template-size limitations. For more information, see http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html[AWS CloudFormation quotas^].
-
-
-== Troubleshooting
-
-If you encounter issues with this deployment or its features, ensure that your deployment is set up correctly by checking the following:
-
-. Confirm that the web application was deployed. 
-.. Sign in to the AWS Management Console.
-.. <Then what?>
-. Verify that all resources have been deployed. 
-.. Open the https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/[CloudFormation console^]. 
-.. At the left, choose *Stacks*.
-.. Select the stack that you created from this Quick Start.
-.. <What do we look for?>
-. Confirm that you registered your CA certificate and that the correct `CACertificateID` is listed in the AWS CloudFormation template. For more information, see https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate^].
-
-//TODO Miles, Please review this section.
