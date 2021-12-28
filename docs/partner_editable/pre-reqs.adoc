@@ -2,9 +2,9 @@
 
 Confirm that your AWS account has the permissions required to create the resources listed in the link:#_resource_quotas[Resource quotas] section of this guide.
 
-==== Create device certificates for the IoT devices
+==== Create device certificates
 
-Any device (client) certificate that's issued by your certificate authority (CA) can be registered with AWS IoT and used for client authentication. To create JITR-ready device certificates—certificates that are registered automatically whenever you connect the devices to AWS IoT—follow these steps.
+Any device certificate (client certificate) that was issued by your CA can be registered with AWS IoT and used for client authentication. To create JITR-ready device certificates—certificates that will be automatically registered whenever you connect the devices to AWS IoT for the first time—follow these steps.
 
 . https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html[Create a CA certificate^].
 . https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate^] with AWS IoT. 
@@ -18,7 +18,7 @@ For more information on the JITR process, see the blog post https://aws.amazon.c
 
 ==== Check your AWS Region
 
-Within in your chosen AWS Region, confirm the following: 
+Within your chosen AWS Region, confirm the following: 
 
 * This deployment does not already exist.
 * An audit configuration for AWS IoT Device Defender does not already exist. 
