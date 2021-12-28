@@ -9,7 +9,7 @@ As shown in <<architecture1>>, the Quick Start sets up the following:
 
 * AWS IoT Core, which uses device shadows to provide command and control of IoT devices.
 * AWS Lambda functions:
-** A just-in-time registration (JITR) function that registers (activates) IoT device certificates that were issued by your certificate authority (CA). This registration happens automatically whenever you connect a device to AWS IoT.
+** A just-in-time registration (JITR) function that registers (activates) IoT device certificates that were issued by your certificate authority (CA). This registration happens automatically whenever you connect a device to AWS IoT for the first time.
 ** A command-and-control function that updates the device shadows. 
 ** A function that queries IoT devices and device telemetry.
 * Amazon DynamoDB, which stores device telemetry data.
