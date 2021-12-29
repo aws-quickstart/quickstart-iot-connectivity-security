@@ -1,2 +1,1 @@
-This Quick Start has one deployment option. It uses a CloudFormation template to deploy a web application that is hosted on AWS Amplify.
-
+This Quick Start has one deployment option. It uses a CloudFormation template to deploy the components of the IoT environment, including the web application.

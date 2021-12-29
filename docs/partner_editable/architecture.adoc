@@ -7,16 +7,16 @@ image::../images/iot-connectivity-security-architecture_diagram.png[Architecture
 
 As shown in <<architecture1>>, the Quick Start sets up the following:
 
-* AWS IoT Core, which uses device shadows to provide command and control of IoT devices.
-* AWS Lambda functions:
-** A just-in-time registration (JITR) function that registers (activates) IoT device certificates that were issued by your certificate authority (CA). This registration happens automatically whenever you connect a device to AWS IoT for the first time.
-** A command-and-control function that updates the device shadows. 
+* AWS IoT Core, which enables registration, control, and data collection for IoT devices.
+* Lambda functions:
+** A JITR function that automatically registers and activates device certificates whenever you connect a device to AWS IoT for the first time. This function leaves the devices themselves inactive (not yet registered to an end user—the consumer or device purchaser).
+** A command-and-control function that updates https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html[device shadows^]. 
 ** A function that queries IoT devices and device telemetry.
-* Amazon DynamoDB, which stores device telemetry data.
-* AWS IoT Device Management, which you use to organize, monitor, and manage IoT devices.
-* AWS IoT Device Defender, which audits device cloud-side configurations against AWS security best practices. This service also monitors device behaviors for anomalies after the devices are connected with AWS IoT Core.
-* Amazon API Gateway endpoints for device registration, command and control, and queries.
-* Amazon Cognito, which manages the identities of the IoT devices' users so that they can sign in to the web application.
-* An AWS CodeCommit repository. You can customize the web application by committing changes to this repository.
-* An AWS Amplify continuous integration and continuous delivery (CI/CD) pipeline for use by the AWS CodeCommit repository. You use this pipeline when you customize the web application.  
-* A web application used by consumers—the device purchasers—to register (activate) their devices, control them, and view telemetry data.
+* Amazon DynamoDB, which stores device telemetry data and gives the web application access to this data.
+* AWS IoT Device Management, which organizes, monitors, and manages IoT things (devices registered in the AWS IoT registry). This service assigns devices to thing groups based on lifecycle stage—inactive, active, quarantine, and troubleshooting—and attaches IoT policies to each group.
+* AWS IoT Device Defender, which audits cloud-side device configurations against AWS security best practices. This service monitors device behaviors and responds to anomalies by using built-in mitigation actions. For example, it might move an IoT thing from the active group to the quarantine group. You can configure Device Defender to publish metrics and send you alarms.
+* Amazon API Gateway, which provides endpoints that the web application connects to.
+* Amazon Cognito, which authenticates web-application users.
+* AWS CodeCommit, which holds the web-application repository.
+* AWS Amplify, which publishes the web-application webpages.  
+* The web application, a Vue.js front end that consumers—the device purchasers—use to activate, control, and view telemetry data for their devices.
