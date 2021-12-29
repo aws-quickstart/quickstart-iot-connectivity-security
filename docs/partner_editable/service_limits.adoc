@@ -5,13 +5,13 @@
 |AWS Amplify web applications | 1
 |AWS Amplify branches | 1
 |Amazon API Gateway gateway | 1
-|REST APIs | 1
+|REST APIs (application programming interfaces) | 1
 |AWS CloudFormation stacks | 15
 |AWS CodeCommit repositories | 1
 |Amazon Cognito identity pools | 1
 |Amazon Cognito identity pool roles | 1 
 |Amazon Cognito user pools | 1 
-|Amazon Cognito user pool clients | 1
+|Amazon Cognito user-pool clients | 1
 |Amazon DynamoDB tables | 2
 |AWS Identity and Access Management (IAM) policies | 27
 |IAM roles | 19

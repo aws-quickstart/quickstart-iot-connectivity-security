@@ -15,19 +15,19 @@ As soon as the CloudFormation stack is complete and the web application has been
 
 . Open the https://console.aws.amazon.com/iot/[AWS IoT console^].
 
-. Confirm that the thing groups were deployed. To do this, at the left choose *Manage*, *Thing groups*. Under *prebuilt thing*, verify that groups appear with names containing `Active`, `inactive`, and `Quarantine` (for example, `iotquickstart-Active`, `iotquickstart-inactive`, and `iotquickstart-Quarantine`).
+. Confirm that the thing groups were deployed in AWS IoT Device Management. To do this, at the left choose *Manage*, *Thing groups*. Under *prebuilt thing*, verify that groups appear with names containing `Active`, `inactive`, and `Quarantine` (for example, `iotquickstart-Active`, `iotquickstart-inactive`, and `iotquickstart-Quarantine`).
 
-. Confirm that an AWS IoT Device Defender daily https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html[audit^] was scheduled. To do this, choose *Defend*, *Audit*, *Schedules*. Verify that a file appears with a name containing `dailyaudit` (for example, `dailyaudit-main`). This audit checks the cloud-side IoT configurations against AWS security best practices.
+. Confirm that a daily https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit.html[audit^] was scheduled in AWS IoT Device Defender. To do this, choose *Defend*, *Audit*, *Schedules*. Verify that a file appears with a name containing `dailyaudit` (for example, `dailyaudit-main`). This audit checks the cloud-side device configurations against AWS security best practices.
 
-. Confirm that an https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html[ML Detect^] Security Profile was deployed. To do this, choose *Defend*, *Detect*, *Security profiles*. Verify that a file appears with a name containing `SecurityProfile` (for example, `SecurityProfile-152920-main`). The presence of this file tells you that device behavior is being monitored continuously.
+. Confirm that a machine learning Detect (https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html[ML Detect^]) Security Profile was deployed. To do this, choose *Defend*, *Detect*, *Security profiles*. Verify that a file appears with a name containing `SecurityProfile` (for example, `SecurityProfile-152920-main`). The presence of this file tells you that device behavior is being monitored continuously.
 
-=== Test the JITR process for device certificates
+=== Test the device-registration process 
 
-To confirm that the just-in-time registration (JITR) process works, connect a single device to AWS IoT, and confirm that its certificate was automatically registered. Follow these steps:
+To test the device-registration process, you do two things: connect a device to AWS IoT and then activate the device, as described in the following sections.
 
-. Choose any device with a JITR-ready client certificate. See link:#_create_device_certificates[Create device certificates] earlier in this guide.
+==== Connect a device to AWS IoT
 
-. Connect the device to your account's AWS IoT device data endpoint through AWS IoT Core. For details, see https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html[Connecting devices to AWS IoT^].
+. Connect any device with a JITR-ready certificate to your account's AWS IoT device data endpoint through AWS IoT Core. For details, see https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html[Connecting devices to AWS IoT^].
 +
 The JITR Lambda function registers the device certificate with AWS IoT by doing the following on the backend: 
 +
@@ -35,23 +35,23 @@ The JITR Lambda function registers the device certificate with AWS IoT by doing 
 * Attaches the certificate to the generated IoT thing.
 * Creates an AWS DynamoDB entry using the common name.
 * Adds the IoT thing to the `<iotquickstart>-inactive` group with limited permissions (where the bracketed text represents the web application's name).
-* Registers the device certificate.
+* Activates the device certificate.
 
 . Open the https://console.aws.amazon.com/iot/[AWS IoT console^].
-. At the left, choose *Manage*, *Things*. Verify that the newly registered certificate's common name and group affiliation appear.
+. At the left, choose *Manage*, *Things*. Verify that the newly registered certificate's serial number (common name) and group affiliation appear.
 
-For more information on the JITR process, see the blog post https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-Time Registration of Device Certificates on AWS IoT^].
+For more information on the JITR process, see https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-Time Registration of Device Certificates on AWS IoT^].
 
-=== Test the process of registering devices themselves
+==== Activate the device
 
-After you've connected a device to AWS IoT and confirmed that its certificate was automatically registered—see the previous section—test the process of registering the device itself. To do this, use the web application, as end users (the device purchasers) would. Follow these steps:
+Now that you've connected a device to AWS IoT, its certificate is registered and activated. However, the device itself (the IoT thing) is still inactive. To activate the device—which typically means to register it to the end user—use the web application as follows:
 
 . Open the https://console.aws.amazon.com/amplify/[AWS Amplify console^].  
 . At the left, choose *All apps*, and then choose the web application.
 . Under the *Frontend environments* tab, choose the web application's thumbnail.
 . Log in with your account credentials. The *Register Device* page appears.
-. Enter the serial number (common name) of the IoT device, and choose *REGISTER DEVICE*. A message indicates that the device is now registered.
-. At the left, choose *Devices*. On the *My Devices* page, verify that the registered device appears.
+. Enter the serial number (common name) of the IoT device, and choose *REGISTER DEVICE*.
+. At the left, choose *Devices*. On the *My Devices* page, verify that the device appears.
 
 == Postdeployment steps
 

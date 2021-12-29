@@ -4,17 +4,16 @@ Confirm that your AWS account has the permissions required to create the resourc
 
 ==== Create device certificates
 
-Any device certificate (client certificate) that was issued by your CA can be registered with AWS IoT and used for client authentication. To create JITR-ready device certificates—certificates that will be automatically registered whenever you connect the devices to AWS IoT for the first time—follow these steps.
+Any device certificate (client certificate) issued by your certificate authority (CA) can be registered with AWS IoT. To create JITR-ready device certificates—device certificates that will be automatically registered and activated whenever you connect the devices to AWS IoT for the first time—follow these steps.
 
-. https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html[Create a CA certificate^].
-. https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate^] with AWS IoT. 
-. https://docs.aws.amazon.com/iot/latest/developerguide/create-device-cert.html[Create a client certificate using your CA certificate^] for each IoT device, using the device's serial number for the common name.
+. If you don't already have one, https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html[create a CA certificate^], and https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[register it^] with AWS IoT. 
+. For each IoT device, https://docs.aws.amazon.com/iot/latest/developerguide/create-device-cert.html[create a client certificate using your CA certificate^]. Use the device's serial number for the common name.
 
 //TODO Miles or Cathy, Do we need a step to configure the CA certificate to support automatic registration of the client certificates (as mentioned on this webpage: https://docs.aws.amazon.com/iot/latest/developerguide/auto-register-device-cert.html)?
 
 //TODO Miles or Cathy, Do we need a final step for installing the device (client) certificates on the devices (as mentioned in the blog post below)?
 
-For more information on the JITR process, see the blog post https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-Time Registration of Device Certificates on AWS IoT^].
+For more information on the JITR process, see https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-Time Registration of Device Certificates on AWS IoT^].
 
 ==== Check your AWS Region
 

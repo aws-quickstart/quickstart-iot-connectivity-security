@@ -2,7 +2,7 @@ Getting started with AWS IoT, including implementing security features, is a com
 This Quick Start reduces the complexity by automating the provisioning process and helping you secure your IoT devices for development, testing, and production. 
 It sets up the following:
 
-* Just-in-time registration of device (client) certificates.
+* https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-time registration^] (JITR) of device certificates.
 * Device connectivity and messaging.
-* A web application used by consumers—the device purchasers—to register and interact with their devices.
-* Device security auditing, monitoring, and mitigation.
+* A web application used by consumers—the device purchasers—to activate and interact with their devices.
+* Device security auditing, monitoring, and anomaly mitigation.
