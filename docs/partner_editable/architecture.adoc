@@ -13,8 +13,8 @@ As shown in <<architecture1>>, the Quick Start sets up the following:
 ** A command-and-control function that updates https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html[device shadows^]. 
 ** A function that queries IoT devices and device telemetry.
 * Amazon DynamoDB, which stores device telemetry data and gives the web application access to this data.
-* AWS IoT Device Management, which organizes, monitors, and manages IoT things (devices registered in the AWS IoT registry). This service assigns devices to thing groups based on lifecycle stage—inactive, active, quarantine, and troubleshooting—and attaches IoT policies to each group.
-* AWS IoT Device Defender, which audits cloud-side device configurations against AWS security best practices. This service monitors device behaviors and responds to anomalies by using built-in mitigation actions. For example, it might move an IoT thing from the active group to the quarantine group. You can configure Device Defender to publish metrics and send you alarms.
+* AWS IoT Device Management, which organizes, monitors, and manages IoT things (devices registered in the AWS IoT registry). For example, you can use this service to assign devices to thing groups based on lifecycle stage—inactive, active, quarantine, and troubleshooting—and to attach IoT policies to each group.
+* AWS IoT Device Defender, which audits cloud-side device configurations against AWS security best practices. You can use this service to monitor device behaviors and respond to anomalies by using built-in mitigation actions. For example, you can move an IoT thing from the active group to the quarantine group. You can configure Device Defender to publish metrics, detect device-behavior anomalies, and send you alarms.
 * Amazon API Gateway, which provides endpoints that the web application connects to.
 * Amazon Cognito, which authenticates web-application users.
 * AWS CodeCommit, which holds the web-application repository.
