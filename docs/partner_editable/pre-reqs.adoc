@@ -4,7 +4,7 @@ Confirm that your AWS account has the permissions required to create the resourc
 
 ==== Create JITR-ready device certificates
 
-Any device certificate (client certificate) issued by your certificate authority (CA) can be registered with AWS IoT. Create JITR-ready device certificates—that is, certificates that will be automatically registered and activated whenever you connect the devices to AWS IoT for the first time—follow the steps documented in this blog post: https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-Time Registration of Device Certificates on AWS IoT^].
+Any device certificate (client certificate) issued by your certificate authority (CA) can be registered with AWS IoT. Create JITR-ready device certificates—that is, certificates that will be automatically registered and activated whenever you connect the devices to AWS IoT for the first time—as described in this blog post: https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-Time Registration of Device Certificates on AWS IoT^].
 
 ==== Check your AWS Region
 
