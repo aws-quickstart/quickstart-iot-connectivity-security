@@ -4,7 +4,21 @@ Confirm that your AWS account has the permissions required to create the resourc
 
 ==== Create JITR-ready device certificates
 
-Any device certificate (client certificate) issued by your certificate authority (CA) can be registered with AWS IoT. Create JITR-ready device certificates—that is, certificates that will be automatically registered and activated whenever you connect the devices to AWS IoT for the first time—as described in this blog post: https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-Time Registration of Device Certificates on AWS IoT^].
+Any device certificate (client certificate) issued by your certificate authority (CA) can be registered with AWS IoT. For this Quick Start, you need to create JITR-ready device certificates, that is, certificates that will be automatically registered and activated whenever you connect the devices to AWS IoT for the first time. These are the main steps:
+
+. Register your CA certificate with AWS IoT. 
+. Configure your CA certificate to support automatic registration of client certificates.
+. For each IoT device, create a client certificate using your CA certificate. Use each device's serial number for its common name.
+. Install the client certificates on the devices.
+
+For an example walkthrough, see https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/[Just-in-Time Registration of Device Certificates on AWS IoT^]. (This blog post includes creating a sample CA, which you don't need to do when you already have a CA.)
+
+For more details, see the related documentation:
+
+* https://docs.aws.amazon.com/iot/latest/developerguide/create-your-CA-cert.html[Create a CA certificate^]
+* https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html[Register your CA certificate^]
+* https://docs.aws.amazon.com/iot/latest/developerguide/create-device-cert.html[Create a client certificate using your CA certificate^]
+* https://docs.aws.amazon.com/iot/latest/developerguide/auto-register-device-cert.html[Register a client certificate when the client connects to AWS IoT just-in-time registration (JITR)^]
 
 ==== Check your AWS Region
 
