@@ -1,12 +1,15 @@
 project:
-  name: quickstart-iot-connectivity-security
+  name:   quickstart-iot-connectivity-security
+  owner:  quickstart-eng@amazon.com
+  shorten_stack_name:   true
+  s3_regional_buckets:  true
   regions:
-  - us-east-1
+    - us-east-1
 tests:
   default:
     parameters:
-      ProjectName: 'iotquickstart'
-      CACertificateID: 'abcd'
-      QSS3BucketName: "$[taskcat_autobucket]"
-      QSS3KeyPrefix: "quickstart-iot-connectivity-security/"
-    template: ./templates/main.template.yaml
+      ProjectName:      'iotquickstart'
+      CACertificateID:  'abcd'
+      QSS3BucketName:   "$[taskcat_autobucket]"
+      QSS3KeyPrefix:    "quickstart-iot-connectivity-security/"
+    template:           ./templates/main.template.yaml
