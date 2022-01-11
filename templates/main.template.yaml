@@ -282,6 +282,8 @@ Resources:
       EnvironmentVariables: 
         - Name: ResourceTag
           Value: !Ref ProjectName
+        - Name: _LIVE_UPDATES
+          Value: "[{\"name\":\"Amplify CLI\",\"pkg\":\"@aws-amplify/cli\",\"type\":\"npm\",\"version\":\"latest\"}]"
       Name: !Sub '${ProjectName}-${RandomStringCustomResource.lower}'
       Repository: !GetAtt CodeCommitRepo.CloneUrlHttp
   AmplifyBranch:
