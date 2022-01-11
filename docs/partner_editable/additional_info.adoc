@@ -1,6 +1,6 @@
 === Set up an account in the web application
 
-As soon as the CloudFormation stack is complete and the web application has been deployed, set up an account in the web application as follows:
+As soon as the CloudFormation stack deployment is complete and the web application has been deployed in AWS Amplify, set up an account in the web application as follows:
 
 . While you're still in the CloudFormation console, under the *Outputs* tab, note the `DefaultDomain` value. 
 . Open the https://console.aws.amazon.com/amplify/[AWS Amplify console^].
@@ -29,7 +29,7 @@ To test the device-registration process, you do two things: connect a device to 
 
 . Connect any device with a JITR-ready certificate to your account's AWS IoT device data endpoint through AWS IoT Core. For details, see https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html[Connecting devices to AWS IoT^].
 +
-The JITR Lambda function registers the device certificate with AWS IoT by doing the following on the backend: 
+The Quick Start's JITR Lambda function registers the device certificate with AWS IoT by doing the following on the backend: 
 +
 * Generates an IoT thing in the device registry using the common name (serial number) from the device certificate.
 * Attaches the certificate to the generated IoT thing.
@@ -55,7 +55,7 @@ Now that you've connected a device to AWS IoT, its certificate is registered and
 
 == Postdeployment steps
 
-=== Migrate to a production environment
+=== (Optional) Migrate to a production environment
 
 If you launched the Quick Start into a development or test environment and want to migrate to a production environment, follow these steps:
 
@@ -65,7 +65,7 @@ If you launched the Quick Start into a development or test environment and want 
 
 . Change quotas or update your resource configuration as needed for your production use case. 
 
-=== Clean up your development or test environment
+=== (Optional) Clean up your development or test environment
 
 When you no longer need the resources deployed by this Quick Start, clean up your development or test environment as follows:
 
