@@ -63,10 +63,79 @@ Mappings:
       BranchName: main
       ProjectRepoKey: zip/repo.zip
 Resources:
+  RandomString:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: |
+          import base64
+          import json
+          import logging
+          import string
+          import random
+          import boto3
+          from botocore.vendored import requests
+          import cfnresponse
+          logger = logging.getLogger()
+          logger.setLevel(logging.INFO)
+          def random_string(size=6):
+            return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(size))
+          def lambda_handler(event, context):
+            logger.info('got event {}'.format(event))
+            responseData = {}
+            if event['RequestType'] == 'Create':
+              number = int(event['ResourceProperties'].get('Number', 6))
+              rs = random_string(number)
+              responseData['upper'] = rs.upper()
+              responseData['lower'] = rs.lower()
+            else: # delete / update
+              rs = event['PhysicalResourceId'] 
+              responseData['upper'] = rs.upper()
+              responseData['lower'] = rs.lower()
+                          
+            logger.info('responseData {}'.format(responseData))
+            cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData, responseData['lower'])
+      #FunctionName: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:random-string"
+      Handler: "index.lambda_handler"
+      Timeout: 30
+      Role: !GetAtt "LambdaRole.Arn"
+      Runtime: python3.6
+  # The LambdaRole is very simple for this use case, because it only need to have access to write logs
+  # If the lambda is going to access AWS services using boto3, this role must be
+  # extended to give lambda the appropriate permissions.
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: "lambda-logs"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !Sub 'arn:${AWS::Partition}:logs:*:*:*'
+  RandomStringCustomResource:
+    Type: Custom::RandomString
+    Properties:
+      ServiceToken: !GetAtt RandomString.Arn
   LambdaGetRepo:
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: !Sub 'CreateCodeCommitRepo${ProjectName}'
+      FunctionName: !Sub 'CreateCodeCommitRepo${ProjectName}-${RandomStringCustomResource.lower}'
       Environment: 
         Variables:
           ZIP_KEY: !FindInMap [Constants, Value, ProjectRepoKey]
@@ -91,7 +160,7 @@ Resources:
           from io import BytesIO
           import zipfile
           from zipfile import ZipFile, ZIP_DEFLATED
-
+          
           def handler(event, context):
               responseData = {}
               try:
@@ -140,7 +209,7 @@ Resources:
   LambdaExecutionRoleGetRepo:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'lambda-execution-role-get-repo-${ProjectName}'
+      RoleName: !Sub 'lambda-execution-role-get-repo-${ProjectName}-${RandomStringCustomResource.lower}'
       ManagedPolicyArns:
           - !Sub "arn:${AWS::Partition}:iam::aws:policy/AdministratorAccess"
       AssumeRolePolicyDocument:
@@ -155,7 +224,7 @@ Resources:
   LambdaexecutionpolicyGetRepo:
     Type: AWS::IAM::Policy
     Properties: 
-      PolicyName: !Sub 'lambda-execution-policy-get-repo-${ProjectName}'
+      PolicyName: !Sub 'lambda-execution-policy-get-repo-${ProjectName}-${RandomStringCustomResource.lower}'
       Roles: 
         - !Ref LambdaExecutionRoleGetRepo
       PolicyDocument:
@@ -189,7 +258,7 @@ Resources:
               - prefix: !Ref QSS3KeyPrefix
                 key: !FindInMap [Constants, Value, ProjectRepoKey]
       RepositoryDescription: "IoT quickstart app"
-      RepositoryName: !Ref ProjectName
+      RepositoryName: !Sub '${ProjectName}-${RandomStringCustomResource.lower}'
   AmplifyRole:
     Type: AWS::IAM::Role
     Properties:
@@ -213,7 +282,9 @@ Resources:
       EnvironmentVariables: 
         - Name: ResourceTag
           Value: !Ref ProjectName
-      Name: !Ref ProjectName
+        - Name: _LIVE_UPDATES
+          Value: "[{\"name\":\"Amplify CLI\",\"pkg\":\"@aws-amplify/cli\",\"type\":\"npm\",\"version\":\"latest\"}]"
+      Name: !Sub '${ProjectName}-${RandomStringCustomResource.lower}'
       Repository: !GetAtt CodeCommitRepo.CloneUrlHttp
   AmplifyBranch:
     Type: AWS::Amplify::Branch
@@ -225,7 +296,7 @@ Resources:
   LambdaDeployAmplifyApp:
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: !Sub 'DeployAmplifyApp${ProjectName}'
+      FunctionName: !Sub 'DeployAmplifyApp${ProjectName}-${RandomStringCustomResource.lower}'
       Environment: 
         Variables:
           APP_ID: !GetAtt AmplifyApp.AppId
@@ -243,10 +314,10 @@ Resources:
           import json
           import os
           import time
-
-
+          
+          
           amplifyPollTimeSec = 20
-
+          
           execution = 'executionNumber'
           jobSummaryId = 'jobSummaryId'
           resourceStartTime = 'resourceStartTime'
@@ -255,7 +326,7 @@ Resources:
           functionName = os.environ['AWS_LAMBDA_FUNCTION_NAME']
           resourceTimeoutMin = os.environ['RESOURCE_TIMEOUT_MIN']
           selfInvokeTimeMin = os.environ['SELF_INVOKE_TIME_MIN']
-
+          
           def handler(event, context):
               try:
                   print(event)
@@ -263,7 +334,7 @@ Resources:
                   result = cfnresponse.FAILED
                   client = boto3.client('amplify')
                   startTime = time.time()
-
+                  
                   if event['RequestType'] == 'Create':    
                       firstIteration = False
                       if execution not in event:
@@ -375,7 +446,7 @@ Resources:
   LambdaExecutionRoleDeployApp:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'lambda-execution-role-deploy-app-${ProjectName}'
+      RoleName: !Sub 'lambda-execution-role-deploy-app-${ProjectName}-${RandomStringCustomResource.lower}'
       ManagedPolicyArns:
           - !Sub "arn:${AWS::Partition}:iam::aws:policy/AdministratorAccess"
       AssumeRolePolicyDocument:
@@ -390,7 +461,7 @@ Resources:
   LambdaexecutionpolicyDeployApp:
     Type: AWS::IAM::Policy
     Properties: 
-      PolicyName: !Sub 'lambda-execution-policy-deploy-app-${ProjectName}'
+      PolicyName: !Sub 'lambda-execution-policy-deploy-app-${ProjectName}-${RandomStringCustomResource.lower}'
       Roles: 
         - !Ref LambdaExecutionRoleDeployApp
       PolicyDocument:
@@ -405,7 +476,7 @@ Resources:
               - "arn:${AWS::Partition}:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*"
               - region: !Ref "AWS::Region"
                 account: !Ref "AWS::AccountId"
-                lambda: !Sub 'DeployAmplifyApp${ProjectName}'
+                lambda: !Sub 'DeployAmplifyApp${ProjectName}-${RandomStringCustomResource.lower}'
   DeployAppCustomResource:
     DependsOn:
       - LambdaexecutionpolicyDeployApp
