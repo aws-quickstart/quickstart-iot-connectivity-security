@@ -1,9 +1,0 @@
-// custom table where parameters are listed by category
-|===
-|Parameter | Definition 
-
-// Space needed to maintain table headers
-|CACertificateID |ID of a certificate authority registered within AWS IoT.
-|ProjectName |Name of the project
-|ProjectRepoUrl |Amazon S3 location of project code repository
-|===

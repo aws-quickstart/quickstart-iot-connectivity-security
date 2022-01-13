@@ -21,3 +21,4 @@ amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
 source/.vscode
+docs/partner_editable.old*

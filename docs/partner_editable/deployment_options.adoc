@@ -1,5 +1,1 @@
-// There are generally two deployment options. If additional are required, add them here
-
-This Quick Start provides one deployment option:
-
-* *Deploy {partner-product-name} into my account.
+This Quick Start has one deployment option. It uses a CloudFormation template to deploy the components of the IoT environment, including the web application.
