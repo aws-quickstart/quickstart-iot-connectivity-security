@@ -1,2 +1,1 @@
-// Include details about the license and how they can sign up. If no license is required, clarify that. 
-There is no license requirement for deploying this Quick Start in your production environment.
+No licenses are required to deploy this Quick Start. 

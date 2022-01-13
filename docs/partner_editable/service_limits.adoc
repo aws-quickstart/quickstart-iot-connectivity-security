@@ -1,28 +1,27 @@
-// Replace the <n> in each row to specify the number of resources used in this deployment. Remove the rows for resources that aren’t used.
 |===
 |Resource |This deployment uses
 
 // Space needed to maintain table headers
-|AWS::Amplify::App | 1
-|AWS::Amplify::Branch | 1
-|AWS::ApiGateway::Deployment | 1
-|AWS::ApiGateway::RestApi | 1
-|AWS::CloudFormation::Stack | 15
-|AWS::CodeCommit::Repository | 1
-|AWS::Cognito::IdentityPool | 1
-|AWS::Cognito::IdentityPoolRoleAttachment | 1 
-|AWS::Cognito::UserPool | 1 
-|AWS::Cognito::UserPoolClient | 1
-|AWS::DynamoDB::Table | 2
-|AWS::IAM::Policy | 27
-|AWS::IAM::Role | 19
-|AWS::IoT::AcAuditConfiguration | 1
-|AWS::IoT::Policy | 4
-|AWS::IoT::ScheduledAudit | 1
-|AWS::IoT::SecurityProfile | 1
-|AWS::IoT::TopicRule | 2
-|AWS::Lambda::Function | 11  
-|AWS::Lambda::Permission | 6
-|AWS::S3::Bucket | 3
-|AWS::SNS::Topic | 1
+|AWS Amplify web applications | 1
+|AWS Amplify branches | 1
+|Amazon API Gateway gateway | 1
+|REST APIs (application programming interfaces) | 1
+|AWS CloudFormation stacks | 15
+|AWS CodeCommit repositories | 1
+|Amazon Cognito identity pools | 1
+|Amazon Cognito identity pool roles | 1 
+|Amazon Cognito user pools | 1 
+|Amazon Cognito user-pool clients | 1
+|Amazon DynamoDB tables | 2
+|AWS Identity and Access Management (IAM) policies | 27
+|IAM roles | 19
+|AWS IoT audit configurations | 1
+|AWS IoT policies | 4
+|AWS IoT scheduled audits | 1
+|AWS IoT Security Profiles | 1
+|AWS IoT topic rules | 2
+|AWS Lambda functions | 11  
+|AWS Lambda permissions | 6
+|Amazon S3 buckets | 3
+|Amazon Simple Notification Service (Amazon SNS) topics | 1
 |===
