@@ -72,6 +72,8 @@ Mappings:
       BranchName: main
       ProjectRepoKey: zip/repo.zip
 Resources:
+  CustomerRepoBucket:
+    Type: AWS::S3::Bucket
   RandomString:
     Type: AWS::Lambda::Function
     Properties:
@@ -151,6 +153,7 @@ Resources:
           REPO_PREFIX: "source/"
           QS_BUCKET: !Ref QSS3BucketName
           QS_BUCKET_PREFIX: !Ref QSS3KeyPrefix
+          QS_CUSTOMER_REPO_BUCKET: !Ref CustomerRepoBucket
           # These variables are references in amplify parameters.json files
           VARIABLES: !Sub
             - "ResourceTag:${resourceTag},Active:Active,Inactive:Inactive,Troubleshooting:Troubleshooting,Quarantine:Quarantine,CACertificateID:${CACertificateID}"
@@ -181,6 +184,7 @@ Resources:
                       bucket = os.environ["QS_BUCKET"]
                       prefix = os.environ["QS_BUCKET_PREFIX"] + os.environ["REPO_PREFIX"]
                       zipKey = os.environ["QS_BUCKET_PREFIX"] + os.environ["ZIP_KEY"]
+                      customerBucket = os.environ["QS_CUSTOMER_REPO_BUCKET"]
                       varArray = os.environ['VARIABLES'].split(",")
                       print(bucket)
                       print(prefix)
@@ -208,7 +212,7 @@ Resources:
                                   fileData = fileString.encode('utf-8')
                               client.writestr(newLocation, fileData)
                       mem_zip.seek(0)
-                      s3Client.upload_fileobj(mem_zip, bucket, zipKey)
+                      s3Client.upload_fileobj(mem_zip, customerBucket, zipKey)
                       result = cfnresponse.SUCCESS
                   else:
                       result = cfnresponse.SUCCESS
@@ -260,7 +264,7 @@ Resources:
     Properties: 
       Code: 
         S3:
-          Bucket: !Ref QSS3BucketName
+          Bucket: !Ref CustomerRepoBucket
           Key: 
             Fn::Sub:
               - "${prefix}${key}"
