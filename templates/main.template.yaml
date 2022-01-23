@@ -145,6 +145,7 @@ Resources:
       ServiceToken: !GetAtt RandomString.Arn
   LambdaGetRepo:
     Type: AWS::Lambda::Function
+    DependsOn: CustomerRepoBucket
     Properties:
       FunctionName: !Sub 'CreateCodeCommitRepo${ProjectName}-${RandomStringCustomResource.lower}'
       Environment: 
@@ -172,7 +173,58 @@ Resources:
           from io import BytesIO
           import zipfile
           from zipfile import ZipFile, ZIP_DEFLATED
-          
+
+          def empty_delete_buckets(bucket_name):
+              """
+              Empties and deletes the bucket
+              :param bucket_name:
+              :return:
+              """
+              print(f"trying to delete the bucket {bucket_name}")
+              s3_client = boto3.client('s3')
+              s3 = boto3.resource('s3')
+              try:
+                  bucket = s3.Bucket(bucket_name).load()
+              except ClientError:
+                  print(f"bucket {bucket_name} does not exist")
+                  return
+              # Check if versioning is enabled
+              response = s3_client.get_bucket_versioning(Bucket=bucket_name)
+              status = response.get('Status','')
+              if status == 'Enabled':
+                  response = s3_client.put_bucket_versioning(Bucket=bucket_name,
+                                                             VersioningConfiguration={'Status': 'Suspended'})
+              paginator = s3_client.get_paginator('list_object_versions')
+              page_iterator = paginator.paginate(
+                  Bucket=bucket_name
+              )
+              for page in page_iterator:
+                  print(page)
+                  if 'DeleteMarkers' in page:
+                      delete_markers = page['DeleteMarkers']
+                      if delete_markers is not None:
+                          for delete_marker in delete_markers:
+                              key = delete_marker['Key']
+                              versionId = delete_marker['VersionId']
+                              s3_client.delete_object(Bucket=bucket_name, Key=key, VersionId=versionId)
+                  if 'Versions' in page and page['Versions'] is not None:
+                      versions = page['Versions']
+                      for version in versions:
+                          print(version)
+                          key = version['Key']
+                          versionId = version['VersionId']
+                          s3_client.delete_object(Bucket=bucket_name, Key=key, VersionId=versionId)
+              object_paginator = s3_client.get_paginator('list_objects_v2')
+              page_iterator = object_paginator.paginate(
+                  Bucket=bucket_name
+              )
+              for page in page_iterator:
+                  if 'Contents' in page:
+                      for content in page['Contents']:
+                          key = content['Key']
+                          s3_client.delete_object(Bucket=bucket_name, Key=content['Key'])
+              print("Successfully emptied the bucket")
+
           def handler(event, context):
               responseData = {}
               try:
@@ -213,6 +265,10 @@ Resources:
                               client.writestr(newLocation, fileData)
                       mem_zip.seek(0)
                       s3Client.upload_fileobj(mem_zip, customerBucket, zipKey)
+                      result = cfnresponse.SUCCESS
+                  elif event['RequestType'] == 'Delete':
+                      bucket = os.environ["QS_CUSTOMER_REPO_BUCKET"]
+                      empty_delete_buckets(bucket)
                       result = cfnresponse.SUCCESS
                   else:
                       result = cfnresponse.SUCCESS
@@ -474,7 +530,7 @@ Resources:
   LambdaexecutionpolicyDeployApp:
     Type: AWS::IAM::Policy
     Properties: 
-      PolicyName: !Sub 'lambda-execution-policy-deploy-app-${ProjectName}-${RandomStringCustomResource.lower}'
+      PolicyName: !Sub 'lambda-execution-policy-defploy-app-${ProjectName}-${RandomStringCustomResource.lower}'
       Roles: 
         - !Ref LambdaExecutionRoleDeployApp
       PolicyDocument:
