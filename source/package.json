@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "serve": "vue-cli-service serve",
-    "build": "npm i @vue/cli-service@4.5.15 && npm i @vue/cli-plugin-eslint@~4.5.0 && vue-cli-service build",
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@aws-amplify/ui-components": "^1.1.0",
-    "@aws-amplify/ui-vue": "^0.2.34",
+    "@aws-amplify/ui-vue": "^2.1.0",
     "aws-amplify": "^4.3.1",
     "aws-amplify-vue": "^2.1.5",
     "chart.js": "2.9.4",
@@ -20,11 +21,17 @@
     "vuetify": "^2.2.11"
   },
   "devDependencies": {
+    "@aws-amplify/auth": "^4.4.1",
+    "@aws-amplify/cache": "^4.0.34",
+    "@aws-amplify/core": "^4.3.14",
     "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "^4.5.15",
     "aws-sdk": "^2.1066.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
+    "eslint": "^7.32.0",
     "eslint-plugin-vue": "^6.2.2",
+    "npm-force-resolutions": "0.0.10",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
     "vue-cli-plugin-vuetify": "~2.0.8",
@@ -49,5 +56,8 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "resolutions": {
+    "glob-parent": "6.0.2"
+  }
 }
