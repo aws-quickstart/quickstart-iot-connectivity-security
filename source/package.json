@@ -58,6 +58,9 @@
     "not dead"
   ],
   "resolutions": {
-    "glob-parent": "6.0.2"
+    "glob-parent": "6.0.2",
+    "url-parse": "1.5.8",
+    "minimist": "1.2.6",
+    "node-forge": "1.3.0"
   }
 }
